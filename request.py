@@ -1,19 +1,27 @@
 import requests
 import json
 
+
+def get_api_key():
+    file_path = "./api_key.txt"
+    with open(file_path, "r") as file:
+        return file.readline().strip()
+
+
 # API Configuration
-API_KEY = "YOUR_API_KEY"  # Replace with your actual API key
+API_KEY = get_api_key()
 CONTRACT_NAME = "Dublin"
-URL = f"https://api.jcdecaux.com/vls/v1/stations?contract={CONTRACT_NAME}&apiKey=20886f1d63eb789442bd4b8cfd1f2e8af7d461f1"
+URL = f"https://api.jcdecaux.com/vls/v1/stations?contract={CONTRACT_NAME}&apiKey={API_KEY}"
+
 
 def fetch_bike_stations():
     try:
         response = requests.get(URL)  # Sending GET request
         response.raise_for_status()  # Raise error if request fails
-        
+
         # Parse JSON response
         stations = response.json()
-        
+
         # Print station details (first 5 stations for testing)
         print("\n🚲 Dublin Bikes Stations:\n")
         for station in stations[:5]:  # Limiting to 5 stations for readability
@@ -23,7 +31,7 @@ def fetch_bike_stations():
             print(f"Available Bikes: {station['available_bikes']}")
             print(f"Available Stands: {station['available_bike_stands']}")
             print("-" * 40)
-        
+
         # Optionally save to a JSON file
         with open("dublin_bikes.json", "w") as file:
             json.dump(stations, file, indent=4)
@@ -31,6 +39,7 @@ def fetch_bike_stations():
 
     except requests.exceptions.RequestException as e:
         print(f"\n API Request Failed: {e}")
+
 
 # Run the function
 fetch_bike_stations()
