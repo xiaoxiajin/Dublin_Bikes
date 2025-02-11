@@ -1,2 +1,6 @@
 api_key.txt
 dbinfo.py
+__pycache__/
+*.pyc
+*.pyo
+.env
