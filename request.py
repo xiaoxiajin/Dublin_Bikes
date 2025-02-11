@@ -1,22 +1,23 @@
+import dbinfo
 import requests
 import json
 
 
-def get_api_key():
-    file_path = "./api_key.txt"
-    with open(file_path, "r") as file:
-        return file.readline().strip()
+# def get_api_key():
+#     file_path = "./api_key.txt"
+#     with open(file_path, "r") as file:
+#         return file.readline().strip()
 
 
 # API Configuration
-API_KEY = get_api_key()
-CONTRACT_NAME = "Dublin"
-URL = f"https://api.jcdecaux.com/vls/v1/stations?contract={CONTRACT_NAME}&apiKey={API_KEY}"
+# API_KEY = get_api_key()
+# CONTRACT_NAME = "Dublin"
+# URL = f"https://api.jcdecaux.com/vls/v1/stations?contract={CONTRACT_NAME}&apiKey={API_KEY}"
 
 
 def fetch_bike_stations():
     try:
-        response = requests.get(URL)  # Sending GET request
+        response = requests.get(dbinfo.STATIONS_URL, params={"apiKey": dbinfo.JCKEY, "contract": dbinfo.NAME})  # Sending GET request
         response.raise_for_status()  # Raise error if request fails
 
         # Parse JSON response
