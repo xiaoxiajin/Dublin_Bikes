@@ -10,8 +10,6 @@ import pymysql
 
 DB_NAME = "dublin_cycle"  # database name
 
-# connection_string = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-
 # Create SQLAlchemy engine
 engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}", echo=True)
 
@@ -50,7 +48,7 @@ with engine.connect() as connection:
         print(row)
 
 
-# Connecting to RDS page 11
+# Slide: Connecting to RDS page 11
 
 # from sqlalchemy import create_engine
 # import pandas as pd
