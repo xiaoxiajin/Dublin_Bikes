@@ -10,7 +10,7 @@ import pymysql
 
 DB_NAME = "dublin_cycle"  # database name
 
-# Create SQLAlchemy engine
+# Create SQLAlchemy engine, connect to AWS RDS 
 engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}", echo=True)
 
 # Create the database if it doesn’t exist
@@ -28,9 +28,9 @@ sql_create_table = text("""
         time TIME,
         weather VARCHAR(128),
         temp FLOAT,
-        speed FLOAT,
-        degrees INT,
         humidity INT,
+        wind_speed FLOAT,
+        wind_deg INT,
         PRIMARY KEY (date, time)
     );
 """)

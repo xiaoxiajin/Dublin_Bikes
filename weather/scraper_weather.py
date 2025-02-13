@@ -1,5 +1,6 @@
 import requests
 from datetime import datetime
+from sqlalchemy import create_engine, text
 
 import sys
 import os
@@ -9,6 +10,10 @@ import dbinfo
 
 # OpenWeather API Key
 API_KEY = dbinfo.Weather_Api
+
+# Database connection details:
+DB_NAME = "dublin_cycle"
+engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}/{DB_NAME}")
 
 # latitude and longitude of Dublin
 LAT = 53.3498  # latitude
@@ -49,7 +54,39 @@ def query_weatherAPI():
         print(f"Humidity: {humidity}%")
         print(f"Wind Speed: {wind_speed} m/s, Wind Deg: {wind_deg}°")
 
+        # Insert data into RDS
+        insert_weather_data(today, curr_time, weather_desc, temperature, humidity, wind_speed, wind_deg)
+
+        # sql_query = text("DESC historical_weather;")
+        # with engine.connect() as connection:
+        #     connection.execute(sql_query)
+        #     connection.commit()
+
     else:
         print("Error:", response.status_code)    
+
+def insert_weather_data(date, time, weather, temp, humidity, wind_speed, wind_deg):
+    sql_insert = text("""
+        INSERT INTO historical_weather (date, time, weather, temp, humidity, wind_speed, wind_deg)
+        VALUES (:date, :time, :weather, :temp, :humidity, :wind_speed, :wind_deg)
+        ON DUPLICATE KEY UPDATE 
+            weather = VALUES(weather),
+            temp = VALUES(temp),
+            humidity = VALUES(humidity),
+            wind_speed = VALUES(wind_speed),
+            wind_deg = VALUES(wind_deg);
+    """)
+
+    with engine.connect() as connection:
+        connection.execute(sql_insert, {
+            "date": date,
+            "time": time,
+            "weather": weather,
+            "temp": temp,
+            "humidity": humidity,
+            "wind_speed": wind_speed,
+            "wind_deg": wind_deg
+        })
+        connection.commit()
 
 query_weatherAPI()
