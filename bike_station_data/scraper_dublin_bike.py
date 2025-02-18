@@ -19,6 +19,8 @@ def fetch_bike_stations():
             # Parse JSON response
             stations = response.json()
 
+            # TODO: GET AVAILABILITY
+
             # Print details of the first 5 stations
             for station in stations[:5]:  
                 print(f"📍 Station: {station['name']}")
