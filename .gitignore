@@ -1,5 +1,6 @@
 api_key.txt
 dbinfo.py
+dublin_bikes.json
 __pycache__/
 *.pyc
 *.pyo
