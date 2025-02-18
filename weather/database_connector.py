@@ -22,7 +22,6 @@ with engine.connect() as connection:
 engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}/{DB_NAME}", echo=True)
 
 # SQL to create the table if it doesn’t exist
-# TODO: modify fomulation
 sql_create_table = text("""
     CREATE TABLE IF NOT EXISTS historical_weather (
         date DATE,

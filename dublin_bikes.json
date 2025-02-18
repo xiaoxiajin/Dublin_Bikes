@@ -11,17 +11,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 12,
-        "available_bikes": 17,
+        "available_bike_stands": 26,
+        "available_bikes": 4,
         "status": "OPEN",
-        "last_update": 1739265259000
-=======
-        "available_bike_stands": 20,
-        "available_bikes": 10,
-        "status": "OPEN",
-        "last_update": 1739877022000
->>>>>>> Stashed changes
+        "last_update": 1739364172000
     },
     {
         "number": 30,
@@ -35,17 +28,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-<<<<<<< Updated upstream
-        "available_bike_stands": 13,
-        "available_bikes": 6,
+        "available_bike_stands": 20,
+        "available_bikes": 0,
         "status": "OPEN",
-        "last_update": 1739265126000
-=======
-        "available_bike_stands": 14,
-        "available_bikes": 6,
-        "status": "OPEN",
-        "last_update": 1739877177000
->>>>>>> Stashed changes
+        "last_update": 1739363716000
     },
     {
         "number": 54,
@@ -59,17 +45,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 33,
-<<<<<<< Updated upstream
-        "available_bike_stands": 22,
-        "available_bikes": 11,
+        "available_bike_stands": 23,
+        "available_bikes": 10,
         "status": "OPEN",
-        "last_update": 1739265299000
-=======
-        "available_bike_stands": 20,
-        "available_bikes": 12,
-        "status": "OPEN",
-        "last_update": 1739877119000
->>>>>>> Stashed changes
+        "last_update": 1739363684000
     },
     {
         "number": 108,
@@ -83,17 +62,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 35,
-<<<<<<< Updated upstream
-        "available_bike_stands": 35,
-        "available_bikes": 0,
+        "available_bike_stands": 14,
+        "available_bikes": 21,
         "status": "OPEN",
-        "last_update": 1739265105000
-=======
-        "available_bike_stands": 19,
-        "available_bikes": 16,
-        "status": "OPEN",
-        "last_update": 1739877324000
->>>>>>> Stashed changes
+        "last_update": 1739364185000
     },
     {
         "number": 20,
@@ -107,17 +79,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 2,
-        "available_bikes": 28,
+        "available_bike_stands": 4,
+        "available_bikes": 26,
         "status": "OPEN",
-        "last_update": 1739265273000
-=======
-        "available_bike_stands": 5,
-        "available_bikes": 25,
-        "status": "OPEN",
-        "last_update": 1739877222000
->>>>>>> Stashed changes
+        "last_update": 1739363689000
     },
     {
         "number": 56,
@@ -131,17 +96,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 14,
-        "available_bikes": 25,
+        "available_bike_stands": 13,
+        "available_bikes": 26,
         "status": "OPEN",
-        "last_update": 1739265362000
-=======
-        "available_bike_stands": 8,
-        "available_bikes": 32,
-        "status": "OPEN",
-        "last_update": 1739876924000
->>>>>>> Stashed changes
+        "last_update": 1739363990000
     },
     {
         "number": 6,
@@ -157,14 +115,8 @@
         "bike_stands": 20,
         "available_bike_stands": 20,
         "available_bikes": 0,
-        "available_bike_stands": 10,
-        "available_bikes": 10,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265149000
-=======
-        "last_update": 1739877206000
->>>>>>> Stashed changes
+        "last_update": 1739364189000
     },
     {
         "number": 18,
@@ -178,17 +130,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 28,
-        "available_bikes": 2,
+        "available_bike_stands": 30,
+        "available_bikes": 0,
         "status": "OPEN",
-        "last_update": 1739265182000
-=======
-        "available_bike_stands": 23,
-        "available_bikes": 7,
-        "status": "OPEN",
-        "last_update": 1739877117000
->>>>>>> Stashed changes
+        "last_update": 1739364102000
     },
     {
         "number": 32,
@@ -202,17 +147,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 27,
-        "available_bikes": 3,
+        "available_bike_stands": 4,
+        "available_bikes": 26,
         "status": "OPEN",
-        "last_update": 1739265172000
-=======
-        "available_bike_stands": 3,
-        "available_bikes": 27,
-        "status": "OPEN",
-        "last_update": 1739877180000
->>>>>>> Stashed changes
+        "last_update": 1739364174000
     },
     {
         "number": 52,
@@ -226,17 +164,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 32,
-<<<<<<< Updated upstream
-        "available_bike_stands": 22,
-        "available_bikes": 9,
+        "available_bike_stands": 13,
+        "available_bikes": 19,
         "status": "OPEN",
-        "last_update": 1739264958000
-=======
-        "available_bike_stands": 17,
-        "available_bikes": 14,
-        "status": "OPEN",
-        "last_update": 1739877285000
->>>>>>> Stashed changes
+        "last_update": 1739364149000
     },
     {
         "number": 48,
@@ -250,17 +181,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 32,
-        "available_bikes": 7,
+        "available_bike_stands": 31,
+        "available_bikes": 9,
         "status": "OPEN",
-        "last_update": 1739265034000
-=======
-        "available_bike_stands": 21,
-        "available_bikes": 19,
-        "status": "OPEN",
-        "last_update": 1739877211000
->>>>>>> Stashed changes
+        "last_update": 1739364078000
     },
     {
         "number": 13,
@@ -274,17 +198,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 18,
-        "available_bikes": 12,
+        "available_bike_stands": 16,
+        "available_bikes": 14,
         "status": "OPEN",
-        "last_update": 1739265049000
-=======
-        "available_bike_stands": 26,
-        "available_bikes": 4,
-        "status": "OPEN",
-        "last_update": 1739877261000
->>>>>>> Stashed changes
+        "last_update": 1739364161000
     },
     {
         "number": 43,
@@ -298,14 +215,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-        "available_bike_stands": 23,
-        "available_bikes": 7,
+        "available_bike_stands": 30,
+        "available_bikes": 0,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265082000
-=======
-        "last_update": 1739877254000
->>>>>>> Stashed changes
+        "last_update": 1739363685000
     },
     {
         "number": 31,
@@ -319,17 +232,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-<<<<<<< Updated upstream
-        "available_bike_stands": 11,
-        "available_bikes": 9,
+        "available_bike_stands": 6,
+        "available_bikes": 14,
         "status": "OPEN",
-        "last_update": 1739264974000
-=======
-        "available_bike_stands": 1,
-        "available_bikes": 19,
-        "status": "OPEN",
-        "last_update": 1739877352000
->>>>>>> Stashed changes
+        "last_update": 1739364042000
     },
     {
         "number": 98,
@@ -343,17 +249,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 30,
-        "available_bikes": 10,
-        "status": "OPEN",
-        "last_update": 1739265366000
-=======
-        "available_bike_stands": 15,
+        "available_bike_stands": 17,
         "available_bikes": 23,
         "status": "OPEN",
-        "last_update": 1739877096000
->>>>>>> Stashed changes
+        "last_update": 1739364180000
     },
     {
         "number": 14,
@@ -367,17 +266,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 14,
-        "available_bikes": 15,
+        "available_bike_stands": 3,
+        "available_bikes": 27,
         "status": "OPEN",
-        "last_update": 1739265239000
-=======
-        "available_bike_stands": 24,
-        "available_bikes": 6,
-        "status": "OPEN",
-        "last_update": 1739877310000
->>>>>>> Stashed changes
+        "last_update": 1739363665000
     },
     {
         "number": 1,
@@ -391,14 +283,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 31,
-        "available_bike_stands": 16,
-        "available_bikes": 15,
+        "available_bike_stands": 12,
+        "available_bikes": 19,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265027000
-=======
-        "last_update": 1739877454000
->>>>>>> Stashed changes
+        "last_update": 1739364173000
     },
     {
         "number": 23,
@@ -412,17 +300,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 17,
-        "available_bikes": 13,
+        "available_bike_stands": 13,
+        "available_bikes": 17,
         "status": "OPEN",
-        "last_update": 1739265326000
-=======
-        "available_bike_stands": 23,
-        "available_bikes": 7,
-        "status": "OPEN",
-        "last_update": 1739877270000
->>>>>>> Stashed changes
+        "last_update": 1739364183000
     },
     {
         "number": 106,
@@ -436,14 +317,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-        "available_bike_stands": 38,
-        "available_bikes": 2,
+        "available_bike_stands": 40,
+        "available_bikes": 0,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739264942000
-=======
-        "last_update": 1739877039000
->>>>>>> Stashed changes
+        "last_update": 1739363975000
     },
     {
         "number": 112,
@@ -457,17 +334,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 30,
-        "available_bikes": 0,
+        "available_bike_stands": 21,
+        "available_bikes": 9,
         "status": "OPEN",
-        "last_update": 1739264992000
-=======
-        "available_bike_stands": 16,
-        "available_bikes": 14,
-        "status": "OPEN",
-        "last_update": 1739877352000
->>>>>>> Stashed changes
+        "last_update": 1739363663000
     },
     {
         "number": 68,
@@ -481,16 +351,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-        "available_bike_stands": 14,
-<<<<<<< Updated upstream
-        "available_bikes": 23,
+        "available_bike_stands": 7,
+        "available_bikes": 32,
         "status": "OPEN",
-        "last_update": 1739265317000
-=======
-        "available_bikes": 25,
-        "status": "OPEN",
-        "last_update": 1739877280000
->>>>>>> Stashed changes
+        "last_update": 1739363652000
     },
     {
         "number": 74,
@@ -504,17 +368,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 27,
-        "available_bikes": 3,
+        "available_bike_stands": 19,
+        "available_bikes": 11,
         "status": "OPEN",
-        "last_update": 1739265118000
-=======
-        "available_bike_stands": 30,
-        "available_bikes": 0,
-        "status": "OPEN",
-        "last_update": 1739877315000
->>>>>>> Stashed changes
+        "last_update": 1739363922000
     },
     {
         "number": 87,
@@ -528,19 +385,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 38,
-<<<<<<< Updated upstream
         "available_bike_stands": 37,
         "available_bikes": 1,
-        "available_bike_stands": 16,
-        "available_bikes": 22,
         "status": "OPEN",
-        "last_update": 1739265366000
-=======
-        "available_bike_stands": 36,
-        "available_bikes": 2,
-        "status": "OPEN",
-        "last_update": 1739877333000
->>>>>>> Stashed changes
+        "last_update": 1739364119000
     },
     {
         "number": 84,
@@ -554,17 +402,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 15,
-        "available_bikes": 15,
+        "available_bike_stands": 23,
+        "available_bikes": 7,
         "status": "OPEN",
-        "last_update": 1739265176000
-=======
-        "available_bike_stands": 18,
-        "available_bikes": 12,
-        "status": "OPEN",
-        "last_update": 1739877373000
->>>>>>> Stashed changes
+        "last_update": 1739364176000
     },
     {
         "number": 90,
@@ -578,17 +419,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 4,
-        "available_bikes": 34,
+        "available_bike_stands": 14,
+        "available_bikes": 21,
         "status": "OPEN",
-        "last_update": 1739265320000
-=======
-        "available_bike_stands": 11,
-        "available_bikes": 29,
-        "status": "OPEN",
-        "last_update": 1739877429000
->>>>>>> Stashed changes
+        "last_update": 1739364141000
     },
     {
         "number": 11,
@@ -602,17 +436,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 18,
-        "available_bikes": 12,
+        "available_bike_stands": 14,
+        "available_bikes": 16,
         "status": "OPEN",
-        "last_update": 1739265260000
-=======
-        "available_bike_stands": 12,
-        "available_bikes": 18,
-        "status": "OPEN",
-        "last_update": 1739877184000
->>>>>>> Stashed changes
+        "last_update": 1739364086000
     },
     {
         "number": 17,
@@ -626,17 +453,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-<<<<<<< Updated upstream
-        "available_bike_stands": 19,
-        "available_bikes": 1,
+        "available_bike_stands": 17,
+        "available_bikes": 3,
         "status": "OPEN",
-        "last_update": 1739264996000
-=======
-        "available_bike_stands": 12,
-        "available_bikes": 8,
-        "status": "OPEN",
-        "last_update": 1739877271000
->>>>>>> Stashed changes
+        "last_update": 1739364096000
     },
     {
         "number": 45,
@@ -650,17 +470,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 28,
+        "available_bike_stands": 29,
         "available_bikes": 1,
         "status": "OPEN",
-        "last_update": 1739265237000
-=======
-        "available_bike_stands": 30,
-        "available_bikes": 0,
-        "status": "OPEN",
-        "last_update": 1739877407000
->>>>>>> Stashed changes
+        "last_update": 1739363880000
     },
     {
         "number": 114,
@@ -674,17 +487,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 0,
-        "available_bikes": 36,
+        "available_bike_stands": 20,
+        "available_bikes": 20,
         "status": "OPEN",
-        "last_update": 1739265160000
-=======
-        "available_bike_stands": 8,
-        "available_bikes": 32,
-        "status": "OPEN",
-        "last_update": 1739877244000
->>>>>>> Stashed changes
+        "last_update": 1739364038000
     },
     {
         "number": 72,
@@ -698,14 +504,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 31,
-        "available_bike_stands": 31,
-        "available_bikes": 0,
+        "available_bike_stands": 30,
+        "available_bikes": 1,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265277000
-=======
-        "last_update": 1739877111000
->>>>>>> Stashed changes
+        "last_update": 1739363778000
     },
     {
         "number": 63,
@@ -719,17 +521,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 35,
-<<<<<<< Updated upstream
-        "available_bike_stands": 19,
-        "available_bikes": 16,
+        "available_bike_stands": 2,
+        "available_bikes": 33,
         "status": "OPEN",
-        "last_update": 1739265007000
-=======
-        "available_bike_stands": 20,
-        "available_bikes": 15,
-        "status": "OPEN",
-        "last_update": 1739877341000
->>>>>>> Stashed changes
+        "last_update": 1739363950000
     },
     {
         "number": 113,
@@ -743,17 +538,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 20,
-        "available_bikes": 9,
+        "available_bike_stands": 16,
+        "available_bikes": 13,
         "status": "OPEN",
-        "last_update": 1739265047000
-=======
-        "available_bike_stands": 3,
-        "available_bikes": 26,
-        "status": "OPEN",
-        "last_update": 1739877103000
->>>>>>> Stashed changes
+        "last_update": 1739364161000
     },
     {
         "number": 91,
@@ -767,17 +555,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 18,
-        "available_bikes": 12,
+        "available_bike_stands": 16,
+        "available_bikes": 13,
         "status": "OPEN",
-        "last_update": 1739265151000
-=======
-        "available_bike_stands": 9,
-        "available_bikes": 20,
-        "status": "OPEN",
-        "last_update": 1739877391000
->>>>>>> Stashed changes
+        "last_update": 1739364110000
     },
     {
         "number": 99,
@@ -791,17 +572,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 8,
-        "available_bikes": 22,
+        "available_bike_stands": 1,
+        "available_bikes": 27,
         "status": "OPEN",
-        "last_update": 1739265145000
-=======
-        "available_bike_stands": 14,
-        "available_bikes": 16,
-        "status": "OPEN",
-        "last_update": 1739877344000
->>>>>>> Stashed changes
+        "last_update": 1739363639000
     },
     {
         "number": 9,
@@ -815,17 +589,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 24,
-<<<<<<< Updated upstream
-        "available_bike_stands": 6,
-        "available_bikes": 18,
+        "available_bike_stands": 2,
+        "available_bikes": 22,
         "status": "OPEN",
-        "last_update": 1739265306000
-=======
-        "available_bike_stands": 13,
-        "available_bikes": 11,
-        "status": "OPEN",
-        "last_update": 1739877169000
->>>>>>> Stashed changes
+        "last_update": 1739363955000
     },
     {
         "number": 67,
@@ -839,14 +606,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-        "available_bike_stands": 40,
-        "available_bikes": 0,
+        "available_bike_stands": 24,
+        "available_bikes": 16,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265369000
-=======
-        "last_update": 1739877066000
->>>>>>> Stashed changes
+        "last_update": 1739364139000
     },
     {
         "number": 116,
@@ -860,17 +623,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 14,
-        "available_bikes": 16,
+        "available_bike_stands": 26,
+        "available_bikes": 4,
         "status": "OPEN",
-        "last_update": 1739264867000
-=======
-        "available_bike_stands": 29,
-        "available_bikes": 1,
-        "status": "OPEN",
-        "last_update": 1739877462000
->>>>>>> Stashed changes
+        "last_update": 1739364100000
     },
     {
         "number": 55,
@@ -884,17 +640,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 36,
-<<<<<<< Updated upstream
-        "available_bike_stands": 19,
-        "available_bikes": 15,
+        "available_bike_stands": 17,
+        "available_bikes": 19,
         "status": "OPEN",
-        "last_update": 1739265352000
-=======
-        "available_bike_stands": 7,
-        "available_bikes": 29,
-        "status": "OPEN",
-        "last_update": 1739877246000
->>>>>>> Stashed changes
+        "last_update": 1739364055000
     },
     {
         "number": 62,
@@ -908,17 +657,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 22,
-        "available_bikes": 16,
+        "available_bike_stands": 16,
+        "available_bikes": 24,
         "status": "OPEN",
-        "last_update": 1739265375000
-=======
-        "available_bike_stands": 6,
-        "available_bikes": 34,
-        "status": "OPEN",
-        "last_update": 1739877039000
->>>>>>> Stashed changes
+        "last_update": 1739364012000
     },
     {
         "number": 5,
@@ -932,17 +674,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 21,
-        "available_bikes": 19,
+        "available_bike_stands": 30,
+        "available_bikes": 10,
         "status": "OPEN",
-        "last_update": 1739265239000
-=======
-        "available_bike_stands": 25,
-        "available_bikes": 15,
-        "status": "OPEN",
-        "last_update": 1739877394000
->>>>>>> Stashed changes
+        "last_update": 1739363821000
     },
     {
         "number": 97,
@@ -956,17 +691,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 30,
-        "available_bikes": 9,
+        "available_bike_stands": 40,
+        "available_bikes": 0,
         "status": "OPEN",
-        "last_update": 1739264981000
-=======
-        "available_bike_stands": 32,
-        "available_bikes": 8,
-        "status": "OPEN",
-        "last_update": 1739877186000
->>>>>>> Stashed changes
+        "last_update": 1739363638000
     },
     {
         "number": 61,
@@ -980,17 +708,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 25,
-<<<<<<< Updated upstream
-        "available_bike_stands": 22,
-        "available_bikes": 3,
+        "available_bike_stands": 25,
+        "available_bikes": 0,
         "status": "OPEN",
-        "last_update": 1739264919000
-=======
-        "available_bike_stands": 24,
-        "available_bikes": 1,
-        "status": "OPEN",
-        "last_update": 1739876922000
->>>>>>> Stashed changes
+        "last_update": 1739364032000
     },
     {
         "number": 77,
@@ -1004,17 +725,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 29,
-<<<<<<< Updated upstream
         "available_bike_stands": 17,
-        "available_bikes": 11,
+        "available_bikes": 12,
         "status": "OPEN",
-        "last_update": 1739265007000
-=======
-        "available_bike_stands": 27,
-        "available_bikes": 2,
-        "status": "OPEN",
-        "last_update": 1739877317000
->>>>>>> Stashed changes
+        "last_update": 1739364145000
     },
     {
         "number": 73,
@@ -1030,14 +744,8 @@
         "bike_stands": 30,
         "available_bike_stands": 30,
         "available_bikes": 0,
-        "available_bike_stands": 27,
-        "available_bikes": 3,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265177000
-=======
-        "last_update": 1739877127000
->>>>>>> Stashed changes
+        "last_update": 1739364181000
     },
     {
         "number": 4,
@@ -1051,14 +759,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-        "available_bike_stands": 4,
-        "available_bikes": 16,
+        "available_bike_stands": 1,
+        "available_bikes": 19,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265200000
-=======
-        "last_update": 1739877215000
->>>>>>> Stashed changes
+        "last_update": 1739363659000
     },
     {
         "number": 49,
@@ -1072,17 +776,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 24,
-        "available_bikes": 15,
+        "available_bike_stands": 27,
+        "available_bikes": 13,
         "status": "OPEN",
-        "last_update": 1739265356000
-=======
-        "available_bike_stands": 20,
-        "available_bikes": 20,
-        "status": "OPEN",
-        "last_update": 1739877340000
->>>>>>> Stashed changes
+        "last_update": 1739363644000
     },
     {
         "number": 19,
@@ -1096,17 +793,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 0,
-        "available_bikes": 30,
+        "available_bike_stands": 5,
+        "available_bikes": 24,
         "status": "OPEN",
-        "last_update": 1739265137000
-=======
-        "available_bike_stands": 1,
-        "available_bikes": 29,
-        "status": "OPEN",
-        "last_update": 1739877455000
->>>>>>> Stashed changes
+        "last_update": 1739364131000
     },
     {
         "number": 7,
@@ -1120,17 +810,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 29,
-<<<<<<< Updated upstream
-        "available_bike_stands": 26,
-        "available_bikes": 3,
+        "available_bike_stands": 29,
+        "available_bikes": 0,
         "status": "OPEN",
-        "last_update": 1739265238000
-=======
-        "available_bike_stands": 28,
-        "available_bikes": 1,
-        "status": "OPEN",
-        "last_update": 1739877122000
->>>>>>> Stashed changes
+        "last_update": 1739364108000
     },
     {
         "number": 60,
@@ -1144,17 +827,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 30,
-        "available_bikes": 0,
+        "available_bike_stands": 23,
+        "available_bikes": 7,
         "status": "OPEN",
-        "last_update": 1739265155000
-=======
-        "available_bike_stands": 28,
-        "available_bikes": 2,
-        "status": "OPEN",
-        "last_update": 1739877358000
->>>>>>> Stashed changes
+        "last_update": 1739364022000
     },
     {
         "number": 102,
@@ -1168,14 +844,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-        "available_bike_stands": 34,
-        "available_bikes": 6,
+        "available_bike_stands": 36,
+        "available_bikes": 4,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739264960000
-=======
-        "last_update": 1739877089000
->>>>>>> Stashed changes
+        "last_update": 1739364164000
     },
     {
         "number": 38,
@@ -1189,17 +861,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 35,
-        "available_bikes": 3,
+        "available_bike_stands": 24,
+        "available_bikes": 15,
         "status": "OPEN",
-        "last_update": 1739265196000
-=======
-        "available_bike_stands": 23,
-        "available_bikes": 16,
-        "status": "OPEN",
-        "last_update": 1739877313000
->>>>>>> Stashed changes
+        "last_update": 1739364169000
     },
     {
         "number": 53,
@@ -1213,17 +878,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 18,
-        "available_bikes": 22,
+        "available_bike_stands": 12,
+        "available_bikes": 28,
         "status": "OPEN",
-        "last_update": 1739265138000
-=======
-        "available_bike_stands": 25,
-        "available_bikes": 15,
-        "status": "OPEN",
-        "last_update": 1739877109000
->>>>>>> Stashed changes
+        "last_update": 1739364149000
     },
     {
         "number": 58,
@@ -1237,17 +895,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 0,
-        "available_bikes": 37,
+        "available_bike_stands": 5,
+        "available_bikes": 35,
         "status": "OPEN",
-        "last_update": 1739265272000
-=======
-        "available_bike_stands": 9,
-        "available_bikes": 31,
-        "status": "OPEN",
-        "last_update": 1739877264000
->>>>>>> Stashed changes
+        "last_update": 1739364089000
     },
     {
         "number": 66,
@@ -1261,17 +912,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 36,
-        "available_bikes": 4,
+        "available_bike_stands": 27,
+        "available_bikes": 13,
         "status": "OPEN",
-        "last_update": 1739265328000
-=======
-        "available_bike_stands": 19,
-        "available_bikes": 21,
-        "status": "OPEN",
-        "last_update": 1739877384000
->>>>>>> Stashed changes
+        "last_update": 1739364053000
     },
     {
         "number": 104,
@@ -1285,17 +929,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 30,
-        "available_bikes": 10,
+        "available_bike_stands": 26,
+        "available_bikes": 14,
         "status": "OPEN",
-        "last_update": 1739265251000
-=======
-        "available_bike_stands": 22,
-        "available_bikes": 18,
-        "status": "OPEN",
-        "last_update": 1739877124000
->>>>>>> Stashed changes
+        "last_update": 1739364185000
     },
     {
         "number": 101,
@@ -1309,14 +946,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-        "available_bike_stands": 26,
-        "available_bikes": 4,
+        "available_bike_stands": 30,
+        "available_bikes": 0,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739264946000
-=======
-        "last_update": 1739877356000
->>>>>>> Stashed changes
+        "last_update": 1739364146000
     },
     {
         "number": 115,
@@ -1332,14 +965,8 @@
         "bike_stands": 30,
         "available_bike_stands": 28,
         "available_bikes": 2,
-        "available_bike_stands": 21,
-        "available_bikes": 8,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265200000
-=======
-        "last_update": 1739877245000
->>>>>>> Stashed changes
+        "last_update": 1739363643000
     },
     {
         "number": 47,
@@ -1353,17 +980,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 26,
-        "available_bikes": 14,
+        "available_bike_stands": 28,
+        "available_bikes": 12,
         "status": "OPEN",
-        "last_update": 1739265367000
-=======
-        "available_bike_stands": 17,
-        "available_bikes": 22,
-        "status": "OPEN",
-        "last_update": 1739877021000
->>>>>>> Stashed changes
+        "last_update": 1739363627000
     },
     {
         "number": 117,
@@ -1377,17 +997,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 24,
-        "available_bikes": 14,
+        "available_bike_stands": 16,
+        "available_bikes": 23,
         "status": "OPEN",
-        "last_update": 1739265071000
-=======
-        "available_bike_stands": 2,
-        "available_bikes": 37,
-        "status": "OPEN",
-        "last_update": 1739877122000
->>>>>>> Stashed changes
+        "last_update": 1739364189000
     },
     {
         "number": 8,
@@ -1401,17 +1014,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 18,
-        "available_bikes": 12,
+        "available_bike_stands": 15,
+        "available_bikes": 15,
         "status": "OPEN",
-        "last_update": 1739265368000
-=======
-        "available_bike_stands": 27,
-        "available_bikes": 3,
-        "status": "OPEN",
-        "last_update": 1739877073000
->>>>>>> Stashed changes
+        "last_update": 1739363922000
     },
     {
         "number": 27,
@@ -1425,17 +1031,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-<<<<<<< Updated upstream
-        "available_bike_stands": 5,
-        "available_bikes": 15,
+        "available_bike_stands": 2,
+        "available_bikes": 18,
         "status": "OPEN",
-        "last_update": 1739265267000
-=======
-        "available_bike_stands": 1,
-        "available_bikes": 19,
-        "status": "OPEN",
-        "last_update": 1739877117000
->>>>>>> Stashed changes
+        "last_update": 1739364127000
     },
     {
         "number": 16,
@@ -1449,17 +1048,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-<<<<<<< Updated upstream
-        "available_bike_stands": 15,
-        "available_bikes": 5,
+        "available_bike_stands": 13,
+        "available_bikes": 7,
         "status": "OPEN",
-        "last_update": 1739265321000
-=======
-        "available_bike_stands": 19,
-        "available_bikes": 1,
-        "status": "OPEN",
-        "last_update": 1739877189000
->>>>>>> Stashed changes
+        "last_update": 1739364187000
     },
     {
         "number": 96,
@@ -1473,17 +1065,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 23,
-        "available_bikes": 7,
+        "available_bike_stands": 27,
+        "available_bikes": 3,
         "status": "OPEN",
-        "last_update": 1739264917000
-=======
-        "available_bike_stands": 14,
-        "available_bikes": 16,
-        "status": "OPEN",
-        "last_update": 1739877103000
->>>>>>> Stashed changes
+        "last_update": 1739364118000
     },
     {
         "number": 82,
@@ -1497,14 +1082,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 22,
-        "available_bike_stands": 19,
-        "available_bikes": 3,
+        "available_bike_stands": 13,
+        "available_bikes": 9,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265377000
-=======
-        "last_update": 1739877133000
->>>>>>> Stashed changes
+        "last_update": 1739364135000
     },
     {
         "number": 76,
@@ -1518,14 +1099,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 38,
-        "available_bike_stands": 37,
-        "available_bikes": 1,
+        "available_bike_stands": 38,
+        "available_bikes": 0,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739264955000
-=======
-        "last_update": 1739877057000
->>>>>>> Stashed changes
+        "last_update": 1739364013000
     },
     {
         "number": 71,
@@ -1539,17 +1116,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 30,
-        "available_bikes": 9,
+        "available_bike_stands": 38,
+        "available_bikes": 2,
         "status": "OPEN",
-        "last_update": 1739265067000
-=======
-        "available_bike_stands": 21,
-        "available_bikes": 19,
-        "status": "OPEN",
-        "last_update": 1739877206000
->>>>>>> Stashed changes
+        "last_update": 1739364092000
     },
     {
         "number": 79,
@@ -1563,17 +1133,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 27,
-<<<<<<< Updated upstream
-        "available_bike_stands": 23,
-        "available_bikes": 4,
+        "available_bike_stands": 22,
+        "available_bikes": 5,
         "status": "OPEN",
-        "last_update": 1739265295000
-=======
-        "available_bike_stands": 21,
-        "available_bikes": 6,
-        "status": "OPEN",
-        "last_update": 1739877203000
->>>>>>> Stashed changes
+        "last_update": 1739364146000
     },
     {
         "number": 69,
@@ -1587,17 +1150,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
         "available_bike_stands": 0,
-        "available_bikes": 39,
+        "available_bikes": 35,
         "status": "OPEN",
-        "last_update": 1739265191000
-=======
-        "available_bike_stands": 12,
-        "available_bikes": 28,
-        "status": "OPEN",
-        "last_update": 1739877347000
->>>>>>> Stashed changes
+        "last_update": 1739363988000
     },
     {
         "number": 25,
@@ -1611,16 +1167,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-        "available_bike_stands": 0,
-<<<<<<< Updated upstream
-        "available_bikes": 30,
+        "available_bike_stands": 4,
+        "available_bikes": 26,
         "status": "OPEN",
-        "last_update": 1739265190000
-=======
-        "available_bikes": 29,
-        "status": "OPEN",
-        "last_update": 1739877249000
->>>>>>> Stashed changes
+        "last_update": 1739364179000
     },
     {
         "number": 51,
@@ -1637,11 +1187,7 @@
         "available_bike_stands": 0,
         "available_bikes": 0,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739264866000
-=======
-        "last_update": 1739877142000
->>>>>>> Stashed changes
+        "last_update": 1739364025000
     },
     {
         "number": 37,
@@ -1655,17 +1201,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 15,
-        "available_bikes": 14,
+        "available_bike_stands": 21,
+        "available_bikes": 9,
         "status": "OPEN",
-        "last_update": 1739265130000
-=======
-        "available_bike_stands": 23,
-        "available_bikes": 7,
-        "status": "OPEN",
-        "last_update": 1739877247000
->>>>>>> Stashed changes
+        "last_update": 1739364112000
     },
     {
         "number": 59,
@@ -1679,17 +1218,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-<<<<<<< Updated upstream
-        "available_bike_stands": 9,
-        "available_bikes": 11,
+        "available_bike_stands": 18,
+        "available_bikes": 2,
         "status": "OPEN",
-        "last_update": 1739265065000
-=======
-        "available_bike_stands": 17,
-        "available_bikes": 3,
-        "status": "OPEN",
-        "last_update": 1739877413000
->>>>>>> Stashed changes
+        "last_update": 1739363746000
     },
     {
         "number": 95,
@@ -1703,17 +1235,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 26,
-        "available_bikes": 14,
+        "available_bike_stands": 40,
+        "available_bikes": 0,
         "status": "OPEN",
-        "last_update": 1739265182000
-=======
-        "available_bike_stands": 16,
-        "available_bikes": 24,
-        "status": "OPEN",
-        "last_update": 1739877382000
->>>>>>> Stashed changes
+        "last_update": 1739363677000
     },
     {
         "number": 94,
@@ -1727,14 +1252,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-        "available_bike_stands": 39,
-        "available_bikes": 1,
+        "available_bike_stands": 40,
+        "available_bikes": 0,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265068000
-=======
-        "last_update": 1739877333000
->>>>>>> Stashed changes
+        "last_update": 1739363652000
     },
     {
         "number": 105,
@@ -1748,17 +1269,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 36,
-<<<<<<< Updated upstream
-        "available_bike_stands": 36,
-        "available_bikes": 0,
+        "available_bike_stands": 35,
+        "available_bikes": 1,
         "status": "OPEN",
-        "last_update": 1739265288000
-=======
-        "available_bike_stands": 26,
-        "available_bikes": 10,
-        "status": "OPEN",
-        "last_update": 1739877202000
->>>>>>> Stashed changes
+        "last_update": 1739363672000
     },
     {
         "number": 36,
@@ -1772,17 +1286,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 27,
-        "available_bikes": 13,
+        "available_bike_stands": 13,
+        "available_bikes": 27,
         "status": "OPEN",
-        "last_update": 1739265215000
-=======
-        "available_bike_stands": 8,
-        "available_bikes": 32,
-        "status": "OPEN",
-        "last_update": 1739877198000
->>>>>>> Stashed changes
+        "last_update": 1739364095000
     },
     {
         "number": 93,
@@ -1799,11 +1306,7 @@
         "available_bike_stands": 40,
         "available_bikes": 0,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265092000
-=======
-        "last_update": 1739877170000
->>>>>>> Stashed changes
+        "last_update": 1739363644000
     },
     {
         "number": 22,
@@ -1817,17 +1320,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-<<<<<<< Updated upstream
-        "available_bike_stands": 12,
-        "available_bikes": 8,
+        "available_bike_stands": 2,
+        "available_bikes": 18,
         "status": "OPEN",
-        "last_update": 1739265360000
-=======
-        "available_bike_stands": 7,
-        "available_bikes": 13,
-        "status": "OPEN",
-        "last_update": 1739877134000
->>>>>>> Stashed changes
+        "last_update": 1739364087000
     },
     {
         "number": 50,
@@ -1841,17 +1337,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 37,
-        "available_bikes": 3,
+        "available_bike_stands": 40,
+        "available_bikes": 0,
         "status": "OPEN",
-        "last_update": 1739265359000
-=======
-        "available_bike_stands": 39,
-        "available_bikes": 1,
-        "status": "OPEN",
-        "last_update": 1739877269000
->>>>>>> Stashed changes
+        "last_update": 1739363738000
     },
     {
         "number": 110,
@@ -1865,17 +1354,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 24,
-        "available_bikes": 15,
+        "available_bike_stands": 37,
+        "available_bikes": 3,
         "status": "OPEN",
-        "last_update": 1739265198000
-=======
-        "available_bike_stands": 30,
-        "available_bikes": 10,
-        "status": "OPEN",
-        "last_update": 1739877285000
->>>>>>> Stashed changes
+        "last_update": 1739364181000
     },
     {
         "number": 12,
@@ -1889,14 +1371,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-        "available_bike_stands": 20,
-        "available_bikes": 0,
+        "available_bike_stands": 19,
+        "available_bikes": 1,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739264988000
-=======
-        "last_update": 1739877139000
->>>>>>> Stashed changes
+        "last_update": 1739364047000
     },
     {
         "number": 34,
@@ -1910,17 +1388,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 17,
-        "available_bikes": 13,
+        "available_bike_stands": 24,
+        "available_bikes": 6,
         "status": "OPEN",
-        "last_update": 1739265233000
-=======
-        "available_bike_stands": 26,
-        "available_bikes": 4,
-        "status": "OPEN",
-        "last_update": 1739877165000
->>>>>>> Stashed changes
+        "last_update": 1739364131000
     },
     {
         "number": 78,
@@ -1934,17 +1405,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 36,
-        "available_bikes": 4,
+        "available_bike_stands": 35,
+        "available_bikes": 5,
         "status": "OPEN",
-        "last_update": 1739265081000
-=======
-        "available_bike_stands": 33,
-        "available_bikes": 7,
-        "status": "OPEN",
-        "last_update": 1739877253000
->>>>>>> Stashed changes
+        "last_update": 1739364184000
     },
     {
         "number": 2,
@@ -1958,17 +1422,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-<<<<<<< Updated upstream
-        "available_bike_stands": 10,
-        "available_bikes": 10,
+        "available_bike_stands": 11,
+        "available_bikes": 9,
         "status": "OPEN",
-        "last_update": 1739264972000
-=======
-        "available_bike_stands": 17,
-        "available_bikes": 3,
-        "status": "OPEN",
-        "last_update": 1739877382000
->>>>>>> Stashed changes
+        "last_update": 1739363997000
     },
     {
         "number": 75,
@@ -1982,14 +1439,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-        "available_bike_stands": 25,
-        "available_bikes": 15,
+        "available_bike_stands": 31,
+        "available_bikes": 9,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265263000
-=======
-        "last_update": 1739877412000
->>>>>>> Stashed changes
+        "last_update": 1739363805000
     },
     {
         "number": 111,
@@ -2005,14 +1458,8 @@
         "bike_stands": 40,
         "available_bike_stands": 40,
         "available_bikes": 0,
-        "available_bike_stands": 38,
-        "available_bikes": 2,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265043000
-=======
-        "last_update": 1739876932000
->>>>>>> Stashed changes
+        "last_update": 1739363974000
     },
     {
         "number": 26,
@@ -2026,14 +1473,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-        "available_bike_stands": 4,
-        "available_bikes": 16,
+        "available_bike_stands": 0,
+        "available_bikes": 20,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265196000
-=======
-        "last_update": 1739877168000
->>>>>>> Stashed changes
+        "last_update": 1739364168000
     },
     {
         "number": 65,
@@ -2047,17 +1490,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 38,
-        "available_bikes": 2,
+        "available_bike_stands": 23,
+        "available_bikes": 17,
         "status": "OPEN",
-        "last_update": 1739265232000
-=======
-        "available_bike_stands": 2,
-        "available_bikes": 38,
-        "status": "OPEN",
-        "last_update": 1739877246000
->>>>>>> Stashed changes
+        "last_update": 1739363913000
     },
     {
         "number": 15,
@@ -2071,17 +1507,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 16,
-<<<<<<< Updated upstream
-        "available_bike_stands": 6,
-        "available_bikes": 10,
+        "available_bike_stands": 14,
+        "available_bikes": 2,
         "status": "OPEN",
-        "last_update": 1739265166000
-=======
-        "available_bike_stands": 16,
-        "available_bikes": 0,
-        "status": "OPEN",
-        "last_update": 1739877216000
->>>>>>> Stashed changes
+        "last_update": 1739364130000
     },
     {
         "number": 86,
@@ -2098,11 +1527,7 @@
         "available_bike_stands": 38,
         "available_bikes": 0,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739264892000
-=======
-        "last_update": 1739877010000
->>>>>>> Stashed changes
+        "last_update": 1739364023000
     },
     {
         "number": 35,
@@ -2116,17 +1541,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 2,
-        "available_bikes": 28,
+        "available_bike_stands": 14,
+        "available_bikes": 16,
         "status": "OPEN",
-        "last_update": 1739265330000
-=======
-        "available_bike_stands": 23,
-        "available_bikes": 7,
-        "status": "OPEN",
-        "last_update": 1739877242000
->>>>>>> Stashed changes
+        "last_update": 1739364087000
     },
     {
         "number": 10,
@@ -2140,17 +1558,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 16,
-<<<<<<< Updated upstream
-        "available_bike_stands": 7,
-        "available_bikes": 9,
+        "available_bike_stands": 10,
+        "available_bikes": 6,
         "status": "OPEN",
-        "last_update": 1739265182000
-=======
-        "available_bike_stands": 11,
-        "available_bikes": 4,
-        "status": "OPEN",
-        "last_update": 1739877421000
->>>>>>> Stashed changes
+        "last_update": 1739363723000
     },
     {
         "number": 100,
@@ -2164,14 +1575,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 25,
-        "available_bike_stands": 24,
-        "available_bikes": 1,
+        "available_bike_stands": 21,
+        "available_bikes": 4,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265351000
-=======
-        "last_update": 1739876890000
->>>>>>> Stashed changes
+        "last_update": 1739363545000
     },
     {
         "number": 24,
@@ -2185,19 +1592,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-<<<<<<< Updated upstream
         "available_bike_stands": 11,
         "available_bikes": 9,
-        "available_bike_stands": 6,
-        "available_bikes": 14,
         "status": "OPEN",
-        "last_update": 1739265157000
-=======
-        "available_bike_stands": 12,
-        "available_bikes": 8,
-        "status": "OPEN",
-        "last_update": 1739877406000
->>>>>>> Stashed changes
+        "last_update": 1739363701000
     },
     {
         "number": 64,
@@ -2211,17 +1609,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 35,
-        "available_bikes": 5,
+        "available_bike_stands": 36,
+        "available_bikes": 4,
         "status": "OPEN",
-        "last_update": 1739265190000
-=======
-        "available_bike_stands": 20,
-        "available_bikes": 20,
-        "status": "OPEN",
-        "last_update": 1739877146000
->>>>>>> Stashed changes
+        "last_update": 1739364105000
     },
     {
         "number": 109,
@@ -2235,17 +1626,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 29,
-<<<<<<< Updated upstream
-        "available_bike_stands": 2,
-        "available_bikes": 27,
+        "available_bike_stands": 5,
+        "available_bikes": 24,
         "status": "OPEN",
-        "last_update": 1739265057000
-=======
-        "available_bike_stands": 18,
-        "available_bikes": 11,
-        "status": "OPEN",
-        "last_update": 1739877423000
->>>>>>> Stashed changes
+        "last_update": 1739364066000
     },
     {
         "number": 85,
@@ -2259,17 +1643,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 35,
-<<<<<<< Updated upstream
-        "available_bike_stands": 15,
-        "available_bikes": 20,
+        "available_bike_stands": 34,
+        "available_bikes": 1,
         "status": "OPEN",
-        "last_update": 1739265179000
-=======
-        "available_bike_stands": 19,
-        "available_bikes": 16,
-        "status": "OPEN",
-        "last_update": 1739877339000
->>>>>>> Stashed changes
+        "last_update": 1739363679000
     },
     {
         "number": 107,
@@ -2283,17 +1660,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 29,
-        "available_bikes": 11,
+        "available_bike_stands": 34,
+        "available_bikes": 6,
         "status": "OPEN",
-        "last_update": 1739265167000
-=======
-        "available_bike_stands": 31,
-        "available_bikes": 9,
-        "status": "OPEN",
-        "last_update": 1739877140000
->>>>>>> Stashed changes
+        "last_update": 1739364190000
     },
     {
         "number": 33,
@@ -2307,16 +1677,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 23,
-        "available_bike_stands": 4,
-<<<<<<< Updated upstream
-        "available_bikes": 16,
+        "available_bike_stands": 9,
+        "available_bikes": 14,
         "status": "OPEN",
-        "last_update": 1739265068000
-=======
-        "available_bikes": 19,
-        "status": "OPEN",
-        "last_update": 1739877450000
->>>>>>> Stashed changes
+        "last_update": 1739364139000
     },
     {
         "number": 44,
@@ -2330,17 +1694,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 28,
-        "available_bikes": 2,
+        "available_bike_stands": 30,
+        "available_bikes": 0,
         "status": "OPEN",
-        "last_update": 1739265319000
-=======
-        "available_bike_stands": 26,
-        "available_bikes": 4,
-        "status": "OPEN",
-        "last_update": 1739877286000
->>>>>>> Stashed changes
+        "last_update": 1739363613000
     },
     {
         "number": 89,
@@ -2354,14 +1711,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-        "available_bike_stands": 26,
-        "available_bikes": 14,
+        "available_bike_stands": 32,
+        "available_bikes": 8,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265158000
-=======
-        "last_update": 1739876901000
->>>>>>> Stashed changes
+        "last_update": 1739363627000
     },
     {
         "number": 57,
@@ -2375,17 +1728,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 23,
-<<<<<<< Updated upstream
-        "available_bike_stands": 5,
-        "available_bikes": 18,
+        "available_bike_stands": 7,
+        "available_bikes": 15,
         "status": "OPEN",
-        "last_update": 1739265348000
-=======
-        "available_bike_stands": 3,
-        "available_bikes": 20,
-        "status": "OPEN",
-        "last_update": 1739877139000
->>>>>>> Stashed changes
+        "last_update": 1739364029000
     },
     {
         "number": 80,
@@ -2399,17 +1745,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 26,
-        "available_bikes": 13,
+        "available_bike_stands": 23,
+        "available_bikes": 17,
         "status": "OPEN",
-        "last_update": 1739265159000
-=======
-        "available_bike_stands": 15,
-        "available_bikes": 25,
-        "status": "OPEN",
-        "last_update": 1739877232000
->>>>>>> Stashed changes
+        "last_update": 1739364190000
     },
     {
         "number": 41,
@@ -2423,17 +1762,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-<<<<<<< Updated upstream
-        "available_bike_stands": 17,
-        "available_bikes": 3,
+        "available_bike_stands": 19,
+        "available_bikes": 1,
         "status": "OPEN",
-        "last_update": 1739265037000
-=======
-        "available_bike_stands": 16,
-        "available_bikes": 4,
-        "status": "OPEN",
-        "last_update": 1739876997000
->>>>>>> Stashed changes
+        "last_update": 1739364052000
     },
     {
         "number": 3,
@@ -2447,17 +1779,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-<<<<<<< Updated upstream
-        "available_bike_stands": 12,
-        "available_bikes": 8,
+        "available_bike_stands": 11,
+        "available_bikes": 9,
         "status": "OPEN",
-        "last_update": 1739265159000
-=======
-        "available_bike_stands": 19,
-        "available_bikes": 1,
-        "status": "OPEN",
-        "last_update": 1739877221000
->>>>>>> Stashed changes
+        "last_update": 1739364189000
     },
     {
         "number": 40,
@@ -2471,17 +1796,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 21,
-<<<<<<< Updated upstream
-        "available_bike_stands": 0,
-        "available_bikes": 21,
+        "available_bike_stands": 4,
+        "available_bikes": 17,
         "status": "OPEN",
-        "last_update": 1739265203000
-=======
-        "available_bike_stands": 15,
-        "available_bikes": 6,
-        "status": "OPEN",
-        "last_update": 1739877468000
->>>>>>> Stashed changes
+        "last_update": 1739364084000
     },
     {
         "number": 29,
@@ -2497,14 +1815,8 @@
         "bike_stands": 29,
         "available_bike_stands": 18,
         "available_bikes": 11,
-        "available_bike_stands": 22,
-        "available_bikes": 7,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265243000
-=======
-        "last_update": 1739877225000
->>>>>>> Stashed changes
+        "last_update": 1739363768000
     },
     {
         "number": 103,
@@ -2518,17 +1830,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 25,
-        "available_bikes": 15,
+        "available_bike_stands": 26,
+        "available_bikes": 14,
         "status": "OPEN",
-        "last_update": 1739265068000
-=======
-        "available_bike_stands": 30,
-        "available_bikes": 10,
-        "status": "OPEN",
-        "last_update": 1739877206000
->>>>>>> Stashed changes
+        "last_update": 1739364091000
     },
     {
         "number": 28,
@@ -2542,17 +1847,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 30,
-        "available_bikes": 0,
+        "available_bike_stands": 18,
+        "available_bikes": 12,
         "status": "OPEN",
-        "last_update": 1739265098000
-=======
-        "available_bike_stands": 20,
-        "available_bikes": 10,
-        "status": "OPEN",
-        "last_update": 1739877128000
->>>>>>> Stashed changes
+        "last_update": 1739364175000
     },
     {
         "number": 39,
@@ -2566,17 +1864,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 20,
-<<<<<<< Updated upstream
-        "available_bike_stands": 15,
-        "available_bikes": 4,
+        "available_bike_stands": 17,
+        "available_bikes": 3,
         "status": "OPEN",
-        "last_update": 1739265314000
-=======
-        "available_bike_stands": 12,
-        "available_bikes": 8,
-        "status": "OPEN",
-        "last_update": 1739877350000
->>>>>>> Stashed changes
+        "last_update": 1739364128000
     },
     {
         "number": 83,
@@ -2590,17 +1881,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 40,
-<<<<<<< Updated upstream
-        "available_bike_stands": 35,
-        "available_bikes": 5,
+        "available_bike_stands": 26,
+        "available_bikes": 14,
         "status": "OPEN",
-        "last_update": 1739265367000
-=======
-        "available_bike_stands": 37,
-        "available_bikes": 3,
-        "status": "OPEN",
-        "last_update": 1739877231000
->>>>>>> Stashed changes
+        "last_update": 1739363796000
     },
     {
         "number": 92,
@@ -2616,14 +1900,8 @@
         "bike_stands": 40,
         "available_bike_stands": 40,
         "available_bikes": 0,
-        "available_bike_stands": 39,
-        "available_bikes": 1,
         "status": "OPEN",
-<<<<<<< Updated upstream
-        "last_update": 1739265346000
-=======
-        "last_update": 1739877093000
->>>>>>> Stashed changes
+        "last_update": 1739364118000
     },
     {
         "number": 21,
@@ -2637,17 +1915,10 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 8,
-        "available_bikes": 22,
+        "available_bike_stands": 6,
+        "available_bikes": 24,
         "status": "OPEN",
-        "last_update": 1739265331000
-=======
-        "available_bike_stands": 17,
-        "available_bikes": 12,
-        "status": "OPEN",
-        "last_update": 1739877367000
->>>>>>> Stashed changes
+        "last_update": 1739364129000
     },
     {
         "number": 88,
@@ -2661,16 +1932,9 @@
         "banking": false,
         "bonus": false,
         "bike_stands": 30,
-<<<<<<< Updated upstream
-        "available_bike_stands": 29,
-        "available_bikes": 1,
+        "available_bike_stands": 26,
+        "available_bikes": 4,
         "status": "OPEN",
-        "last_update": 1739265062000
-=======
-        "available_bike_stands": 27,
-        "available_bikes": 3,
-        "status": "OPEN",
-        "last_update": 1739877135000
->>>>>>> Stashed changes
+        "last_update": 1739364131000
     }
 ]
