@@ -6,7 +6,7 @@ app.secret_key = 'your_secret_key_here'  # Required to encrypt the session data
 # Mock user database
 users = {
     'Anush': {'password': 'anush123', 'name': 'Anush'},
-    'Bille': {'password': 'bille123', 'name': 'Bille'},
+    'Billie': {'password': 'billie123', 'name': 'Billie'},
     'Claire': {'password': 'claire123', 'name': 'Claire'}
 }
 
