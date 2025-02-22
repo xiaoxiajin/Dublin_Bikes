@@ -1,0 +1,690 @@
+/* ===============================================
+   RESET & BASE
+=============================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f8f8;
+  }
+  
+  /* ===============================================
+     LINKS
+  =============================================== */
+  a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+    color: #2980b9;
+  }
+  
+  /* ===============================================
+     HEADER & NAVIGATION
+  =============================================== */
+  header {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3498db;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  nav ul li {
+    margin: 0 15px;
+  }
+  
+  nav ul li a {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  nav ul li a:hover {
+    color: #3498db;
+  }
+  
+  .auth-buttons a {
+    padding: 8px 16px;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    margin-left: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .auth-buttons a.login {
+    background-color: #fff;
+    color: #3498db;
+  }
+  
+  .auth-buttons a.signup {
+    background-color: #3498db;
+    color: #fff;
+  }
+  
+  .auth-buttons a:hover {
+    opacity: 0.9;
+  }
+  
+  /* ===============================================
+     HERO SECTION (Index Page)
+  =============================================== */
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 20px;
+    background: #fff;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  
+  .hero-content {
+    flex: 1;
+    margin-right: 20px;
+    min-width: 280px;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero-content h1 span {
+    color: #3498db;
+  }
+  
+  .hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero-content input[type="email"] {
+    padding: 10px;
+    width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .hero-content button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .hero-content button:hover {
+    background-color: #2980b9;
+  }
+  
+  .hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  
+  /* ===============================================
+     PRICING PLANS
+  =============================================== */
+  .pricing-plans {
+    padding: 60px 20px;
+    background: #f0f0f0;
+    text-align: center;
+  }
+  
+  .pricing-plans h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .pricing-plans p {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+  }
+  
+  .plans-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .plan {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 280px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .plan:hover {
+    transform: translateY(-5px);
+  }
+  
+  .plan h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .plan p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .plan .price {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #3498db;
+  }
+  
+  .plan button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .plan button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* ===============================================
+     USER REVIEWS
+  =============================================== */
+  .user-reviews {
+    padding: 60px 20px;
+    background: #fff;
+    text-align: center;
+  }
+  
+  .user-reviews h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .user-reviews p {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+  }
+  
+  .reviews-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .review {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 300px;
+  }
+  
+  .review blockquote {
+    font-style: italic;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .review .author h4 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .review .author p {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  /* ===============================================
+     AUTH PAGES (Log In & Sign Up)
+  =============================================== */
+  .auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    min-height: 70vh;
+    background: #f0f0f0;
+  }
+  
+  .auth-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .auth-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .auth-form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .auth-form .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  
+  .auth-form .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .auth-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .auth-button:hover {
+    background-color: #2980b9;
+  }
+  
+  .auth-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
+  
+  .forgot-password {
+    display: block;
+    text-align: right;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .social-auth {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .social-auth p {
+    margin-bottom: 10px;
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .social-icons a {
+    font-size: 1.5rem;
+    color: #3498db;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    color: #2980b9;
+  }
+  
+  /* ===============================================
+     BIKE STATIONS / FIND STATIONS PAGE
+  =============================================== */
+  .find-stations {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 60px 20px;
+    background: #fff;
+  }
+  
+  .find-stations .content {
+    flex: 1;
+    min-width: 300px;
+    margin-right: 20px;
+  }
+  
+  .find-stations .content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .find-stations .content p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  
+  .find-stations .map-image {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .find-stations .map-image img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  
+  /* ===============================================
+     GET STARTED & LOCATE STATIONS (use.html)
+  =============================================== */
+  .get-started,
+  .locate-stations {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 60px 20px;
+    background: #f8f8f8;
+    margin-bottom: 40px;
+  }
+  
+  .get-started .content,
+  .locate-stations .content {
+    flex: 1;
+    min-width: 300px;
+    margin-right: 20px;
+  }
+  
+  .get-started .content h1,
+  .locate-stations .content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .get-started .content p,
+  .locate-stations .content p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  
+  .get-started .content button,
+  .locate-stations .content button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .get-started .content button:hover,
+  .locate-stations .content button:hover {
+    background-color: #2980b9;
+  }
+  
+  .get-started .image,
+  .locate-stations .image {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .get-started .image img,
+  .locate-stations .image img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  
+  /* ===============================================
+     CONTACT PAGE
+  =============================================== */
+  .contact {
+    padding: 60px 20px;
+    background: #fff;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .contact h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .contact p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  
+  .contact-info {
+    text-align: left;
+    margin: 20px auto;
+    max-width: 400px;
+    line-height: 1.6;
+  }
+  
+  .contact-info p {
+    margin-bottom: 10px;
+  }
+  
+  .qr-code {
+    margin-top: 20px;
+  }
+  
+  .qr-code p {
+    margin-bottom: 10px;
+  }
+  
+  .qr-code img {
+    width: 150px;
+    height: auto;
+  }
+  
+  /* ===============================================
+     ABOUT PAGE
+  =============================================== */
+  .about {
+    padding: 60px 20px;
+    background: #f8f8f8;
+  }
+  
+  .intro {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .intro h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .intro p {
+    font-size: 1.1rem;
+  }
+  
+  .values-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .value-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+  }
+  
+  .value-box h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #3498db;
+  }
+  
+  .value-box p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* ===============================================
+     FOOTER
+  =============================================== */
+  footer {
+    background: #333;
+    color: #fff;
+    padding: 40px 20px;
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .footer-section {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+  }
+  
+  .footer-section ul li {
+    margin-bottom: 8px;
+  }
+  
+  .footer-section ul li a {
+    color: #bbb;
+    font-size: 0.9rem;
+  }
+  
+  .footer-section p {
+    font-size: 0.9rem;
+    color: #bbb;
+  }
+  
+  .newsletter {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .newsletter input[type="email"] {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .newsletter button {
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    text-align: center;
+  }
+  
+  .footer-bottom p {
+    font-size: 0.8rem;
+    color: #bbb;
+    margin-bottom: 10px;
+  }
+  
+  .legal-links a {
+    font-size: 0.8rem;
+    color: #bbb;
+    margin: 0 10px;
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .social-icons a {
+    color: #bbb;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    color: #fff;
+  }
+  
+  /* ===============================================
+     RESPONSIVE STYLES
+  =============================================== */
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    nav ul {
+      flex-direction: column;
+      margin-top: 10px;
+    }
+    nav ul li {
+      margin: 5px 0;
+    }
+    .hero,
+    .get-started,
+    .locate-stations {
+      flex-direction: column;
+    }
+    .footer-container {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+  
+  
