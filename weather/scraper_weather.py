@@ -1,9 +1,13 @@
 import requests
+import schedule
+import time
+from datetime import datetime
 from datetime import datetime
 from sqlalchemy import create_engine, text
 
 import sys
 import os
+
 # Get the absolute path of the 'swe' directory
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import dbinfo
@@ -19,11 +23,8 @@ engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{
 LAT = 53.3498  # latitude
 LON = -6.2603  # longitude
 
-today = datetime.today().strftime("%Y/%m/%d")
-curr_time = datetime.now().strftime("%H:%M:%S")
-
 def query_weatherAPI():
-
+    ''' Get weather data hourly and store into database.'''
     URL = "https://api.openweathermap.org/data/2.5/weather"
 
     params = {
@@ -48,11 +49,16 @@ def query_weatherAPI():
         wind_speed = data["wind"]["speed"]
         wind_deg = data["wind"]["deg"]
 
-        print("City: Dublin")
-        print(f"Weather: {weather_desc}")
-        print(f"Temperature: {temperature}°C")
-        print(f"Humidity: {humidity}%")
-        print(f"Wind Speed: {wind_speed} m/s, Wind Deg: {wind_deg}°")
+        today = datetime.today().strftime("%Y/%m/%d")
+        curr_time = datetime.now().strftime("%H:%M:%S")     
+
+        # Show data
+        # print("City: Dublin")
+        # print(f"Weather: {weather_desc}")
+        # print(f"Temperature: {temperature}°C")
+        # print(f"Humidity: {humidity}%")
+        # print(f"Wind Speed: {wind_speed} m/s, Wind Deg: {wind_deg}°")
+        print(f"✅ {curr_time} - Get weather data successfully: {weather_desc}, {temperature}°C, humidity: {humidity}%")
 
         # Insert data into RDS
         insert_weather_data(today, curr_time, weather_desc, temperature, humidity, wind_speed, wind_deg)
@@ -66,6 +72,7 @@ def query_weatherAPI():
         print("Error:", response.status_code)    
 
 def insert_weather_data(date, time, weather, temp, humidity, wind_speed, wind_deg):
+    # TODO: modify formulation
     sql_insert = text("""
         INSERT INTO historical_weather (date, time, weather, temp, humidity, wind_speed, wind_deg)
         VALUES (:date, :time, :weather, :temp, :humidity, :wind_speed, :wind_deg)
@@ -89,4 +96,17 @@ def insert_weather_data(date, time, weather, temp, humidity, wind_speed, wind_de
         })
         connection.commit()
 
-query_weatherAPI()
+# query_weatherAPI()
+
+# Use schedule to let program execute hourly.
+schedule.every(1).hours.do(query_weatherAPI)
+# for test:
+# schedule.every(5).seconds.do(query_weatherAPI)
+
+# Make schedule tasks run all the time
+print("Start a timed task to get weather data every 1 hour...")
+while True:
+    schedule.run_pending()  # run schedule task
+    time.sleep(60)  # check it every 60 secs
+    # for test:
+    # time.sleep(1)  # check it every 1 secs
