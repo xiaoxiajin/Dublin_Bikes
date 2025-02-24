@@ -2,7 +2,7 @@ import requests
 import schedule
 import time
 from datetime import datetime
-from datetime import datetime
+from datetime import timedelta
 from sqlalchemy import create_engine, text
 
 import sys
@@ -11,6 +11,12 @@ import os
 # Get the absolute path of the 'swe' directory
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import dbinfo
+
+from flask import Flask, jsonify
+import threading
+
+# Create Flask application
+app = Flask(__name__)
 
 # OpenWeather API Key
 API_KEY = dbinfo.Weather_Api
@@ -69,7 +75,8 @@ def query_weatherAPI():
         #     connection.commit()
 
     else:
-        print("Error:", response.status_code)    
+        print(f"API Request Failed, status code: {response.status_code}")    
+        print(response.text) 
 
 def insert_weather_data(date, time, weather, temp, humidity, wind_speed, wind_deg):
     # TODO: modify formulation
@@ -96,17 +103,42 @@ def insert_weather_data(date, time, weather, temp, humidity, wind_speed, wind_de
         })
         connection.commit()
 
-# query_weatherAPI()
+# Get recent weather data from database
+@app.route('/weather', methods=['GET'])
+def get_weather():
+    with engine.connect() as connection:
+        result = connection.execute(text("SELECT date, TIME_FORMAT(time, '%H:%i:%s') AS time, weather, temp, humidity, wind_speed, wind_deg FROM historical_weather ORDER BY date DESC, time DESC LIMIT 1;"))
+        weather_data = [dict(row._mapping) for row in result]
 
-# Use schedule to let program execute hourly.
-schedule.every(1).hours.do(query_weatherAPI)
-# for test:
-# schedule.every(5).seconds.do(query_weatherAPI)
+    if weather_data:
+        # convert timedelta field into String
+        for key, value in weather_data[0].items():
+            if isinstance(value, timedelta):
+                weather_data[0][key] = str(value)  
+        return jsonify(weather_data[0])
+    else:
+        return jsonify({"message": "No weather data available"}), 404
 
-# Make schedule tasks run all the time
-print("Start a timed task to get weather data every 1 hour...")
-while True:
-    schedule.run_pending()  # run schedule task
-    time.sleep(60)  # check it every 60 secs
+# update weather data manually**
+@app.route('/update_weather', methods=['GET'])
+def update_weather():
+    query_weatherAPI()
+    return jsonify({"message": "Weather data updated successfully!"})
+
+def schedule_task():
+    # Use schedule to let program execute hourly.
+    schedule.every(1).hours.do(query_weatherAPI)
     # for test:
-    # time.sleep(1)  # check it every 1 secs
+    # schedule.every(5).seconds.do(query_weatherAPI)
+    while True:
+        schedule.run_pending()
+        time.sleep(60)
+        # for test:
+        # time.sleep(1)  # check it every 1 secs
+
+if __name__ == '__main__':
+    # Move schedule to a separate background thread so that it does not block the Flask server, allowing the API to remain responsive.
+    threading.Thread(target=schedule_task, daemon=True).start()
+
+    print("🚀 Flask API is running at http://127.0.0.1:5000/")
+    app.run(host='127.0.0.1', port=5000, debug=True)
