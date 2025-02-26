@@ -31,6 +31,8 @@ engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{
 LAT = 53.3498  # latitude
 LON = -6.2603  # longitude
 
+schedule_started = False # global variable, avoiding dupulicated tasks scheduling
+
 def query_weatherAPI():
     ''' Get weather data hourly and store into database.'''
     URL = "https://api.openweathermap.org/data/2.5/weather"
@@ -131,15 +133,20 @@ def get_weather():
 # update weather data manually**
 @app.route('/update_weather', methods=['GET'])
 def update_weather():
-    query_weatherAPI()
+    safe_query_weatherAPI()
     return jsonify({"message": "Weather data updated successfully!"})
 
 def schedule_task():
+    global schedule_started
+    if schedule_started:  # If task has been registered, return directly
+        return
+    schedule_started = True
+
     schedule.clear()
     # Use schedule to let program execute hourly.
     schedule.every(1).hours.do(safe_query_weatherAPI)
     # for test:
-    # schedule.every(30).seconds.do(safe_query_weatherAPI)
+    # schedule.every(10).seconds.do(safe_query_weatherAPI)
     while True:
         schedule.run_pending()
         time.sleep(60)
@@ -151,4 +158,6 @@ if __name__ == '__main__':
     threading.Thread(target=schedule_task, daemon=True).start()
 
     print("🚀 Flask API is running at http://127.0.0.1:5000/")
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=False) 
+    # debug=True may start two Flask instances, causing schedule_task() to run twice.
+    # With debug turned off, only one process will be running, avoiding duplicate task scheduling.
