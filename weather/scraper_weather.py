@@ -15,6 +15,8 @@ import dbinfo
 from flask import Flask, jsonify
 import threading
 
+lock = threading.Lock() # avoid task execute more than one times
+
 # Create Flask application
 app = Flask(__name__)
 
@@ -78,6 +80,13 @@ def query_weatherAPI():
         print(f"API Request Failed, status code: {response.status_code}")    
         print(response.text) 
 
+def safe_query_weatherAPI():
+    if lock.acquire(blocking=False):  # avoid many tasks execute simoutaneously
+        try:
+            query_weatherAPI()
+        finally:
+            lock.release()
+
 def insert_weather_data(date, time, weather, temp, humidity, wind_speed, wind_deg):
     # TODO: modify formulation
     sql_insert = text("""
@@ -126,10 +135,11 @@ def update_weather():
     return jsonify({"message": "Weather data updated successfully!"})
 
 def schedule_task():
+    schedule.clear()
     # Use schedule to let program execute hourly.
-    schedule.every(1).hours.do(query_weatherAPI)
+    schedule.every(1).hours.do(safe_query_weatherAPI)
     # for test:
-    # schedule.every(5).seconds.do(query_weatherAPI)
+    # schedule.every(30).seconds.do(safe_query_weatherAPI)
     while True:
         schedule.run_pending()
         time.sleep(60)
