@@ -24,8 +24,12 @@ app = Flask(__name__)
 API_KEY = dbinfo.Weather_Api
 
 # Database connection details:
+DB_USER = dbinfo.DB_USER
+DB_PASSWORD = dbinfo.DB_PASSWORD
+DB_HOST = dbinfo.DB_HOST
+DB_PORT = dbinfo.DB_PORT
 DB_NAME = "dublin_cycle"
-engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}/{DB_NAME}")
+engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
 # latitude and longitude of Dublin
 LAT = 53.3498  # latitude
@@ -102,17 +106,21 @@ def insert_weather_data(date, time, weather, temp, humidity, wind_speed, wind_de
             wind_deg = VALUES(wind_deg);
     """)
 
-    with engine.connect() as connection:
-        connection.execute(sql_insert, {
-            "date": date,
-            "time": time,
-            "weather": weather,
-            "temp": temp,
-            "humidity": humidity,
-            "wind_speed": wind_speed,
-            "wind_deg": wind_deg
-        })
-        connection.commit()
+    try:
+        with engine.connect() as connection:
+            connection.execute(sql_insert, {
+                "date": date,
+                "time": time,
+                "weather": weather,
+                "temp": temp,
+                "humidity": humidity,
+                "wind_speed": wind_speed,
+                "wind_deg": wind_deg
+            })
+            connection.commit()
+        print("Successfully insert into database! ")
+    except Exception as e:
+        print(f"❌ fail: {e}")
 
 # Get recent weather data from database
 @app.route('/weather', methods=['GET'])
