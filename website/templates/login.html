@@ -1,9 +1,94 @@
-<form action="/login" method="POST">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
-    <button type="submit">Login</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - Dublin Bikes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">DublinBikes</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sign-up.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="auth-page">
+        <div class="auth-container">
+            <h2>Welcome Back</h2>
+            <form class="auth-form" action="/login" method="POST">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" required>
+                </div>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+                <button type="submit" class="auth-button">Log In</button>
+            </form>
+
+            
+
+            <p class="auth-link">Don't have an account? <a href="sign-up.html">Sign Up</a></p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Explore</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About DublinCycle</a></li>
+                    <li><a href="use.html">How to Use</a></li>
+                    <li><a href="station.html">Bike Stations</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Stay Updated</h3>
+                <p>Subscribe to our newsletter for the latest updates on bike stations and offers.</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Enter your email">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+        </div>
+    
+        <hr>
+    
+        <div class="footer-bottom">
+            <p>© 2025 DublinCycle. All rights reserved.</p>
+            <div class="legal-links">
+                <a href="https://www.dublinbikes.ie/en/documents/cgau/vls">Terms and Conditions</a>
+                <a href="https://www.dublinbikes.ie/en/legal-information/privacy-policy">Privacy Policy</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/cycledublinbiketours">
+                    <i class="fab fa-facebook-f fa-2x"></i>
+                </a>
+                <a href="https://www.instagram.com/dublin_bikes/">
+                    <i class="fab fa-instagram fa-2x"></i>
+                </a>
+                <a href="https://x.com/dublinbikes">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
