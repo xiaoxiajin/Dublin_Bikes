@@ -5,9 +5,9 @@ app.secret_key = 'your_secret_key_here'  # Required to encrypt the session data
 
 # Mock user database
 users = {
-    'Anush': {'password': 'anush123', 'name': 'Anush'},
-    'Billie': {'password': 'billie123', 'name': 'Billie'},
-    'Claire': {'password': 'claire123', 'name': 'Claire'}
+    'Anush': {'password': 'anush123', 'name': 'Anush@gmail.com'},
+    'Billie': {'password': 'billie123', 'name': 'Billie@gmail.com'},
+    'Claire': {'password': 'claire123!!!', 'name': 'Claire@gmail.com'}
 }
 
 # Home route to serve login page
@@ -18,6 +18,7 @@ def home():
 # Login route
 @app.route('/login', methods=['POST'])
 def login():
+    session.clear()  
     username = request.form.get('username')
     password = request.form.get('password')
 
