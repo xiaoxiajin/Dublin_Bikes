@@ -1,7 +1,7 @@
 import requests
 import schedule
 import time
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from datetime import timedelta
 from sqlalchemy import create_engine, text
 
@@ -39,12 +39,14 @@ schedule_started = False # global variable, avoiding dupulicated tasks schedulin
 
 def query_weatherAPI():
     ''' Get weather data hourly and store into database.'''
-    URL = "https://api.openweathermap.org/data/2.5/weather"
+    # URL = "https://api.openweathermap.org/data/2.5/weather"
+    URL = "https://api.openweathermap.org/data/3.0/onecall"
 
     params = {
         "lat": LAT,
         "lon": LON,
         "appid": API_KEY,
+        "exclude": "minutely,alerts",
         "units": "metric",  # temperature unit
         "lang": "en"  # language
     }
@@ -57,31 +59,72 @@ def query_weatherAPI():
         # Extract the weather data from the JSON response
         data = response.json()
 
-        weather_desc = data["weather"][0]["description"]
-        temperature = data["main"]["temp"]
-        humidity = data["main"]["humidity"]
-        wind_speed = data["wind"]["speed"]
-        wind_deg = data["wind"]["deg"]
+        # weather_desc = data["weather"][0]["description"]
+        # temperature = data["main"]["temp"]
+        # humidity = data["main"]["humidity"]
+        # wind_speed = data["wind"]["speed"]
+        # wind_deg = data["wind"]["deg"]
 
-        today = datetime.today().strftime("%Y/%m/%d")
-        curr_time = datetime.now().strftime("%H:%M:%S")     
+        # today = datetime.today().strftime("%Y/%m/%d")
+        # curr_time = datetime.now().strftime("%H:%M:%S")     
 
-        # Show data
-        # print("City: Dublin")
-        # print(f"Weather: {weather_desc}")
-        # print(f"Temperature: {temperature}°C")
-        # print(f"Humidity: {humidity}%")
-        # print(f"Wind Speed: {wind_speed} m/s, Wind Deg: {wind_deg}°")
-        print(f"✅ {curr_time} - Get weather data successfully: {weather_desc}, {temperature}°C, humidity: {humidity}%")
+        # Extract `current` weather data
+        current = data["current"]
+        dt = datetime.fromtimestamp(current["dt"], tz=timezone.utc)
+        insert_current_weather(
+            dt,
+            current["feels_like"],
+            current["humidity"],
+            current["pressure"],
+            datetime.fromtimestamp(current["sunrise"], tz=timezone.utc),
+            datetime.fromtimestamp(current["sunset"], tz=timezone.utc),
+            current["temp"],
+            current.get("uvi", 0.0),  # avoid KeyError
+            current["weather"][0]["id"],
+            current.get("wind_gust", 0.0),  # avoid lack of gust
+            current["wind_speed"],
+            current.get("rain", {}).get("1h", 0.0),  
+            current.get("snow", {}).get("1h", 0.0)  
+        )
 
-        # Insert data into RDS
-        insert_weather_data(today, curr_time, weather_desc, temperature, humidity, wind_speed, wind_deg)
+        # Extract `hourly` weather data
+        for hourly in data["hourly"]:
+            insert_hourly_weather(
+                dt,
+                datetime.fromtimestamp(hourly["dt"], tz=timezone.utc),
+                hourly["feels_like"],
+                hourly["humidity"],
+                hourly.get("pop", 0.0),
+                hourly["pressure"],
+                hourly["temp"],
+                hourly.get("uvi", 0.0),
+                hourly["weather"][0]["id"],
+                hourly["wind_speed"],
+                hourly.get("wind_gust", 0.0),
+                hourly.get("rain", {}).get("1h", 0.0),
+                hourly.get("snow", {}).get("1h", 0.0)
+            )
 
-        # sql_query = text("DESC historical_weather;")
-        # with engine.connect() as connection:
-        #     connection.execute(sql_query)
-        #     connection.commit()
+        # Extract `daily` weather data
+        for daily in data["daily"]:
+            insert_daily_weather(
+                dt,
+                datetime.fromtimestamp(daily["dt"], tz=timezone.utc),
+                daily["humidity"],
+                daily.get("pop", 0.0),
+                daily["pressure"],
+                daily["temp"]["max"],
+                daily["temp"]["min"],
+                daily.get("uvi", 0.0),
+                daily["weather"][0]["id"],
+                daily["wind_speed"],
+                daily.get("wind_gust", 0.0),
+                daily.get("rain", 0.0),  # `rain` 直接是 float
+                daily.get("snow", 0.0)   # `snow` 直接是 float
+            )
 
+            print(f"✅ Weather data updated successfully.")
+       
     else:
         print(f"API Request Failed, status code: {response.status_code}")    
         print(response.text) 
@@ -93,34 +136,72 @@ def safe_query_weatherAPI():
         finally:
             lock.release()
 
-def insert_weather_data(date, time, weather, temp, humidity, wind_speed, wind_deg):
-    # TODO: modify formulation
+def insert_current_weather(dt, feels_like, humidity, pressure, sunrise, sunset, temp, uvi, weather_id, wind_gust, wind_speed, rain_1h, snow_1h):
     sql_insert = text("""
-        INSERT INTO historical_weather (date, time, weather, temp, humidity, wind_speed, wind_deg)
-        VALUES (:date, :time, :weather, :temp, :humidity, :wind_speed, :wind_deg)
+        INSERT INTO current_weather (dt, feels_like, humidity, pressure, sunrise, sunset, temp, uvi, weather_id, wind_gust, wind_speed, rain_1h, snow_1h)
+        VALUES (:dt, :feels_like, :humidity, :pressure, :sunrise, :sunset, :temp, :uvi, :weather_id, :wind_gust, :wind_speed, :rain_1h, :snow_1h)
         ON DUPLICATE KEY UPDATE 
-            weather = VALUES(weather),
-            temp = VALUES(temp),
+            feels_like = VALUES(feels_like),
             humidity = VALUES(humidity),
+            pressure = VALUES(pressure),
+            sunrise = VALUES(sunrise),
+            sunset = VALUES(sunset),
+            temp = VALUES(temp),
+            uvi = VALUES(uvi),
+            weather_id = VALUES(weather_id),
+            wind_gust = VALUES(wind_gust),
             wind_speed = VALUES(wind_speed),
-            wind_deg = VALUES(wind_deg);
+            rain_1h = VALUES(rain_1h),
+            snow_1h = VALUES(snow_1h);
     """)
 
-    try:
-        with engine.connect() as connection:
-            connection.execute(sql_insert, {
-                "date": date,
-                "time": time,
-                "weather": weather,
-                "temp": temp,
-                "humidity": humidity,
-                "wind_speed": wind_speed,
-                "wind_deg": wind_deg
-            })
-            connection.commit()
-        print("Successfully insert into database! ")
-    except Exception as e:
-        print(f"❌ fail: {e}")
+    with engine.connect() as connection:
+        connection.execute(sql_insert, locals())
+        connection.commit()
+
+def insert_hourly_weather(dt, future_dt, feels_like, humidity, pop, pressure, temp, uvi, weather_id, wind_speed, wind_gust, rain_1h, snow_1h):
+    sql_insert = text("""
+        INSERT INTO hourly_weather (dt, future_dt, feels_like, humidity, pop, pressure, temp, uvi, weather_id, wind_speed, wind_gust, rain_1h, snow_1h)
+        VALUES (:dt, :future_dt, :feels_like, :humidity, :pop, :pressure, :temp, :uvi, :weather_id, :wind_speed, :wind_gust, :rain_1h, :snow_1h)
+        ON DUPLICATE KEY UPDATE 
+            feels_like = VALUES(feels_like),
+            humidity = VALUES(humidity),
+            pop = VALUES(pop),
+            pressure = VALUES(pressure),
+            temp = VALUES(temp),
+            uvi = VALUES(uvi),
+            weather_id = VALUES(weather_id),
+            wind_speed = VALUES(wind_speed),
+            wind_gust = VALUES(wind_gust),
+            rain_1h = VALUES(rain_1h),
+            snow_1h = VALUES(snow_1h);
+    """)
+
+    with engine.connect() as connection:
+        connection.execute(sql_insert, locals())
+        connection.commit()
+
+def insert_daily_weather(dt, future_dt, humidity, pop, pressure, temp_max, temp_min, uvi, weather_id, wind_speed, wind_gust, rain, snow):
+    sql_insert = text("""
+        INSERT INTO daily_weather (dt, future_dt, humidity, pop, pressure, temp_max, temp_min, uvi, weather_id, wind_speed, wind_gust, rain, snow)
+        VALUES (:dt, :future_dt, :humidity, :pop, :pressure, :temp_max, :temp_min, :uvi, :weather_id, :wind_speed, :wind_gust, :rain, :snow)
+        ON DUPLICATE KEY UPDATE 
+            humidity = VALUES(humidity),
+            pop = VALUES(pop),
+            pressure = VALUES(pressure),
+            temp_max = VALUES(temp_max),
+            temp_min = VALUES(temp_min),
+            uvi = VALUES(uvi),
+            weather_id = VALUES(weather_id),
+            wind_speed = VALUES(wind_speed),
+            wind_gust = VALUES(wind_gust),
+            rain = VALUES(rain),
+            snow = VALUES(snow);
+    """)
+
+    with engine.connect() as connection:
+        connection.execute(sql_insert, locals())
+        connection.commit()
 
 # Get recent weather data from database
 @app.route('/weather', methods=['GET'])
