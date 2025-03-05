@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 /* ===============================================
    RESET & BASE
 =============================================== */
@@ -41,12 +44,14 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    font-family: 'Nunito', sans-serif;
   }
   
   .logo {
     font-size: 2.5rem;
     font-weight: bold;
     color: #3498db;
+    font-family: sans-serif;
   }
   
   nav ul {
@@ -66,6 +71,12 @@
   
   nav ul li a:hover {
     color: #3498db;
+  }
+
+  nav ul li a.active {
+    color: #3498db; /* 设置为蓝色，或者你喜欢的颜色 */
+    font-weight: bold; /* 使文本加粗 */
+    text-decoration: underline; /* 给当前项加下划线 */
   }
   
   .auth-buttons a {
@@ -95,7 +106,9 @@
      HERO SECTION (Index Page)
   =============================================== */
   .hero {
-    display: flex;
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: 40% 60%; 
     align-items: center;
     justify-content: space-between;
     padding: 60px 20px;
@@ -113,6 +126,8 @@
   .hero-content h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
+    font-family: 'Abril Fatface', sans-serif;
+    letter-spacing: 2px;
   }
   
   .hero-content h1 span {
@@ -386,14 +401,14 @@
 
 
 .social-icons a {
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: #3498db;
     transition: color 0.3s ease, text-shadow 0.3s ease-in-out;
 }
 
 .social-icons a:hover {
     color: #2980b9;
-    text-shadow: 0 0 15px rgba(0, 0, 0, 0.8); 
+    text-shadow: 0 0 3px rgba(243, 240, 240, 0.8); 
 }
 
   
@@ -403,12 +418,14 @@
   .find-stations {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    /* align-items: center; */
     padding: 60px 20px;
     background: #fff;
   }
   
   .find-stations .content {
+    display: flex;
+    justify-content: flex-start;
     flex: 1;
     min-width: 300px;
     margin-right: 20px;
@@ -417,11 +434,33 @@
   .find-stations .content h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
+    font-family: 'Abril Fatface', sans-serif;
+    letter-spacing: 2px;
   }
   
   .find-stations .content p {
     font-size: 1.1rem;
     margin-bottom: 20px;
+    font-family: 'Nunito', sans-serif; 
+    
+  }
+
+  .find-stations .content .title p {
+    color: #3498db; 
+    margin:30px auto 0 -10px
+  }
+
+
+  .find-stations p:last-of-type {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    line-height: 1.8; 
+    max-width: 700px; 
+    /* margin: 20px auto;  */
+    padding: 0 10px; 
+    text-align: right;
+    flex: 0 0 100%;
+    margin-left: auto;
   }
   
   .find-stations .map-image {
@@ -433,6 +472,9 @@
     max-width: 100%;
     border-radius: 8px;
   }
+
+  
+ 
   
   /* ===============================================
      GET STARTED & LOCATE STATIONS (use.html)
@@ -465,6 +507,8 @@
     font-size: 2.8rem;
     margin-bottom: 20px;
     color: #2c3e50;
+    font-family: 'Abril Fatface', sans-serif;
+    letter-spacing: 2px;
 }
 
 .get-started .content p,
@@ -531,6 +575,8 @@
     font-size: 2.8rem;
     margin-bottom: 20px;
     color: #2c3e50;
+    font-family: 'Abril Fatface', sans-serif;
+    letter-spacing: 2px;
 }
 
 .contact p {
@@ -621,6 +667,9 @@
   .intro h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
+    font-family: 'Abril Fatface', sans-serif;
+    letter-spacing: 2px;
+    
   }
   
   .intro p {
