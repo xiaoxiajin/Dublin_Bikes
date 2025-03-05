@@ -21,41 +21,100 @@ with engine.connect() as connection:
 # Update the engine to connect specifically to the new database
 engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}/{DB_NAME}", echo=True)
 
-# SQL to create the historical_weather table if it doesn’t exist
-sql_create_weather_table = text("""
-    CREATE TABLE IF NOT EXISTS historical_weather (
-        date DATE,
-        time TIME,
-        weather VARCHAR(128),
+# SQL to create the `current` table
+sql_create_current_table = text("""
+    CREATE TABLE IF NOT EXISTS current_weather (
+        dt DATETIME NOT NULL,
+        feels_like FLOAT,
+        humidity INTEGER,
+        pressure INTEGER,
+        sunrise DATETIME,
+        sunset DATETIME,
         temp FLOAT,
-        humidity INT,
+        uvi FLOAT,
+        weather_id INTEGER,
+        wind_gust FLOAT,
         wind_speed FLOAT,
-        wind_deg INT,
-        PRIMARY KEY (date, time)
+        rain_1h FLOAT,
+        snow_1h FLOAT,
+        PRIMARY KEY (dt)
     );
 """)
 
-# SQL to create the bike_stations table if it doesn’t exist
-sql_create_bike_table = text("""
-    CREATE TABLE IF NOT EXISTS bike_stations (
-        number INT PRIMARY KEY,
-        name VARCHAR(255),
-        address VARCHAR(255),
+# SQL to create the `hourly` table
+sql_create_hourly_table = text("""
+    CREATE TABLE IF NOT EXISTS hourly_weather (
+        dt DATETIME NOT NULL,
+        future_dt DATETIME NOT NULL,
+        feels_like FLOAT,
+        humidity INTEGER,
+        pop FLOAT,
+        pressure INTEGER,
+        temp FLOAT,
+        uvi FLOAT,
+        weather_id INTEGER,
+        wind_speed FLOAT,
+        wind_gust FLOAT,
+        rain_1h FLOAT,
+        snow_1h FLOAT,
+        PRIMARY KEY (dt, future_dt)
+    );
+""")
+
+# SQL to create the `daily` table
+sql_create_daily_table = text("""
+    CREATE TABLE IF NOT EXISTS daily_weather (
+        dt DATETIME NOT NULL,
+        future_dt DATETIME NOT NULL,
+        humidity INTEGER,
+        pop FLOAT,
+        pressure INTEGER,
+        temp_max FLOAT,
+        temp_min FLOAT,
+        uvi FLOAT,
+        weather_id INTEGER,
+        wind_speed FLOAT,
+        wind_gust FLOAT,
+        rain FLOAT,
+        snow FLOAT,
+        PRIMARY KEY (dt, future_dt)
+    );
+""")
+
+
+# SQL to create the `station` table
+sql_create_station_table = text("""
+    CREATE TABLE IF NOT EXISTS station (
+        number INTEGER NOT NULL,
+        address VARCHAR(128),
+        banking INTEGER,
+        bike_stands INTEGER,
+        name VARCHAR(128),
         position_lat FLOAT,
         position_lng FLOAT,
-        banking BOOLEAN,
-        bike_stands INT,
-        available_bikes INT,
-        available_bike_stands INT,
-        status VARCHAR(50),
-        last_update BIGINT
+        PRIMARY KEY (number)
+    );
+""")
+
+# SQL to create the `availability` table
+sql_create_availability_table = text("""
+    CREATE TABLE IF NOT EXISTS availability (
+        number INTEGER NOT NULL,
+        last_update DATETIME NOT NULL,
+        available_bikes INTEGER,
+        available_bike_stands INTEGER,
+        status VARCHAR(128),
+        PRIMARY KEY (number, last_update)
     );
 """)
 
 # Execute SQL to create the table
 with engine.connect() as connection:
-    connection.execute(sql_create_weather_table)
-    connection.execute(sql_create_bike_table)
+    connection.execute(sql_create_current_table)
+    connection.execute(sql_create_hourly_table)
+    connection.execute(sql_create_daily_table)
+    connection.execute(sql_create_availability_table)
+    connection.execute(sql_create_station_table)
     connection.commit()
 
 # Run an example query to check the connection
@@ -66,27 +125,3 @@ with engine.connect() as connection:
         print(row)
 
 
-# Slide: Connecting to RDS page 11
-
-# from sqlalchemy import create_engine
-# import pandas as pd
-
-# # Define database connection URL (SQLAlchemy format)
-# DB_USER = "alessiofer"  # Your RDS username
-# DB_PASSWORD = "dublin.bus.123"  # Your RDS password
-# DB_HOST = "127.0.0.1"  # Localhost because of SSH tunnel
-# DB_PORT = "13306"  # Must match your tunnel port
-# DB_NAME = "dublin_cycle"  # Change to your database name
-
-# # Create SQLAlchemy engine
-# engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
-
-# # Fetch data into a DataFrame
-# query = "SELECT * FROM historical_weather"
-# df = pd.read_sql(query, engine)
-
-# # Print the data
-# print(df)
-
-# # Close the connection
-# engine.dispose()

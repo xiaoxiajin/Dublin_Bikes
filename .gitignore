@@ -6,3 +6,5 @@ __pycache__/
 *.pyc
 *.pyo
 .env
+scraper_weather2.py
+scraper.py

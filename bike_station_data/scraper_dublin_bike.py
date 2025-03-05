@@ -9,6 +9,7 @@ import requests
 # import json
 import time
 import traceback
+from datetime import datetime, timezone
 from sqlalchemy import create_engine, text
 import schedule
 import threading
@@ -22,7 +23,7 @@ engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{
 def fetch_bike_stations():
     # while True:  # Keep the scraper running indefinitely
     try:
-        print("\n🚲 Fetching Dublin Bikes Data...\n")
+        # print("\n🚲 Fetching Dublin Bikes Data...\n")
         response = requests.get(dbinfo.STATIONS_URL, params={"apiKey": dbinfo.JCKEY, "contract": dbinfo.NAME})  
         response.raise_for_status()  # Raise an exception for failed requests
 
@@ -34,38 +35,26 @@ def fetch_bike_stations():
             print(response.text)  
             return  
         
-        insert_bike_data(stations)
+        insert_station_data(stations)
+        insert_availability_data(stations)
         print("\n Dublin bike data updated. \n")
-
-        # Print details of the first 5 stations
-        # for station in stations[:5]:  
-        #     print(f"📍 Station: {station['name']}")
-        #     print(f"🔄 Status: {station['status']}")
-        #     print(f"📍 Address: {station['address']}")
-        #     print(f"🚲 Available Bikes: {station['available_bikes']}")
-        #     print(f"🅿️ Available Stands: {station['available_bike_stands']}")
-        #     print("-" * 40)
-
-        # Save data to a JSON file
-        # with open("dublin_bikes.json", "w") as file:
-        #     json.dump(stations, file, indent=4)        
-
-        # Sleep for 5 minutes before the next request
-        # time.sleep(5 * 60)
 
     except requests.exceptions.RequestException as e:
         print(f"\n API Request Failed: {e}")
         print(traceback.format_exc())  # Print detailed error message
         
-def insert_bike_data(stations):
+def insert_station_data(stations):
+    """ Insert or update station static information """
     sql_insert = text("""
-        INSERT INTO bike_stations (number, name, address, position_lat, position_lng, banking, bike_stands, available_bikes, available_bike_stands, status, last_update)
-        VALUES (:number, :name, :address, :position_lat, :position_lng, :banking, :bike_stands, :available_bikes, :available_bike_stands, :status, :last_update)
+        INSERT INTO station (number, name, address, position_lat, position_lng, banking, bike_stands)
+        VALUES (:number, :name, :address, :position_lat, :position_lng, :banking, :bike_stands)
         ON DUPLICATE KEY UPDATE 
-            available_bikes = VALUES(available_bikes),
-            available_bike_stands = VALUES(available_bike_stands),
-            status = VALUES(status),
-            last_update = VALUES(last_update);
+            name = VALUES(name),
+            address = VALUES(address),
+            position_lat = VALUES(position_lat),
+            position_lng = VALUES(position_lng),
+            banking = VALUES(banking),
+            bike_stands = VALUES(bike_stands);
     """)
 
     with engine.connect() as connection:
@@ -73,30 +62,65 @@ def insert_bike_data(stations):
             connection.execute(sql_insert, {
                 "number": station["number"],
                 "name": station["name"],
-                "address": station["address"],
+                "address": station.get("address", "Unknown"), # avoid unknown address
                 "position_lat": station["position"]["lat"],
                 "position_lng": station["position"]["lng"],
-                "banking": station["banking"],
-                "bike_stands": station["bike_stands"],
+                "banking": int(station["banking"]),
+                "bike_stands": station["bike_stands"]
+            })
+        connection.commit()
+
+def insert_availability_data(stations):
+    """ Insert or update bike station availability data """
+    sql_insert = text("""
+        INSERT INTO availability (number, last_update, available_bikes, available_bike_stands, status)
+        VALUES (:number, :last_update, :available_bikes, :available_bike_stands, :status)
+        ON DUPLICATE KEY UPDATE 
+            available_bikes = VALUES(available_bikes),
+            available_bike_stands = VALUES(available_bike_stands),
+            status = VALUES(status);
+    """)
+
+    with engine.connect() as connection:
+        for station in stations:
+            # last_update = datetime.strptime(station["lastUpdate"], "%Y-%m-%dT%H:%M:%SZ")
+            if "last_update" in station:  # ✅ 确保 last_update 存在
+                last_update = datetime.fromtimestamp(station["last_update"] / 1000, tz=timezone.utc)
+            else:
+                # print(f"⚠️ Warning: Station {station['number']} has no 'last_update' field.")
+                continue  # skip this station
+
+            connection.execute(sql_insert, {
+                "number": station["number"],
+                "last_update": last_update,
                 "available_bikes": station["available_bikes"],
                 "available_bike_stands": station["available_bike_stands"],
-                "status": station["status"],
-                "last_update": station["last_update"]
+                "status": station["status"]
             })
         connection.commit()
 
 # Flask API endpoint
 @app.route('/stations', methods=['GET'])
 def get_stations():
-    """ Get all bake station data in the database """
+    """ Get all bike station data in the database """
     with engine.connect() as connection:
-        result = connection.execute(text("SELECT * FROM bike_stations;"))
+        result = connection.execute(text("SELECT * FROM station;"))
         stations = [dict(row._mapping) for row in result]
     return jsonify(stations)
 
+@app.route('/availability', methods=['GET'])
+def get_availability():
+    """ Get latest bike availability data """
+    with engine.connect() as connection:
+        result = connection.execute(text("""
+            SELECT * FROM availability ORDER BY last_update DESC LIMIT 50;
+        """))
+        availability_data = [dict(row._mapping) for row in result]
+    return jsonify(availability_data)
+
 @app.route('/update_bikes', methods=['GET'])
 def update_bikes():
-    """ update bike station data manually """
+    """ Manually update bike station data """
     fetch_bike_stations()
     return jsonify({"message": "Bike station data updated successfully!"})
 
@@ -118,6 +142,7 @@ def schedule_task():
 
 if __name__ == '__main__':
     threading.Thread(target=schedule_task, daemon=True).start()
+    # fetch_bike_stations()
 
     print("🚀 Flask API is running at http://127.0.0.1:5000/")
     app.run(host='127.0.0.1', port=5000, debug=True)
