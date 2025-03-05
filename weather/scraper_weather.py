@@ -2,7 +2,6 @@ import requests
 import schedule
 import time
 from datetime import datetime, timedelta, timezone
-from datetime import timedelta
 from sqlalchemy import create_engine, text
 
 import sys
