@@ -22,39 +22,58 @@ function initMap() {
     });
 
     // Get station data and store into map
-    getStations(map);
+    getStationsAndAvailability(map);
 }
 
 // Get station data and store into map and mark in the map
-function getStations(map) {
-    fetch('/stations') // Get station data from 
+function getStationsAndAvailability(map) {
+    Promise.all([
+        fetch('http://127.0.0.1:5000/stations') // Get station data
+        .then(response => response.json()),
+        fetch('http://127.0.0.1:5000/availability')// Get availability data
         .then(response => response.json())
-        .then(data => {
-            addMarkers(data, map);
+    ]).then(([stations, availability]) => {
+        // Create a map of availability data keyed by station number
+        const availabilityMap = {};
+        availability.forEach(item => {
+            availabilityMap[item.number] = item;
+        });
+                
+        addMarkers(stations,availabilityMap, map);
         })
         .catch(error => console.error("Error fetching station data:", error));
 }
 
+
+
 // mark at the map
-function addMarkers(stations, map) {
+function addMarkers(stations,availabilityMap,map) {
     stations.forEach(station => {
-        const marker = new google.maps.Marker({
-            position: { lat: station.position_lat, lng: station.position_long },
-            map,
-            title: station.address,
-            icon: "Resources/purple_marker.svg"
-        });
+        // Get availability based on station number
+        const availability = availabilityMap[station.number];
+        // if(availability){
+            const marker = new google.maps.Marker({
+                position: { lat: station.position_lat, lng: station.position_lng },
+                map,
+                title: station.address,
+                icon: "Resources/purple_marker.svg"
+            });
 
-        // create a info window
-        const infoWindow = new google.maps.InfoWindow({
-            content: `<strong>${station.address}</strong><br>
-                      <p>Bikes Available: ${station.available_bikes}</p>
-                      <p>Stands Available: ${station.available_bike_stands}</p>`
-        });
+            // create a info window
+            const infoWindow = new google.maps.InfoWindow({
+                content: `<strong>${station.address}</strong><br>
+                        <p>Bikes Available: ${station.available_bikes}</p>
+                        <p>Stands Available: ${station.available_bike_stands}</p>`
+                        // <p>Bikes Available: ${availability.available_bikes}</p>
+                        // <p>Stands Available: ${availability.available_bike_stands}</p>`
+            });
 
-        // click on the marker to display info window
-        marker.addListener("click", () => {
-            infoWindow.open(map, marker);
-        });
+            // click on the marker to display info window
+            marker.addListener("click", () => {
+                infoWindow.open(map, marker);
+            });
+        // }else {
+        //     console.warn(`No availability data for station: ${station.number}`);
+        // }
     });
 }

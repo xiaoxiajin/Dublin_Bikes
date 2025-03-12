@@ -104,7 +104,7 @@ sql_create_availability_table = text("""
         available_bikes INTEGER,
         available_bike_stands INTEGER,
         status VARCHAR(128),
-        PRIMARY KEY (number, last_update)
+        PRIMARY KEY (number) 
     );
 """)
 
