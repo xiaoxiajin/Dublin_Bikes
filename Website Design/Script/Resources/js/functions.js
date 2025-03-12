@@ -51,7 +51,7 @@ function addMarkers(stations,availabilityMap,map) {
     stations.forEach(station => {
         // Get availability based on station number
         const availability = availabilityMap[station.number];
-        // if(availability){
+        if(availability){
             const marker = new google.maps.Marker({
                 position: { lat: station.position_lat, lng: station.position_lng },
                 map,
@@ -61,19 +61,17 @@ function addMarkers(stations,availabilityMap,map) {
 
             // create a info window
             const infoWindow = new google.maps.InfoWindow({
-                content: `<strong>${station.address}</strong><br>
-                        <p>Bikes Available: ${station.available_bikes}</p>
-                        <p>Stands Available: ${station.available_bike_stands}</p>`
-                        // <p>Bikes Available: ${availability.available_bikes}</p>
-                        // <p>Stands Available: ${availability.available_bike_stands}</p>`
+                content: `<strong>${station.address}</strong><br>                        
+                        <p>Bikes Available: ${availability.available_bikes}</p>
+                        <p>Stands Available: ${availability.available_bike_stands}</p>`
             });
 
             // click on the marker to display info window
             marker.addListener("click", () => {
                 infoWindow.open(map, marker);
             });
-        // }else {
-        //     console.warn(`No availability data for station: ${station.number}`);
-        // }
+        }else {
+            console.warn(`No availability data for station: ${station.number}`);
+        }
     });
 }

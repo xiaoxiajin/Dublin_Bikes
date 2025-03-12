@@ -88,7 +88,7 @@ def insert_availability_data(stations):
     with engine.connect() as connection:
         for station in stations:
             # last_update = datetime.strptime(station["lastUpdate"], "%Y-%m-%dT%H:%M:%SZ")
-            if "last_update" in station:  # ✅ 确保 last_update 存在
+            if "last_update" in station:  # check if last_update exists
                 last_update = datetime.fromtimestamp(station["last_update"] / 1000, tz=timezone.utc)
             else:
                 # print(f"⚠️ Warning: Station {station['number']} has no 'last_update' field.")
@@ -122,7 +122,7 @@ def get_availability():
     """ Get latest bike availability data """
     with engine.connect() as connection:
         result = connection.execute(text("""
-            SELECT * FROM availability ORDER BY last_update DESC LIMIT 50;
+            SELECT * FROM availability ORDER BY last_update DESC;
         """))
         availability_data = [dict(row._mapping) for row in result]
     return jsonify(availability_data)
