@@ -61,10 +61,12 @@ function addMarkers(stations,availabilityMap,map) {
 
             // create a info window
             const infoWindow = new google.maps.InfoWindow({
-                content: `<strong>${station.address}</strong><br>                        
-                        <p>Bikes Available: ${availability.available_bikes}</p>
-                        <p>Stands Available: ${availability.available_bike_stands}</p>`
-            });
+                content: `<div class="info-window">
+                            <strong>${station.address}</strong><br>                        
+                            <p class="bikes-available">Bikes Available: ${availability.available_bikes}</p>
+                            <p class="stands-available">Stands Available: ${availability.available_bike_stands}</p>
+                        </div>`
+                        });
 
             // click on the marker to display info window
             marker.addListener("click", () => {
