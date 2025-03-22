@@ -842,10 +842,11 @@
   color: white;
   text-decoration: none;
   transition: transform 0.3s ease, color 0.3s ease;
+  display: inline-block;
 }
 
 .social-icons a:hover {
-  color: #3498db; /* Purple color on hover */
+  color: #3498db; /* Blue color on hover */
   transform: scale(1.2);
 }
 
