@@ -27,9 +27,6 @@ engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{
 def get_api_key():
     return jsonify({"api_key": dbinfo.GOOGLE_MAPS_API_KEY})
 
-# if __name__ == '__main__':
-#     app.run(debug=True, port=5000)
-
 
 @app.route('/stations', methods=['GET'])
 def get_stations():
@@ -62,7 +59,7 @@ def schedule_task():
 
 if __name__ == '__main__':
     threading.Thread(target=schedule_task, daemon=True).start()
-    print("🚀 Flask API is running at http://127.0.0.1:5000/")
+    print("Flask API is running at http://127.0.0.1:5000/")
     app.run(host='127.0.0.1', port=5000, debug=True)
 
 
