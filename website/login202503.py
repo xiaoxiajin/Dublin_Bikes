@@ -3,10 +3,10 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
-# Dummy user data for demonstration
+# Mock user data for demonstration
 users = {
-    "admin": "password123",
-    "user": "mypassword"
+    "admin@gmail.com": "password123",
+    "user@gmail.com": "mypassword"
 }
 
 @app.route('/')
