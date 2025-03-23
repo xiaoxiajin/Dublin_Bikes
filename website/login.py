@@ -1,6 +1,9 @@
 from flask import Flask, session, request, jsonify, render_template
+from flask import Flask
 
-app = Flask(__name__)
+
+
+app = Flask(__name__, static_folder='website/static', static_url_path='/static')
 app.secret_key = 'your_secret_key_here'  # Required to encrypt the session data
 
 # Mock user database

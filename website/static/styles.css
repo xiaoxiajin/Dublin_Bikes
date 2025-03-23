@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 /* ===============================================
    RESET & BASE
 =============================================== */
@@ -41,12 +44,14 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    font-family: 'Nunito', sans-serif;
   }
   
   .logo {
     font-size: 2.5rem;
     font-weight: bold;
     color: #3498db;
+    font-family: sans-serif;
   }
   
   nav ul {
@@ -66,6 +71,12 @@
   
   nav ul li a:hover {
     color: #3498db;
+  }
+
+  nav ul li a.active {
+    color: #3498db; /* 设置为蓝色，或者你喜欢的颜色 */
+    font-weight: bold; /* 使文本加粗 */
+    text-decoration: underline; /* 给当前项加下划线 */
   }
   
   .auth-buttons a {
@@ -95,7 +106,9 @@
      HERO SECTION (Index Page)
   =============================================== */
   .hero {
-    display: flex;
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: 40% 60%; 
     align-items: center;
     justify-content: space-between;
     padding: 60px 20px;
@@ -113,6 +126,8 @@
   .hero-content h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
+    font-family: 'Abril Fatface', sans-serif;
+    letter-spacing: 2px;
   }
   
   .hero-content h1 span {
@@ -378,24 +393,6 @@
     margin-bottom: 10px;
 }
 
-.social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-
-.social-icons a {
-    font-size: 1.5rem;
-    color: #3498db;
-    transition: color 0.3s ease, text-shadow 0.3s ease-in-out;
-}
-
-.social-icons a:hover {
-    color: #2980b9;
-    text-shadow: 0 0 15px rgba(0, 0, 0, 0.8); 
-}
-
   
   /* ===============================================
      BIKE STATIONS / FIND STATIONS PAGE
@@ -403,12 +400,14 @@
   .find-stations {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    /* align-items: center; */
     padding: 60px 20px;
     background: #fff;
   }
   
   .find-stations .content {
+    display: flex;
+    justify-content: flex-start;
     flex: 1;
     min-width: 300px;
     margin-right: 20px;
@@ -417,11 +416,34 @@
   .find-stations .content h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
+    font-family: 'Abril Fatface', sans-serif;
+    letter-spacing: 2px;
   }
   
   .find-stations .content p {
     font-size: 1.1rem;
     margin-bottom: 20px;
+    font-family: 'Nunito', sans-serif; 
+    
+  }
+
+  .find-stations .content .title p {
+    color: #3498db; 
+    margin:30px auto 10 0;
+    line-height: 1.5; 
+  }
+
+
+  .find-stations .advertisement {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    line-height: 1.5; 
+    max-width: 700px; 
+    /* margin: 20px auto;  */
+    /* padding: 0 10px;  */
+    text-align: right;
+    flex: 0 0 100%;
+    margin-left: auto;
   }
   
   .find-stations .map-image {
@@ -433,6 +455,26 @@
     max-width: 100%;
     border-radius: 8px;
   }
+
+  .info-window {
+    font-size: 14px;
+    color: #333;
+  }
+
+  .station-address {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .bikes-available,
+  .stands-available {
+    margin: 0;
+    font-size: 14px;
+    color: #555555;
+  }
+
+
+  
   
   /* ===============================================
      GET STARTED & LOCATE STATIONS (use.html)
@@ -465,6 +507,8 @@
     font-size: 2.8rem;
     margin-bottom: 20px;
     color: #2c3e50;
+    font-family: 'Abril Fatface', sans-serif;
+    letter-spacing: 2px;
 }
 
 .get-started .content p,
@@ -522,7 +566,8 @@
     background: #fff;
     max-width: 900px;
     margin: 0 auto;
-    text-align: center;
+    /* text-align: center; */
+    text-align:left;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -531,29 +576,41 @@
     font-size: 2.8rem;
     margin-bottom: 20px;
     color: #2c3e50;
+    font-family: 'Abril Fatface', sans-serif;
+    letter-spacing: 2px;
+    text-align: center; 
 }
 
 .contact p {
     font-size: 1.2rem;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
     color: #555;
     line-height: 1.6;
 }
 
+.contact-content {
+  display: flex; 
+  align-items: flex-start; 
+  gap: 20px; 
+}
+
 .contact-info {
-    text-align: center;
+    /* text-align: center; */
     margin: 30px auto;
     max-width: 500px;
     line-height: 1.8;
     font-size: 1.1rem;
+    text-align: left;
 }
 
 .contact-info p {
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
+    margin-bottom: 30px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    /*align-items: center;
+    justify-content: center; */
     gap: 10px;
+    text-align: left;
 }
 
 .contact-info i {
@@ -563,16 +620,19 @@
 
 .qr-code {
     margin-top: 30px;
+    flex-shrink: 0; 
+    text-align: center; 
 }
 
 .qr-code p {
-    margin-bottom: 10px;
-    font-size: 1.1rem;
+    margin-bottom: 15px;
+    /* font-size: 1.1rem; */
+    font-size: 1.3rem;
     color: #333;
 }
 
 .qr-code img {
-    width: 160px;
+    width: 230px;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
@@ -582,6 +642,7 @@
 .qr-code img:hover {
     transform: scale(1.1);
 }
+
 
 /* ===============================================
    RESPONSIVE DESIGN
@@ -621,6 +682,9 @@
   .intro h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
+    font-family: 'Abril Fatface', sans-serif;
+    letter-spacing: 2px;
+    
   }
   
   .intro p {
@@ -660,7 +724,7 @@
   footer {
     background: #333;
     color: #fff;
-    padding: 40px 20px;
+    padding: 10px 20px;
   }
   
   .footer-container {
@@ -725,7 +789,7 @@
   
   .footer-bottom {
     max-width: 1200px;
-    margin: 20px auto 0;
+    margin: 10px auto 0;
     text-align: center;
   }
   
@@ -741,20 +805,6 @@
     margin: 0 10px;
   }
   
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .social-icons a {
-    color: #bbb;
-    transition: color 0.3s ease;
-  }
-  
-  .social-icons a:hover {
-    color: #fff;
-  }
   /* Footer Styling */
 .footer-bottom {
   background-color: #2c2c2c;
@@ -792,10 +842,11 @@
   color: white;
   text-decoration: none;
   transition: transform 0.3s ease, color 0.3s ease;
+  display: inline-block;
 }
 
 .social-icons a:hover {
-  color: #6F2DA8; /* Purple color on hover */
+  color: #3498db; /* Blue color on hover */
   transform: scale(1.2);
 }
 
