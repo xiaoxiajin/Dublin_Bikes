@@ -12,7 +12,7 @@ import threading
 import time
 import schedule
 
-from bike_station_data.scraper_dublin_bike import fetch_bike_stations  # import fetch_bike_stations
+from website.scraper_dublin_bike import fetch_bike_stations  # import fetch_bike_stations
 from sqlalchemy import create_engine, text
 
 
