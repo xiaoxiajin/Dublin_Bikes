@@ -32,6 +32,7 @@ DB_NAME = "dublin_cycle"
 engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}/{DB_NAME}")
 
 @app.route('/')
+@app.route('/index.html')
 def root():
     return render_template('index.html')
 
