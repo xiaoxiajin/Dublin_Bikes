@@ -1,4 +1,3 @@
-# from flask import Flask, jsonify
 import sys
 import os
 # Get the absolute path of the 'swe' directory
@@ -6,21 +5,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import dbinfo
 import requests
-# import json
-# import time
 import traceback
 from datetime import datetime, timezone
 from sqlalchemy import create_engine, text
-# import schedule
-# import threading
-# from flask_cors import CORS
-'''
-# Create a flask application
-app = Flask(__name__)
 
-# Enable CORS for all routes
-CORS(app)
-'''
 
 DB_NAME = "dublin_cycle"
 engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}/{DB_NAME}")
@@ -104,57 +92,3 @@ def insert_availability_data(stations):
             })
         connection.commit()
 
-'''
-# Flask API endpoint
-@app.route('/get_api_key')
-def get_api_key():
-    return jsonify({"api_key": dbinfo.GOOGLE_MAPS_API_KEY})
-
-
-@app.route('/stations', methods=['GET'])
-def get_stations():
-    """ Get all bike station data in the database """
-    with engine.connect() as connection:
-        result = connection.execute(text("SELECT * FROM station;"))
-        stations = [dict(row._mapping) for row in result]
-    return jsonify(stations)
-
-@app.route('/availability', methods=['GET'])
-def get_availability():
-    """ Get latest bike availability data """
-    with engine.connect() as connection:
-        result = connection.execute(text("""
-            SELECT * FROM availability ORDER BY last_update DESC;
-        """))
-        availability_data = [dict(row._mapping) for row in result]
-    return jsonify(availability_data)
-
-@app.route('/update_bikes', methods=['GET'])
-def update_bikes():
-    """ Manually update bike station data """
-    fetch_bike_stations()
-    return jsonify({"message": "Bike station data updated successfully!"})
-
-@app.route('/')
-def root():
-    return 'Navigate to http://127.0.0.1:5000/stations or http://127.0.0.1:5000/update_bikes'
-
-def schedule_task():
-    # Use schedule to let program execute hourly.
-    schedule.every(1).hours.do(fetch_bike_stations)
-    # for test:
-    # schedule.every(5).seconds.do(fetch_bike_stations)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(60) # check it every 60 secs
-        # for test:
-        # time.sleep(1)  # check it every 1 secs
-
-if __name__ == '__main__':
-    threading.Thread(target=schedule_task, daemon=True).start()
-    # fetch_bike_stations()
-
-    print("🚀 Flask API is running at http://127.0.0.1:5000/")
-    app.run(host='127.0.0.1', port=5000, debug=True)
-    '''
