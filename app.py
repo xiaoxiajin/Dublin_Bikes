@@ -51,6 +51,14 @@ def stations():
 def contact():
     return render_template('contact.html')
 
+@app.route('/login.html')
+def login():
+    return render_template('login.html')
+
+@app.route('/sign-up.html')
+def sign_up():
+    return render_template('sign-up.html')
+
 @app.route('/get_api_key')
 def get_api_key():
     return jsonify({"api_key": dbinfo.GOOGLE_MAPS_API_KEY})
