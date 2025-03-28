@@ -1,13 +1,12 @@
-# start
-
 import sys
 import os
 # Get the absolute path of the 'swe' directory
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 import dbinfo
 
 
-from flask import Flask, jsonify
+from flask import Flask, render_template, jsonify
 from flask_cors import CORS
 import threading
 import time
@@ -16,12 +15,41 @@ import schedule
 from bike_station_data.scraper_dublin_bike import fetch_bike_stations  # import fetch_bike_stations
 from sqlalchemy import create_engine, text
 
-# offer google map api
-app = Flask(__name__)
+
+
+
+# Get the absolute path
+base_dir = os.path.dirname(os.path.abspath(__file__))
+template_dir = os.path.join(base_dir, 'website', 'templates')
+static_dir = os.path.join(base_dir, 'website', 'static')
+
+app = Flask(__name__, 
+            template_folder=template_dir, 
+            static_folder=static_dir)
 CORS(app) # allow front end visit flask server
 
 DB_NAME = "dublin_cycle"
 engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}/{DB_NAME}")
+
+@app.route('/')
+def root():
+    return render_template('index.html')
+
+@app.route('/about.html')
+def about():
+    return render_template('about.html')
+
+@app.route('/use.html')
+def how_to_use():
+    return render_template('use.html')
+
+@app.route('/station.html')
+def stations():
+    return render_template('station.html')
+
+@app.route('/contact.html')
+def contact():
+    return render_template('contact.html')
 
 @app.route('/get_api_key')
 def get_api_key():
@@ -47,9 +75,7 @@ def update_bikes():
     fetch_bike_stations()
     return jsonify({"message": "Bike station data updated successfully!"})
 
-@app.route('/')
-def root():
-    return 'Navigate to http://127.0.0.1:5000/stations or http://127.0.0.1:5000/update_bikes'
+
 
 def schedule_task():
     schedule.every(1).hours.do(fetch_bike_stations)
