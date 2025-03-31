@@ -1,13 +1,30 @@
 // Get API Key and load google map dynamically
+// Get API Key and load google map dynamically
 function loadGoogleMaps() {
     fetch('http://127.0.0.1:5000/get_api_key')
         .then(response => response.json())
         .then(data => {
             const apiKey = data.api_key;
             const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&language=en`;
+            
+            // 使用 loading=async 参数
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&language=en&loading=async`;
+            
+            // 确保 async 和 defer 正确设置
             script.async = true;
             script.defer = true;
+
+            // 添加 crossorigin 属性
+            script.crossOrigin = 'anonymous';
+
+            script.onload = () => {
+                console.log('Google Maps API loaded successfully');
+            };
+            
+            script.onerror = (error) => {
+                console.error('Failed to load Google Maps API', error);
+            };
+
             document.head.appendChild(script);
         })
         .catch(error => console.error("Error fetching API key:", error));
