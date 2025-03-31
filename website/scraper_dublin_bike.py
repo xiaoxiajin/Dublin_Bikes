@@ -63,32 +63,77 @@ def insert_station_data(stations):
             })
         connection.commit()
 
+# def insert_availability_data(stations):
+#     """ Insert or update bike station availability data """
+#     sql_insert = text("""
+#         INSERT INTO availability (number, last_update, available_bikes, available_bike_stands, status)
+#         VALUES (:number, :last_update, :available_bikes, :available_bike_stands, :status)
+#         ON DUPLICATE KEY UPDATE 
+#             available_bikes = VALUES(available_bikes),
+#             available_bike_stands = VALUES(available_bike_stands),
+#             status = VALUES(status);
+#     """)
+
+#     with engine.connect() as connection:
+#         for station in stations:
+#             # last_update = datetime.strptime(station["lastUpdate"], "%Y-%m-%dT%H:%M:%SZ")
+#             if "last_update" in station:  # check if last_update exists
+#                 last_update = datetime.fromtimestamp(station["last_update"] / 1000, tz=timezone.utc)
+#             else:
+#                 # print(f"⚠️ Warning: Station {station['number']} has no 'last_update' field.")
+#                 continue  # skip this station
+
+#             connection.execute(sql_insert, {
+#                 "number": station["number"],
+#                 "last_update": last_update,
+#                 "available_bikes": station["available_bikes"],
+#                 "available_bike_stands": station["available_bike_stands"],
+#                 "status": station["status"]
+#             })
+#         connection.commit()
 def insert_availability_data(stations):
-    """ Insert or update bike station availability data """
-    sql_insert = text("""
-        INSERT INTO availability (number, last_update, available_bikes, available_bike_stands, status)
-        VALUES (:number, :last_update, :available_bikes, :available_bike_stands, :status)
-        ON DUPLICATE KEY UPDATE 
-            available_bikes = VALUES(available_bikes),
-            available_bike_stands = VALUES(available_bike_stands),
-            status = VALUES(status);
-    """)
+    try:
+        with engine.connect() as connection:
+            for station in stations:
+                # 添加安全的时间戳处理
+                last_update = station.get('last_update')
+                
+                # 如果 last_update 存在且不为 None
+                if last_update is not None:
+                    # 使用安全的类型转换
+                    try:
+                        timestamp = datetime.fromtimestamp(float(last_update) / 1000, tz=timezone.utc)
+                    except (TypeError, ValueError) as e:
+                        print(f"Error processing timestamp for station {station.get('number')}: {e}")
+                        timestamp = datetime.now(timezone.utc)
+                else:
+                    # 如果没有时间戳，使用当前时间
+                    timestamp = datetime.now(timezone.utc)
+                
+                # 插入可用性数据
+                availability_query = text("""
+                    INSERT INTO availability 
+                    (number, available_bikes, available_bike_stands, last_update) 
+                    VALUES (:number, :available_bikes, :available_bike_stands, :last_update)
+                    ON DUPLICATE KEY UPDATE 
+                    available_bikes = :available_bikes,
+                    available_bike_stands = :available_bike_stands,
+                    last_update = :last_update
+                """)
+                
+                connection.execute(availability_query, {
+                    
+                    "number": station["number"],
+                    "last_update": timestamp,
+                    "available_bikes": station["available_bikes"],
+                    "available_bike_stands": station["available_bike_stands"],
+                    "status": station["status"]
+                })
+            
+            connection.commit()
+    
+    except Exception as e:
+        print(f"Error inserting availability data: {e}")
+        
 
-    with engine.connect() as connection:
-        for station in stations:
-            # last_update = datetime.strptime(station["lastUpdate"], "%Y-%m-%dT%H:%M:%SZ")
-            if "last_update" in station:  # check if last_update exists
-                last_update = datetime.fromtimestamp(station["last_update"] / 1000, tz=timezone.utc)
-            else:
-                # print(f"⚠️ Warning: Station {station['number']} has no 'last_update' field.")
-                continue  # skip this station
-
-            connection.execute(sql_insert, {
-                "number": station["number"],
-                "last_update": last_update,
-                "available_bikes": station["available_bikes"],
-                "available_bike_stands": station["available_bike_stands"],
-                "status": station["status"]
-            })
-        connection.commit()
-
+fetch_bike_stations()
