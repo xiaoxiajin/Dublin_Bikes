@@ -136,4 +136,3 @@ def insert_availability_data(stations):
         print(f"Error inserting availability data: {e}")
         
 
-fetch_bike_stations()

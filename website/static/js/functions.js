@@ -1,5 +1,4 @@
 // Get API Key and load google map dynamically
-// Get API Key and load google map dynamically
 function loadGoogleMaps() {
     fetch('http://127.0.0.1:5000/get_api_key')
         .then(response => response.json())

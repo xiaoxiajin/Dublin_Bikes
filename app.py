@@ -50,9 +50,12 @@ def page_not_found(e):
 def schedule_task():
     website.stations_routes.schedule_bike_update()
 
+def schedule_bike_update():
+    # 将调度逻辑移到外部
+    threading.Thread(target=schedule_task, daemon=True).start()
 
 if __name__ == '__main__':
-    threading.Thread(target=schedule_task, daemon=True).start()
+    schedule_bike_update()
     
     print("Flask API is running at http://127.0.0.1:5000/")
     app.run(host='127.0.0.1', port=5000, debug=True)
