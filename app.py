@@ -1,9 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
+from flask import Flask, render_template
 from flask_cors import CORS
 import os
 import threading
-import schedule
-import time
+
 
 # import other functions
 import website.login_routes
