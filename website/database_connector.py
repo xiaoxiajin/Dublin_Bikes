@@ -5,13 +5,20 @@ from sqlalchemy import create_engine, text
 # Get the absolute path of the 'swe' directory
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-import dbinfo
-import pymysql
 
-DB_NAME = "dublin_cycle"  # database name
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+# Load env information
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = "localhost"
+DB_PORT = os.getenv("DB_PORT")
+DB_NAME = "dublin_cycle"
 
 # Create SQLAlchemy engine, connect to AWS RDS 
-engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}", echo=True)
+engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}", echo=True)
 
 # Create the database if it doesn’t exist
 with engine.connect() as connection:
@@ -19,7 +26,7 @@ with engine.connect() as connection:
     connection.commit()
 
 # Update the engine to connect specifically to the new database
-engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}/{DB_NAME}", echo=True)
+engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}", echo=True)
 
 # SQL to create the `current` table
 sql_create_current_table = text("""

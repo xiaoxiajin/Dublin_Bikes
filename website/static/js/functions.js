@@ -6,10 +6,8 @@ function loadGoogleMaps() {
             const apiKey = data.api_key;
             const script = document.createElement('script');
             
-            // 使用 loading=async 参数
+            // async
             script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&language=en&loading=async`;
-            
-            // 确保 async 和 defer 正确设置
             script.async = true;
             script.defer = true;
 
@@ -49,6 +47,7 @@ function getStationsAndAvailability(map) {
         fetch('http://127.0.0.1:5000/availability')// Get availability data
         .then(response => response.json())
     ]).then(([stations, availability]) => {
+        
         // Create a map of availability data keyed by station number
         const availabilityMap = {};
         availability.forEach(item => {

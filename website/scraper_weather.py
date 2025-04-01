@@ -6,10 +6,12 @@ from sqlalchemy import create_engine, text
 
 import sys
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Get the absolute path of the 'swe' directory
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-import dbinfo
+
 
 from flask import Flask, jsonify
 import threading
@@ -20,13 +22,13 @@ lock = threading.Lock() # avoid task execute more than one times
 app = Flask(__name__)
 
 # OpenWeather API Key
-API_KEY = dbinfo.Weather_Api
+Weather_Api = os.getenv("Weather_Api")
 
 # Database connection details:
-DB_USER = dbinfo.DB_USER
-DB_PASSWORD = dbinfo.DB_PASSWORD
-DB_HOST = dbinfo.DB_HOST
-DB_PORT = dbinfo.DB_PORT
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = "localhost"
+DB_PORT = os.getenv("DB_PORT")
 DB_NAME = "dublin_cycle"
 engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
@@ -44,7 +46,7 @@ def query_weatherAPI():
     params = {
         "lat": LAT,
         "lon": LON,
-        "appid": API_KEY,
+        "appid": Weather_Api,
         "exclude": "minutely,alerts",
         "units": "metric",  # temperature unit
         "lang": "en"  # language
