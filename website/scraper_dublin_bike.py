@@ -113,12 +113,13 @@ def insert_availability_data(stations):
                 # 插入可用性数据
                 availability_query = text("""
                     INSERT INTO availability 
-                    (number, available_bikes, available_bike_stands, last_update) 
-                    VALUES (:number, :available_bikes, :available_bike_stands, :last_update)
+                    (number, available_bikes, available_bike_stands, last_update, status) 
+                    VALUES (:number, :available_bikes, :available_bike_stands, :last_update, :status)
                     ON DUPLICATE KEY UPDATE 
                     available_bikes = :available_bikes,
                     available_bike_stands = :available_bike_stands,
-                    last_update = :last_update
+                    last_update = :last_update,
+                    status = :status
                 """)
                 
                 connection.execute(availability_query, {
