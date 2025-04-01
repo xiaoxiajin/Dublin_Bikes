@@ -1,16 +1,25 @@
 from flask import jsonify
 from sqlalchemy import create_engine, text
-import dbinfo
 import schedule
 import time
 from website.scraper_dublin_bike import fetch_bike_stations
 
-# database
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+# Load env information
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = "localhost"
+DB_PORT = os.getenv("DB_PORT")
 DB_NAME = "dublin_cycle"
-engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}/{DB_NAME}")
+GOOGLE_MAPS_API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
+
+engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
 def get_api_key():
-    return jsonify({"api_key": dbinfo.GOOGLE_MAPS_API_KEY})
+    return jsonify({"api_key": GOOGLE_MAPS_API_KEY})
 
 def get_stations():
     with engine.connect() as connection:
