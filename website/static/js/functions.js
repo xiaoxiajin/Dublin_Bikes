@@ -72,7 +72,7 @@ function addMarkers(stations,availabilityMap,map) {
                 position: { lat: station.position_lat, lng: station.position_lng },
                 map,
                 title: station.address,
-                icon: "/static/img/purple_marker.svg"
+                icon: "/static/img/available.png"
             });
 
             // create a info window
