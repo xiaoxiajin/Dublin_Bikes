@@ -38,7 +38,7 @@ def update_bikes():
     return jsonify({"message": "Bike station data updated successfully!"})
 
 def schedule_bike_update():
-    fetch_bike_stations()
+    
     schedule.every(1).hours.do(fetch_bike_stations)
     while True:
         schedule.run_pending()

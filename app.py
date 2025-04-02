@@ -7,7 +7,7 @@ import threading
 # import other functions
 import website.login_routes
 import website.stations_routes
-
+import website.scraper_dublin_bike
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'website', 'templates')
@@ -55,6 +55,8 @@ def schedule_bike_update():
     threading.Thread(target=schedule_task, daemon=True).start()
 
 if __name__ == '__main__':
+    website.scraper_dublin_bike.fetch_bike_stations()
+
     schedule_bike_update()
     
     # run at local:
