@@ -87,8 +87,18 @@ function addMarkers(stations,availabilityMap,map) {
                         });
 
             // click on the marker to display info window
-            marker.addListener("click", () => {
+            // marker.addListener("click", () => {
+            //     infoWindow.open(map, marker);
+            // });
+
+            // 鼠标移入marker时打开信息窗口
+            marker.addListener("mouseover", () => {
                 infoWindow.open(map, marker);
+            });
+
+            // 鼠标移出marker时关闭信息窗口
+            marker.addListener("mouseout", () => {
+                infoWindow.close();
             });
         }else {
             console.warn(`No availability data for station: ${station.number}`);
