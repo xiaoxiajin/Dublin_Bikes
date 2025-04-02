@@ -3,7 +3,6 @@ import os
 # Get the absolute path of the 'swe' directory
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-import dbinfo
 import requests
 import traceback
 from datetime import datetime, timezone
