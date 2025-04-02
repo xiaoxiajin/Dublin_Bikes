@@ -1,6 +1,7 @@
 // Get API Key and load google map dynamically
 function loadGoogleMaps() {
-    fetch('http://127.0.0.1:5000/get_api_key')
+    // fetch('http://127.0.0.1:5000/get_api_key')
+    fetch('/get_api_key')
         .then(response => response.json())
         .then(data => {
             const apiKey = data.api_key;
@@ -42,9 +43,11 @@ function initMap() {
 // Get station data and store into map and mark in the map
 function getStationsAndAvailability(map) {
     Promise.all([
-        fetch('http://127.0.0.1:5000/stations') // Get station data
+        // fetch('http://127.0.0.1:5000/stations') // Get station data
+        fetch('/stations')
         .then(response => response.json()),
-        fetch('http://127.0.0.1:5000/availability')// Get availability data
+        // fetch('http://127.0.0.1:5000/availability')// Get availability data
+        fetch('/availability')
         .then(response => response.json())
     ]).then(([stations, availability]) => {
         
