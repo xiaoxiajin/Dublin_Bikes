@@ -9,15 +9,26 @@ import traceback
 from datetime import datetime, timezone
 from sqlalchemy import create_engine, text
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
+# Load env information
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = "localhost"
+DB_PORT = os.getenv("DB_PORT")
 DB_NAME = "dublin_cycle"
-engine = create_engine(f"mysql+pymysql://{dbinfo.DB_USER}:{dbinfo.DB_PASSWORD}@{dbinfo.DB_HOST}:{dbinfo.DB_PORT}/{DB_NAME}")
+JCKEY = os.getenv("JCKEY")
+NAME = os.getenv("NAME")
+STATIONS_URL = os.getenv("STATIONS_URL")
+engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
 def fetch_bike_stations():
     # while True:  # Keep the scraper running indefinitely
     try:
         # print("\n🚲 Fetching Dublin Bikes Data...\n")
-        response = requests.get(dbinfo.STATIONS_URL, params={"apiKey": dbinfo.JCKEY, "contract": dbinfo.NAME})  
+        response = requests.get(STATIONS_URL, params={"apiKey": JCKEY, "contract": NAME})  
         response.raise_for_status()  # Raise an exception for failed requests
 
         # Parse JSON response
