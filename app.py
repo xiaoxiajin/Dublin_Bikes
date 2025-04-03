@@ -8,6 +8,7 @@ import threading
 import website.login_routes
 import website.stations_routes
 import website.scraper_dublin_bike
+import website.weather_routes
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'website', 'templates')
@@ -40,6 +41,10 @@ app.route('/get_api_key')(website.stations_routes.get_api_key)
 app.route('/stations')(website.stations_routes.get_stations)
 app.route('/availability')(website.stations_routes.get_availability)
 app.route('/update_bikes')(website.stations_routes.update_bikes)
+
+# weather_routes
+app.route('/weather')(website.weather_routes.get_weather)
+app.route('/update_weather')(website.weather_routes.update_weather)
 
 # handle error
 @app.errorhandler(404)

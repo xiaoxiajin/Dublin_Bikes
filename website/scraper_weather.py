@@ -205,10 +205,17 @@ def insert_daily_weather(dt, future_dt, humidity, pop, pressure, temp_max, temp_
         connection.commit()
 
 # Get recent weather data from database
-@app.route('/weather', methods=['GET'])
-def get_weather():
+# @app.route('/weather', methods=['GET'])
+def get_current_weather_from_db():
     with engine.connect() as connection:
-        result = connection.execute(text("SELECT date, TIME_FORMAT(time, '%H:%i:%s') AS time, weather, temp, humidity, wind_speed, wind_deg FROM historical_weather ORDER BY date DESC, time DESC LIMIT 1;"))
+        result = connection.execute(text("""
+            SELECT dt, temp, feels_like, humidity, pressure, 
+                   wind_speed, wind_gust, uvi, rain_1h, snow_1h,
+                   sunrise, sunset, weather_id
+            FROM current_weather
+            ORDER BY dt DESC
+            LIMIT 1;
+        """))
         weather_data = [dict(row._mapping) for row in result]
 
     if weather_data:
@@ -221,7 +228,7 @@ def get_weather():
         return jsonify({"message": "No weather data available"}), 404
 
 # update weather data manually**
-@app.route('/update_weather', methods=['GET'])
+# @app.route('/update_weather', methods=['GET'])
 def update_weather():
     safe_query_weatherAPI()
     return jsonify({"message": "Weather data updated successfully!"})
