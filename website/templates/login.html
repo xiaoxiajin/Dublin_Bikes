@@ -29,7 +29,16 @@
 
     <main class="auth-page">
         <div class="auth-container">
-
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
             <h2>Welcome Back</h2>
             <!-- cj changed here -->
             <form class="auth-form" action="{{ url_for('login') }}" method="POST"> 
