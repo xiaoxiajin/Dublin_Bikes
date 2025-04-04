@@ -103,6 +103,43 @@
   }
   
   /* ===============================================
+     Login User info
+  =============================================== */
+  .login-user {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border-radius: 20px;
+    padding: 8px 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.user-info p {
+    margin-right: 15px;
+    color: #495057;
+    font-weight: 500;
+}
+
+.user-info .btn-danger {
+    background-color: rgb(166, 166, 166);
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    transition: all 0.3s ease;
+}
+
+.user-info .btn-danger:hover {
+    background-color: #a7a9ab;
+    transform: scale(1.05);
+}
+  /* ===============================================
      HERO SECTION (Index Page)
   =============================================== */
   .hero {
