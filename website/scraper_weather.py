@@ -15,6 +15,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from flask import Flask, jsonify
 import threading
+from urllib.parse import quote_plus
 
 lock = threading.Lock() # avoid task execute more than one times
 
@@ -26,7 +27,7 @@ Weather_Api = os.getenv("Weather_Api")
 
 # Database connection details:
 DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))
 DB_HOST = "localhost"
 DB_PORT = os.getenv("DB_PORT")
 DB_NAME = "dublin_cycle"

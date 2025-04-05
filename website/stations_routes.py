@@ -3,6 +3,7 @@ from sqlalchemy import create_engine, text
 import schedule
 import time
 from website.scraper_dublin_bike import fetch_bike_stations
+from urllib.parse import quote_plus
 
 import os
 from dotenv import load_dotenv
@@ -10,7 +11,7 @@ load_dotenv()
 
 # Load env information
 DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))
 DB_HOST = "localhost"
 DB_PORT = os.getenv("DB_PORT")
 DB_NAME = "dublin_cycle"

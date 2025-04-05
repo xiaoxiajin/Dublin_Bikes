@@ -1,8 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask_cors import CORS
 import os
 import threading
-
+import mysql.connector
+import json
 
 # import other functions
 import website.login_routes
@@ -41,6 +42,45 @@ app.route('/stations')(website.stations_routes.get_stations)
 app.route('/availability')(website.stations_routes.get_availability)
 app.route('/update_bikes')(website.stations_routes.update_bikes)
 
+# Database connection function
+def get_db_connection():
+    # Replace with your actual database connection details
+    connection = mysql.connector.connect(
+        host='your_database_host',
+        user='your_database_user',
+        password='your_database_password',
+        database='your_database_name'
+    )
+    return connection
+
+@app.route("/station_data")
+def station_data():
+    connection = get_db_connection()
+    cursor = connection.cursor(dictionary=True)
+
+    # this query fetches your SQL table content
+    query = """
+        SELECT 
+            s.number, s.name, s.address, s.banking, s.bike_stands, 
+            s.position_lat, s.position_lng,
+            a.available_bikes, a.available_bike_stands, 
+            a.status, a.last_update
+        FROM stations s
+        JOIN availability a ON s.number = a.number
+    """
+    
+    cursor.execute(query)
+    data = cursor.fetchall()
+    cursor.close()
+    connection.close()
+    
+    # Convert datetime objects to strings to make them JSON serializable
+    for row in data:
+        if 'last_update' in row and row['last_update'] is not None:
+            row['last_update'] = row['last_update'].isoformat()
+    
+    return jsonify(data)
+
 # handle error
 @app.errorhandler(404)
 def page_not_found(e):
@@ -51,8 +91,9 @@ def schedule_task():
     website.stations_routes.schedule_bike_update()
 
 def schedule_bike_update():
-    # 将调度逻辑移到外部
+    # Start the scheduling logic in a background thread
     threading.Thread(target=schedule_task, daemon=True).start()
+
 
 if __name__ == '__main__':
     schedule_bike_update()
