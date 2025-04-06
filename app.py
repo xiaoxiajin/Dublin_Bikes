@@ -8,7 +8,8 @@ import json
 # import other functions
 import website.login_routes
 import website.stations_routes
-
+import website.scraper_dublin_bike
+import website.weather_routes
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'website', 'templates')
@@ -41,6 +42,10 @@ app.route('/get_api_key')(website.stations_routes.get_api_key)
 app.route('/stations')(website.stations_routes.get_stations)
 app.route('/availability')(website.stations_routes.get_availability)
 app.route('/update_bikes')(website.stations_routes.update_bikes)
+
+# weather_routes
+app.route('/weather')(website.weather_routes.get_weather)
+app.route('/update_weather')(website.weather_routes.update_weather)
 
 # Database connection function
 def get_db_connection():
@@ -80,7 +85,7 @@ def station_data():
             row['last_update'] = row['last_update'].isoformat()
     
     return jsonify(data)
-
+ 
 # handle error
 @app.errorhandler(404)
 def page_not_found(e):
@@ -96,11 +101,13 @@ def schedule_bike_update():
 
 
 if __name__ == '__main__':
+    website.scraper_dublin_bike.fetch_bike_stations()
+
     schedule_bike_update()
     
     # run at local:
-    # print("Flask API is running at http://127.0.0.1:5000/")
-    # app.run(host='127.0.0.1', port=5000, debug=True)
+    print("Flask API is running at http://127.0.0.1:5000/")
+    app.run(host='127.0.0.1', port=5000, debug=True)
 
     # run at EC2:
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # app.run(host='0.0.0.0', port=5000, debug=True)

@@ -40,7 +40,8 @@ def fetch_bike_stations():
         
         insert_station_data(stations)
         insert_availability_data(stations)
-        print("\n Dublin bike data updated. \n")
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"\n Dublin bike data updated. {timestamp}\n")
 
     except requests.exceptions.RequestException as e:
         print(f"\n API Request Failed: {e}")

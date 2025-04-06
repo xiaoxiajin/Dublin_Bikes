@@ -76,13 +76,14 @@ function addMarkers(stations, availabilityMap, map) {
                             <p class="bikes-available">Bikes Available: ${availability.available_bikes}</p>
                             <p class="stands-available">Stands Available: ${availability.available_bike_stands}</p>
                         </div>`
-                        });
+            });
 
             // click on the marker to display info window and show station details
             marker.addListener("click", () => {
                 infoWindow.open(map, marker);
                 displayStationInfo(station, availability);
             });
+        
         } else {
             console.warn(`No availability data for station: ${station.number}`);
         }
