@@ -44,12 +44,12 @@ app.route('/update_bikes')(website.stations_routes.update_bikes)
 
 # Database connection function
 def get_db_connection():
-    # Replace with your actual database connection details
     connection = mysql.connector.connect(
-        host='your_database_host',
-        user='your_database_user',
-        password='your_database_password',
-        database='your_database_name'
+        host=os.getenv('DB_HOST'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'),
+        database=os.getenv('DB_NAME'),
+        port=os.getenv('DB_PORT')
     )
     return connection
 
