@@ -1,18 +1,14 @@
 // Get API Key and load google map dynamically
 function loadGoogleMaps() {
-    // fetch('http://127.0.0.1:5000/get_api_key')
     fetch('/get_api_key')
         .then(response => response.json())
         .then(data => {
             const apiKey = data.api_key;
             const script = document.createElement('script');
             
-            // async
             script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&language=en&loading=async`;
             script.async = true;
             script.defer = true;
-
-            // 添加 crossorigin 属性
             script.crossOrigin = 'anonymous';
 
             script.onload = () => {
@@ -43,10 +39,8 @@ function initMap() {
 // Get station data and store into map and mark in the map
 function getStationsAndAvailability(map) {
     Promise.all([
-        // fetch('http://127.0.0.1:5000/stations') // Get station data
         fetch('/stations')
         .then(response => response.json()),
-        // fetch('http://127.0.0.1:5000/availability')// Get availability data
         fetch('/availability')
         .then(response => response.json())
     ]).then(([stations, availability]) => {
@@ -57,15 +51,13 @@ function getStationsAndAvailability(map) {
             availabilityMap[item.number] = item;
         });
                 
-        addMarkers(stations,availabilityMap, map);
+        addMarkers(stations, availabilityMap, map);
         })
         .catch(error => console.error("Error fetching station data:", error));
 }
 
-
-
 // mark at the map
-function addMarkers(stations,availabilityMap,map) {
+function addMarkers(stations, availabilityMap, map) {
     stations.forEach(station => {
         // Get availability based on station number
         const availability = availabilityMap[station.number];
@@ -93,7 +85,10 @@ function addMarkers(stations,availabilityMap,map) {
 
             // 鼠标移入marker时打开信息窗口
             marker.addListener("mouseover", () => {
+            // click on the marker to display info window and show station details
+            marker.addListener("click", () => {
                 infoWindow.open(map, marker);
+                displayStationInfo(station, availability);
             });
 
             // 鼠标移出marker时关闭信息窗口
@@ -101,7 +96,117 @@ function addMarkers(stations,availabilityMap,map) {
                 infoWindow.close();
             });
         }else {
+        } else {
             console.warn(`No availability data for station: ${station.number}`);
         }
     });
+}
+
+function displayStationInfo(station, availability) {
+    const container = document.getElementById("station-info");
+    
+    // Make sure Plotly is loaded
+    if (typeof Plotly !== 'undefined') {
+        // Plotly graph for bikes availability
+        const graphData = [{
+            x: ['Available Bikes', 'Available Bike Stands'],
+            y: [availability.available_bikes, availability.available_bike_stands],
+            type: 'bar',
+            marker: {
+                color: ['#6F2DA8', '#2c2c2c']
+            }
+        }];
+        
+        const layout = {
+            title: `${station.address} - Live Availability`,
+            xaxis: { title: 'Type' },
+            yaxis: { title: 'Count' },
+            margin: { t: 50, b: 50, l: 50, r: 50 }
+        };
+        
+        Plotly.newPlot('station-graph', graphData, layout);
+
+        // Create pie chart for percentage visualization
+        const totalStands = station.bike_stands;
+        const availableBikes = availability.available_bikes;
+        const availableStands = availability.available_bike_stands;
+        
+        const pieData = [{
+            values: [availableBikes, availableStands],
+            labels: ['Available Bikes', 'Available Stands'],
+            type: 'pie',
+            marker: {
+                colors: ['#6F2DA8', '#2c2c2c']
+            },
+            textinfo: 'percent',
+            hole: 0.4
+        }];
+        
+        const pieLayout = {
+            title: 'Capacity Distribution',
+            height: 300,
+            margin: { t: 50, b: 30, l: 30, r: 30 }
+        };
+        
+        Plotly.newPlot('station-pie-chart', pieData, pieLayout);
+    } else {
+        console.error("Plotly library is not loaded!");
+    }
+
+    // Format date nicely
+    const lastUpdateDate = new Date(availability.last_update).toLocaleString();
+
+    // Station info section with all the required fields
+    const infoHTML = `
+        <div class="station-data">
+            <h3>Station Information</h3>
+            <table class="info-table">
+                <tr>
+                    <th>Station Number</th>
+                    <td>${station.number}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>${station.name}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>${station.address}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td><span class="status-badge ${availability.status.toLowerCase()}">${availability.status}</span></td>
+                </tr>
+                <tr>
+                    <th>Banking</th>
+                    <td>${station.banking ? 'Yes' : 'No'}</td>
+                </tr>
+                <tr>
+                    <th>Total Bike Stands</th>
+                    <td>${station.bike_stands}</td>
+                </tr>
+                <tr>
+                    <th>Available Bikes</th>
+                    <td>${availability.available_bikes}</td>
+                </tr>
+                <tr>
+                    <th>Available Stands</th>
+                    <td>${availability.available_bike_stands}</td>
+                </tr>
+                <tr>
+                    <th>Last Updated</th>
+                    <td>${lastUpdateDate}</td>
+                </tr>
+                <tr>
+                    <th>Coordinates</th>
+                    <td>${station.position_lat.toFixed(6)}, ${station.position_lng.toFixed(6)}</td>
+                </tr>
+            </table>
+        </div>
+    `;
+
+    document.getElementById('station-details').innerHTML = infoHTML;
+    
+    // Make the station info section visible if it was hidden
+    container.style.display = 'block';
 }

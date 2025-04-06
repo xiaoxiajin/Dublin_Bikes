@@ -1,8 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask_cors import CORS
 import os
 import threading
-
+import mysql.connector
+import json
 
 # import other functions
 import website.login_routes
@@ -56,8 +57,9 @@ def schedule_task():
     website.stations_routes.schedule_bike_update()
 
 def schedule_bike_update():
-    # 将调度逻辑移到外部
+    # Start the scheduling logic in a background thread
     threading.Thread(target=schedule_task, daemon=True).start()
+
 
 if __name__ == '__main__':
     website.scraper_dublin_bike.fetch_bike_stations()
