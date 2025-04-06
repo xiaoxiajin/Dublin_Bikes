@@ -47,6 +47,45 @@ app.route('/update_bikes')(website.stations_routes.update_bikes)
 app.route('/weather')(website.weather_routes.get_weather)
 app.route('/update_weather')(website.weather_routes.update_weather)
 
+# Database connection function
+def get_db_connection():
+    # Replace with your actual database connection details
+    connection = mysql.connector.connect(
+        host='your_database_host',
+        user='your_database_user',
+        password='your_database_password',
+        database='your_database_name'
+    )
+    return connection
+
+@app.route("/station_data")
+def station_data():
+    connection = get_db_connection()
+    cursor = connection.cursor(dictionary=True)
+
+    # this query fetches your SQL table content
+    query = """
+        SELECT 
+            s.number, s.name, s.address, s.banking, s.bike_stands, 
+            s.position_lat, s.position_lng,
+            a.available_bikes, a.available_bike_stands, 
+            a.status, a.last_update
+        FROM stations s
+        JOIN availability a ON s.number = a.number
+    """
+    
+    cursor.execute(query)
+    data = cursor.fetchall()
+    cursor.close()
+    connection.close()
+    
+    # Convert datetime objects to strings to make them JSON serializable
+    for row in data:
+        if 'last_update' in row and row['last_update'] is not None:
+            row['last_update'] = row['last_update'].isoformat()
+    
+    return jsonify(data)
+ 
 # handle error
 @app.errorhandler(404)
 def page_not_found(e):

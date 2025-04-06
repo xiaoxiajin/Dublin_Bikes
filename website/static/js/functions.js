@@ -76,26 +76,14 @@ function addMarkers(stations, availabilityMap, map) {
                             <p class="bikes-available">Bikes Available: ${availability.available_bikes}</p>
                             <p class="stands-available">Stands Available: ${availability.available_bike_stands}</p>
                         </div>`
-                        });
+            });
 
-            // click on the marker to display info window
-            // marker.addListener("click", () => {
-            //     infoWindow.open(map, marker);
-            // });
-
-            // 鼠标移入marker时打开信息窗口
-            marker.addListener("mouseover", () => {
             // click on the marker to display info window and show station details
             marker.addListener("click", () => {
                 infoWindow.open(map, marker);
                 displayStationInfo(station, availability);
             });
-
-            // 鼠标移出marker时关闭信息窗口
-            marker.addListener("mouseout", () => {
-                infoWindow.close();
-            });
-        }else {
+        
         } else {
             console.warn(`No availability data for station: ${station.number}`);
         }
