@@ -125,7 +125,7 @@ def query_weatherAPI():
                 daily.get("snow", 0.0)   # `snow` 直接是 float
             )
 
-            print(f"✅ Weather data updated successfully.")
+            # print(f"✅ Weather data updated successfully.")
        
     else:
         print(f"API Request Failed, status code: {response.status_code}")    
