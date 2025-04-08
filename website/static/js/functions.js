@@ -44,7 +44,6 @@ function getStationsAndAvailability(map) {
         fetch('/availability')
         .then(response => response.json())
     ]).then(([stations, availability]) => {
-        
         // Create a map of availability data keyed by station number
         const availabilityMap = {};
         availability.forEach(item => {
@@ -101,7 +100,7 @@ function displayStationInfo(station, availability) {
             y: [availability.available_bikes, availability.available_bike_stands],
             type: 'bar',
             marker: {
-                color: ['#6F2DA8', '#2c2c2c']
+                color: ['#7CC1D7', '#2c2c2c']
             }
         }];
         
@@ -124,7 +123,7 @@ function displayStationInfo(station, availability) {
             labels: ['Available Bikes', 'Available Stands'],
             type: 'pie',
             marker: {
-                colors: ['#6F2DA8', '#2c2c2c']
+                colors: ['#7CC1D7', '#2c2c2c']
             },
             textinfo: 'percent',
             hole: 0.4
