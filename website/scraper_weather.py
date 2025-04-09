@@ -41,7 +41,6 @@ schedule_started = False # global variable, avoiding dupulicated tasks schedulin
 
 def query_weatherAPI():
     ''' Get weather data hourly and store into database.'''
-    # URL = "https://api.openweathermap.org/data/2.5/weather"
     URL = "https://api.openweathermap.org/data/3.0/onecall"
 
     params = {
@@ -59,16 +58,7 @@ def query_weatherAPI():
     # Check if the request was successful
     if response.status_code == 200:
         # Extract the weather data from the JSON response
-        data = response.json()
-
-        # weather_desc = data["weather"][0]["description"]
-        # temperature = data["main"]["temp"]
-        # humidity = data["main"]["humidity"]
-        # wind_speed = data["wind"]["speed"]
-        # wind_deg = data["wind"]["deg"]
-
-        # today = datetime.today().strftime("%Y/%m/%d")
-        # curr_time = datetime.now().strftime("%H:%M:%S")     
+        data = response.json()     
 
         # Extract `current` weather data
         current = data["current"]
@@ -121,11 +111,11 @@ def query_weatherAPI():
                 daily["weather"][0]["id"],
                 daily["wind_speed"],
                 daily.get("wind_gust", 0.0),
-                daily.get("rain", 0.0),  # `rain` 直接是 float
-                daily.get("snow", 0.0)   # `snow` 直接是 float
+                daily.get("rain", 0.0),  # `rain` -> float
+                daily.get("snow", 0.0)   # `snow` -> float
             )
 
-            # print(f"✅ Weather data updated successfully.")
+            # print("Weather data updated successfully.")
        
     else:
         print(f"API Request Failed, status code: {response.status_code}")    
@@ -206,7 +196,6 @@ def insert_daily_weather(dt, future_dt, humidity, pop, pressure, temp_max, temp_
         connection.commit()
 
 # Get recent weather data from database
-# @app.route('/weather', methods=['GET'])
 def get_current_weather_from_db():
     with engine.connect() as connection:
         result = connection.execute(text("""
@@ -228,8 +217,7 @@ def get_current_weather_from_db():
     else:
         return jsonify({"message": "No weather data available"}), 404
 
-# update weather data manually**
-# @app.route('/update_weather', methods=['GET'])
+# update weather data manually
 def update_weather():
     safe_query_weatherAPI()
     return jsonify({"message": "Weather data updated successfully!"})
