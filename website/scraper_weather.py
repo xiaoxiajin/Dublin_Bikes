@@ -15,23 +15,23 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from flask import Flask, jsonify
 import threading
-from urllib.parse import quote_plus
+from website.config import config 
 
 lock = threading.Lock() # avoid task execute more than one times
 
 # Create Flask application
 app = Flask(__name__)
 
-# OpenWeather API Key
-Weather_Api = os.getenv("Weather_Api")
+# # OpenWeather API Key
+# Weather_Api = os.getenv("Weather_Api")
 
-# Database connection details:
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))
-DB_HOST = "localhost"
-DB_PORT = os.getenv("DB_PORT")
-DB_NAME = "dublin_cycle"
-engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
+# # Database connection details:
+# DB_USER = os.getenv("DB_USER")
+# DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))
+# DB_HOST = "localhost"
+# DB_PORT = os.getenv("DB_PORT")
+# DB_NAME = "dublin_cycle"
+# engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
 # latitude and longitude of Dublin
 LAT = 53.3498  # latitude
@@ -46,7 +46,7 @@ def query_weatherAPI():
     params = {
         "lat": LAT,
         "lon": LON,
-        "appid": Weather_Api,
+        "appid": config.Weather_Api,
         "exclude": "minutely,alerts",
         "units": "metric",  # temperature unit
         "lang": "en"  # language
@@ -147,7 +147,7 @@ def insert_current_weather(dt, feels_like, humidity, pressure, sunrise, sunset, 
             snow_1h = VALUES(snow_1h);
     """)
 
-    with engine.connect() as connection:
+    with config.engine.connect() as connection:
         connection.execute(sql_insert, locals())
         connection.commit()
 
@@ -169,7 +169,7 @@ def insert_hourly_weather(dt, future_dt, feels_like, humidity, pop, pressure, te
             snow_1h = VALUES(snow_1h);
     """)
 
-    with engine.connect() as connection:
+    with config.engine.connect() as connection:
         connection.execute(sql_insert, locals())
         connection.commit()
 
@@ -191,13 +191,13 @@ def insert_daily_weather(dt, future_dt, humidity, pop, pressure, temp_max, temp_
             snow = VALUES(snow);
     """)
 
-    with engine.connect() as connection:
+    with config.engine.connect() as connection:
         connection.execute(sql_insert, locals())
         connection.commit()
 
 # Get recent weather data from database
 def get_current_weather_from_db():
-    with engine.connect() as connection:
+    with config.engine.connect() as connection:
         result = connection.execute(text("""
             SELECT dt, temp, feels_like, humidity, pressure, 
                    wind_speed, wind_gust, uvi, rain_1h, snow_1h,

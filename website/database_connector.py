@@ -1,37 +1,34 @@
 import sys
 import os
 from sqlalchemy import create_engine, text
-from urllib.parse import quote_plus
+
+# from urllib.parse import quote_plus
 
 # Get the absolute path of the 'swe' directory
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from website.config import config 
 
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
 # Load env information
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))
-DB_HOST = "localhost"
-DB_PORT = os.getenv("DB_PORT")
-DB_NAME = "dublin_cycle"
+# DB_USER = os.getenv("DB_USER")
+# DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))
+# DB_HOST = "localhost"
+# DB_PORT = os.getenv("DB_PORT")
+# DB_NAME = "dublin_cycle"
 
-# Add these debug lines after loading your .env file
-print(f"DB_USER: {DB_USER}")
-print(f"DB_PASSWORD: {'*' * len(DB_PASSWORD) if DB_PASSWORD else 'Not loaded'}")
-print(f"DB_HOST: {DB_HOST}")
-print(f"DB_PORT: {DB_PORT}")
 # Create SQLAlchemy engine, connect to AWS RDS 
-engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}", echo=True)
+# engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}", echo=True)
 
 # Create the database if it doesn’t exist
-with engine.connect() as connection:
-    connection.execute(text(f"CREATE DATABASE IF NOT EXISTS {DB_NAME};"))
+with config.base_engine.connect() as connection:
+    connection.execute(text(f"CREATE DATABASE IF NOT EXISTS {config.DB_NAME};"))
     connection.commit()
 
 # Update the engine to connect specifically to the new database
-engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}", echo=True)
-
+# engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}", echo=True)
+engine = config.engine
 # SQL to create the `current` table
 sql_create_current_table = text("""
     CREATE TABLE IF NOT EXISTS current_weather (

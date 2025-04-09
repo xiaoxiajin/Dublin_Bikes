@@ -6,28 +6,27 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import requests
 import traceback
 from datetime import datetime, timezone
-from sqlalchemy import create_engine, text
-from urllib.parse import quote_plus
-
-from dotenv import load_dotenv
-load_dotenv()
+from sqlalchemy import text
+# from urllib.parse import quote_plus
+from website.config import config 
+# from dotenv import load_dotenv
+# load_dotenv()
 
 # Load env information
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))
-DB_HOST = "localhost"
-DB_PORT = os.getenv("DB_PORT")
-DB_NAME = "dublin_cycle"
-JCKEY = os.getenv("JCKEY")
-NAME = os.getenv("NAME")
-STATIONS_URL = os.getenv("STATIONS_URL")
-engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
+# DB_USER = os.getenv("DB_USER")
+# DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))
+# DB_HOST = "localhost"
+# DB_PORT = os.getenv("DB_PORT")
+# DB_NAME = "dublin_cycle"
+# JCKEY = os.getenv("JCKEY")
+# NAME = os.getenv("NAME")
+# STATIONS_URL = os.getenv("STATIONS_URL")
+# engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
 def fetch_bike_stations():
-    # while True:  # Keep the scraper running indefinitely
+    '''Fetch bike station occupancy information'''
     try:
-        # print("\n🚲 Fetching Dublin Bikes Data...\n")
-        response = requests.get(STATIONS_URL, params={"apiKey": JCKEY, "contract": NAME})  
+        response = requests.get(config.STATIONS_URL, params={"apiKey": config.JCKEY, "contract": config.NAME})  
         response.raise_for_status()  # Raise an exception for failed requests
 
         # Parse JSON response
@@ -61,7 +60,7 @@ def insert_station_data(stations):
             bike_stands = VALUES(bike_stands);
     """)
 
-    with engine.connect() as connection:
+    with config.engine.connect() as connection:
         for station in stations:
             connection.execute(sql_insert, {
                 "number": station["number"],
@@ -76,7 +75,7 @@ def insert_station_data(stations):
 
 def insert_availability_data(stations):
     try:
-        with engine.connect() as connection:
+        with config.engine.connect() as connection:
             for station in stations:
                 # add secure timestamp
                 last_update = station.get('last_update')

@@ -2,14 +2,14 @@ from flask import Flask, render_template, jsonify
 from flask_cors import CORS
 import os
 import threading
-import mysql.connector
-import json
+
 
 # import other functions
 import website.login_routes
 import website.stations_routes
 import website.scraper_dublin_bike
 import website.weather_routes
+import website.database_connector
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'website', 'templates')
@@ -42,49 +42,50 @@ app.route('/get_api_key')(website.stations_routes.get_api_key)
 app.route('/stations')(website.stations_routes.get_stations)
 app.route('/availability')(website.stations_routes.get_availability)
 app.route('/update_bikes')(website.stations_routes.update_bikes)
+app.route('/station_data')(website.stations_routes.get_station_data)
 
 # weather_routes
 app.route('/weather')(website.weather_routes.get_weather)
 app.route('/update_weather')(website.weather_routes.update_weather)
 
-# Database connection function
-def get_db_connection():
-    connection = mysql.connector.connect(
-        host=os.getenv('DB_HOST'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD'),
-        database=os.getenv('DB_NAME'),
-        port=os.getenv('DB_PORT')
-    )
-    return connection
+# # Database connection function
+# def get_db_connection():
+#     connection = mysql.connector.connect(
+#         host=os.getenv('DB_HOST'),
+#         user=os.getenv('DB_USER'),
+#         password=os.getenv('DB_PASSWORD'),
+#         database=os.getenv('DB_NAME'),
+#         port=os.getenv('DB_PORT')
+#     )
+#     return connection
 
-@app.route("/station_data")
-def station_data():
-    connection = get_db_connection()
-    cursor = connection.cursor(dictionary=True)
+# @app.route("/station_data")
+# def station_data():
+#     connection = get_db_connection()
+#     cursor = connection.cursor(dictionary=True)
 
-    # this query fetches your SQL table content
-    query = """
-        SELECT 
-            s.number, s.name, s.address, s.banking, s.bike_stands, 
-            s.position_lat, s.position_lng,
-            a.available_bikes, a.available_bike_stands, 
-            a.status, a.last_update
-        FROM stations s
-        JOIN availability a ON s.number = a.number
-    """
+#     # this query fetches your SQL table content
+#     query = """
+#         SELECT 
+#             s.number, s.name, s.address, s.banking, s.bike_stands, 
+#             s.position_lat, s.position_lng,
+#             a.available_bikes, a.available_bike_stands, 
+#             a.status, a.last_update
+#         FROM stations s
+#         JOIN availability a ON s.number = a.number
+#     """
     
-    cursor.execute(query)
-    data = cursor.fetchall()
-    cursor.close()
-    connection.close()
+#     cursor.execute(query)
+#     data = cursor.fetchall()
+#     cursor.close()
+#     connection.close()
     
-    # Convert datetime objects to strings to make them JSON serializable
-    for row in data:
-        if 'last_update' in row and row['last_update'] is not None:
-            row['last_update'] = row['last_update'].isoformat()
+#     # Convert datetime objects to strings to make them JSON serializable
+#     for row in data:
+#         if 'last_update' in row and row['last_update'] is not None:
+#             row['last_update'] = row['last_update'].isoformat()
     
-    return jsonify(data)
+#     return jsonify(data)
  
 # handle error
 @app.errorhandler(404)
