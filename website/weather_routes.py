@@ -1,10 +1,7 @@
 # website/weather_routes.py
 
 from flask import jsonify
-<<<<<<< HEAD
 import requests
-=======
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
 from sqlalchemy import create_engine, text
 from datetime import timedelta
 
@@ -27,12 +24,8 @@ import os
 
 # get current weather data
 def get_weather():
-<<<<<<< HEAD
     response = requests.get("https://api.openweathermap.org/data/2.5/weather", params={"lat": 53.2059, "lon": -6.1537, "appid": os.getenv("Weather_Api"), "units": "metric"})
     return jsonify(response.json())
-=======
-    return get_current_weather_from_db()
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
 
 # update weather data manually
 def update_weather():

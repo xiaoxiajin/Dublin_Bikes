@@ -999,7 +999,6 @@
   margin-top: 20px;
 }
 
-<<<<<<< HEAD
 #map {
   min-width: 300px;
   height: 500px;
@@ -1009,14 +1008,6 @@
 .station-map {
   flex: 1;
   border-radius: 8px;
-=======
-.station-map {
-  flex: 1;
-  min-width: 300px;
-  height: 500px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
 }
 
 .station-info-panel {
@@ -1127,7 +1118,6 @@
     width: 100%;
     max-width: none;
   }
-<<<<<<< HEAD
 }
 .prediction-loading {
   text-align: center;
@@ -1168,6 +1158,4 @@
   text-align: right;
   font-weight: bold;
   padding: 8px;
-=======
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
 }

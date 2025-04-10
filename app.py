@@ -1,24 +1,13 @@
-<<<<<<< HEAD
 from flask import Flask, render_template, jsonify, request
-=======
-from flask import Flask, render_template, jsonify
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
 from flask_cors import CORS
+from urllib.parse import unquote
+
 import os
 import threading
-<<<<<<< HEAD
-<<<<<<< HEAD
 import mysql.connector
 import json
 import pickle
 import pandas as pd
-=======
-
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
-=======
-
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
-
 # import other functions
 import website.login_routes
 import website.stations_routes
@@ -60,11 +49,7 @@ app.route('/update_bikes')(website.stations_routes.update_bikes)
 app.route('/station_data')(website.stations_routes.get_station_data)
 
 # weather_routes
-<<<<<<< HEAD
 app.route('/weather', methods=['GET', 'POST'])(website.weather_routes.get_weather)
-=======
-app.route('/weather')(website.weather_routes.get_weather)
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
 app.route('/update_weather')(website.weather_routes.update_weather)
 
 # # Database connection function
@@ -104,10 +89,7 @@ app.route('/update_weather')(website.weather_routes.update_weather)
 #         if 'last_update' in row and row['last_update'] is not None:
 #             row['last_update'] = row['last_update'].isoformat()
     
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    return jsonify(data)
+    # return jsonify(data)
 
 @app.route('/predict', methods=['GET'])
 def predict():
@@ -118,16 +100,17 @@ def predict():
         return jsonify({'error': 'Missing station_id or datetime'}), 400
 
     try:
-        model_path = f"website/station_models/station_{station_id}.pkl"
+        model_path = f"machine_learning/station_models/station_{station_id}.pkl"
         if not os.path.exists(model_path):
             return jsonify({'error': 'Model not found'}), 404
 
         with open(model_path, 'rb') as f:
             model = pickle.load(f)
 
-        clean_date_str = date_str.split('=')[1]
-        # print(date_str)
+        clean_date_str = unquote(date_str)
+        # clean_date_str = date_str.split('=')[1]
         dt = pd.to_datetime(clean_date_str)
+        # print(date_str)
         input_df = pd.DataFrame({
             'num_docks_available': 10,
             'day': [dt.day],
@@ -137,23 +120,15 @@ def predict():
             'day_name': [dt.dayofweek],
         })
 
-        prediction = int(model.predict(input_df)[0])
-        pred_30 = max(0, prediction - 1)
-        pred_60 = max(0, prediction - 2)
+        prediction = model.predict(input_df)
+        print(prediction)
+        # pred_30 = max(0, 1)
+        # pred_60 = max(0, 2)
 
-        return jsonify({'in_30_min': pred_30, 'in_1_hour': pred_60})
+        return jsonify(prediction[0])
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-=======
-#     return jsonify(data)
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
-=======
-#     return jsonify(data)
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
-=======
-#     return jsonify(data)
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
  
 # handle error
 @app.errorhandler(404)

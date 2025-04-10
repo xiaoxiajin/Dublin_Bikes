@@ -101,13 +101,10 @@ function displayStationInfo(station, availability) {
             type: 'bar',
             marker: {
                 color: ['#7CC1D7', '#2c2c2c']
-<<<<<<< HEAD
             },
             name: 'Current'
-=======
             }
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
-        }];
+        ];
         
         const layout = {
             title: `${station.address} - Live Availability`,
@@ -194,13 +191,10 @@ function displayStationInfo(station, availability) {
                     <td>${station.position_lat.toFixed(6)}, ${station.position_lng.toFixed(6)}</td>
                 </tr>
             </table>
-<<<<<<< HEAD
             <div id="prediction-data" class="prediction-loading">
                 <h4>Loading predictions...</h4>
                 <div class="loading-spinner"></div>
             </div>
-=======
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
         </div>
     `;
 
@@ -208,7 +202,6 @@ function displayStationInfo(station, availability) {
     
     // Make the station info section visible if it was hidden
     container.style.display = 'block';
-<<<<<<< HEAD
     
     // Fetch prediction data
     fetchPrediction(station.number);
@@ -249,6 +242,4 @@ async function getWeather() {
     const res = await fetch('/weather', { method: 'POST' });
     const data = await res.json();
     console.log("Weather:", data.main.temp);
-=======
->>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
 }
