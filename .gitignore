@@ -11,3 +11,4 @@ scraper.py
 .coverage
 htmlcov/
 final_merged_data.csv
+htmlcov/

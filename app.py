@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from flask import Flask, render_template, jsonify, request
+=======
+from flask import Flask, render_template, jsonify
+>>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
 from flask_cors import CORS
 import os
 import threading
@@ -56,7 +60,11 @@ app.route('/update_bikes')(website.stations_routes.update_bikes)
 app.route('/station_data')(website.stations_routes.get_station_data)
 
 # weather_routes
+<<<<<<< HEAD
 app.route('/weather', methods=['GET', 'POST'])(website.weather_routes.get_weather)
+=======
+app.route('/weather')(website.weather_routes.get_weather)
+>>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
 app.route('/update_weather')(website.weather_routes.update_weather)
 
 # # Database connection function
@@ -98,6 +106,7 @@ app.route('/update_weather')(website.weather_routes.update_weather)
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     return jsonify(data)
 
 @app.route('/predict', methods=['GET'])
@@ -136,6 +145,9 @@ def predict():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+=======
+#     return jsonify(data)
+>>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
 =======
 #     return jsonify(data)
 >>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
