@@ -195,14 +195,10 @@ function displayStationInfo(station, availability) {
             <div id="station-bikes-trend-container">
                 <canvas id="bikesChart" width="400" height="200"></canvas>
             </div>
-             <div id="station-stands-trend-container">
-                <canvas id="standsChart" width="400" height="200"></canvas>
-            
             
              <div id="station-stands-trend-container">
                 <canvas id="standsChart" width="400" height="200"></canvas>
             </div>
-            
             
         </div>
     `;

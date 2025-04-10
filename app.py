@@ -100,34 +100,33 @@ def get_station_trend():
         return jsonify({'error': 'Missing station_id'}), 400
 
     try:
-        # 确保 station_id 是整数
-        station_id = int(station_id.split(':')[0])  # 处理 "10:1" 这种格式
+        # ensure station_id type
+        station_id = int(station_id.split(':')[0]) 
 
-        # 定义需要预测的时间点
-        trend_times = list(range(0, 24, 2))  # 修改为 0-23 的范围
+        # every two hours
+        trend_times = list(range(0, 24, 2))  
 
-        # 加载对应站点的模型
+        # load model
         model_path = f"machine_learning/station_models/station_{station_id}.pkl"
         
-        # 检查模型文件是否存在
+        # check file exists
         if not os.path.exists(model_path):
             return jsonify({'error': f'Model for station {station_id} not found'}), 404
 
         with open(model_path, 'rb') as f:
             model = pickle.load(f)
 
-        # 为每个时间点创建预测
+        # predict for every 2 hours
         trend_data = []
         for hour in trend_times:
-            # 使用一个代表性的日期（可以选择工作日或周末）
             dt = pd.Timestamp.now().replace(hour=hour, minute=0, second=0)
 
             input_df = pd.DataFrame({
-                'num_docks_available': [10],  # 注意添加列表
+                'num_docks_available': [10],  
                 'day': [dt.day],
                 'hour': [dt.hour],
-                'avg_air_temp': [10.0],  # 注意添加列表
-                'avg_humidity': [24.0],   # 注意添加列表
+                'avg_air_temp': [10.0],  
+                'avg_humidity': [24.0],   
                 'day_name': [dt.dayofweek],
             })
 
@@ -141,7 +140,7 @@ def get_station_trend():
         return jsonify(trend_data)
 
     except Exception as e:
-        # 记录完整的错误堆栈信息
+        # handle exception in getting trend
         import traceback
         print(f"Error in get_station_trend: {e}")
         print(traceback.format_exc())
