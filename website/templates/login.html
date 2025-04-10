@@ -18,9 +18,17 @@
         </nav>
     </header>
 
+    <div class="login">
+        {% if username %}
+        <div class="user-info">
+            <p>, {{ username }}!</p>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+        </div>
+        {% endif %}
+    </div>
+
     <main class="auth-page">
         <div class="auth-container">
-            <!-- display login status message -->
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
@@ -30,7 +38,7 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-
+            
             <h2>Welcome Back</h2>
             <!-- cj changed here -->
             <form class="auth-form" action="{{ url_for('login') }}" method="POST"> 

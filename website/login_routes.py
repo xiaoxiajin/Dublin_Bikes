@@ -7,19 +7,19 @@ USERS = {
 }
 
 def root():
-    return render_template('index.html')
+    return render_template('index.html', username=session.get('username'))
 
 def about():
-    return render_template('about.html')
+    return render_template('about.html', username=session.get('username'))
 
 def how_to_use():
-    return render_template('use.html')
+    return render_template('use.html', username=session.get('username'))
 
 def stations():
-    return render_template('station.html')
+    return render_template('station.html', username=session.get('username'))
 
 def contact():
-    return render_template('contact.html')
+    return render_template('contact.html', username=session.get('username'))
 
 def login():
     if request.method == 'POST':
@@ -29,7 +29,8 @@ def login():
         # validation
         if username in USERS and USERS[username] == password:
             session['username'] = username
-            flash('Login successful!', 'success')
+            session['logged_in'] = True  
+            flash(f'Login successful! {username}', 'success')
             return redirect(url_for('root'))
         else:
             flash('Invalid email or password', 'danger')
@@ -37,7 +38,8 @@ def login():
     return render_template('login.html')
 
 def logout():
-    session.pop('username', None)
+    # session.pop('username', None)
+    session.clear()
     flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
 

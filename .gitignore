@@ -8,3 +8,6 @@ __pycache__/
 .env
 scraper_weather2.py
 scraper.py
+.coverage
+htmlcov/
+final_merged_data.csv

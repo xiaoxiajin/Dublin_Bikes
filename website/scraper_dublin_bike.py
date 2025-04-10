@@ -3,32 +3,30 @@ import os
 # Get the absolute path of the 'swe' directory
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-import dbinfo
 import requests
 import traceback
 from datetime import datetime, timezone
-from sqlalchemy import create_engine, text
-
-import os
-from dotenv import load_dotenv
-load_dotenv()
+from sqlalchemy import text
+# from urllib.parse import quote_plus
+from website.config import config 
+# from dotenv import load_dotenv
+# load_dotenv()
 
 # Load env information
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
-DB_HOST = "localhost"
-DB_PORT = os.getenv("DB_PORT")
-DB_NAME = "dublin_cycle"
-JCKEY = os.getenv("JCKEY")
-NAME = os.getenv("NAME")
-STATIONS_URL = os.getenv("STATIONS_URL")
-engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
+# DB_USER = os.getenv("DB_USER")
+# DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))
+# DB_HOST = "localhost"
+# DB_PORT = os.getenv("DB_PORT")
+# DB_NAME = "dublin_cycle"
+# JCKEY = os.getenv("JCKEY")
+# NAME = os.getenv("NAME")
+# STATIONS_URL = os.getenv("STATIONS_URL")
+# engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
 def fetch_bike_stations():
-    # while True:  # Keep the scraper running indefinitely
+    '''Fetch bike station occupancy information'''
     try:
-        # print("\n🚲 Fetching Dublin Bikes Data...\n")
-        response = requests.get(STATIONS_URL, params={"apiKey": JCKEY, "contract": NAME})  
+        response = requests.get(config.STATIONS_URL, params={"apiKey": config.JCKEY, "contract": config.NAME})  
         response.raise_for_status()  # Raise an exception for failed requests
 
         # Parse JSON response
@@ -41,7 +39,8 @@ def fetch_bike_stations():
         
         insert_station_data(stations)
         insert_availability_data(stations)
-        print("\n Dublin bike data updated. \n")
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"\n Dublin bike data updated. {timestamp}\n")
 
     except requests.exceptions.RequestException as e:
         print(f"\n API Request Failed: {e}")
@@ -61,7 +60,7 @@ def insert_station_data(stations):
             bike_stands = VALUES(bike_stands);
     """)
 
-    with engine.connect() as connection:
+    with config.engine.connect() as connection:
         for station in stations:
             connection.execute(sql_insert, {
                 "number": station["number"],
@@ -74,54 +73,25 @@ def insert_station_data(stations):
             })
         connection.commit()
 
-# def insert_availability_data(stations):
-#     """ Insert or update bike station availability data """
-#     sql_insert = text("""
-#         INSERT INTO availability (number, last_update, available_bikes, available_bike_stands, status)
-#         VALUES (:number, :last_update, :available_bikes, :available_bike_stands, :status)
-#         ON DUPLICATE KEY UPDATE 
-#             available_bikes = VALUES(available_bikes),
-#             available_bike_stands = VALUES(available_bike_stands),
-#             status = VALUES(status);
-#     """)
-
-#     with engine.connect() as connection:
-#         for station in stations:
-#             # last_update = datetime.strptime(station["lastUpdate"], "%Y-%m-%dT%H:%M:%SZ")
-#             if "last_update" in station:  # check if last_update exists
-#                 last_update = datetime.fromtimestamp(station["last_update"] / 1000, tz=timezone.utc)
-#             else:
-#                 # print(f"⚠️ Warning: Station {station['number']} has no 'last_update' field.")
-#                 continue  # skip this station
-
-#             connection.execute(sql_insert, {
-#                 "number": station["number"],
-#                 "last_update": last_update,
-#                 "available_bikes": station["available_bikes"],
-#                 "available_bike_stands": station["available_bike_stands"],
-#                 "status": station["status"]
-#             })
-#         connection.commit()
 def insert_availability_data(stations):
     try:
-        with engine.connect() as connection:
+        with config.engine.connect() as connection:
             for station in stations:
-                # 添加安全的时间戳处理
+                # add secure timestamp
                 last_update = station.get('last_update')
                 
-                # 如果 last_update 存在且不为 None
+                # if last_update exists
                 if last_update is not None:
-                    # 使用安全的类型转换
                     try:
                         timestamp = datetime.fromtimestamp(float(last_update) / 1000, tz=timezone.utc)
                     except (TypeError, ValueError) as e:
                         print(f"Error processing timestamp for station {station.get('number')}: {e}")
                         timestamp = datetime.now(timezone.utc)
                 else:
-                    # 如果没有时间戳，使用当前时间
+                    # use current time for timestamp
                     timestamp = datetime.now(timezone.utc)
                 
-                # 插入可用性数据
+                # insert availability data
                 availability_query = text("""
                     INSERT INTO availability 
                     (number, available_bikes, available_bike_stands, last_update, status) 

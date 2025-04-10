@@ -1,13 +1,26 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 import os
 import threading
+<<<<<<< HEAD
+<<<<<<< HEAD
+import mysql.connector
+import json
+import pickle
+import pandas as pd
+=======
 
+>>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
+=======
+
+>>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
 
 # import other functions
 import website.login_routes
 import website.stations_routes
-
+import website.scraper_dublin_bike
+import website.weather_routes
+import website.database_connector
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'website', 'templates')
@@ -40,7 +53,96 @@ app.route('/get_api_key')(website.stations_routes.get_api_key)
 app.route('/stations')(website.stations_routes.get_stations)
 app.route('/availability')(website.stations_routes.get_availability)
 app.route('/update_bikes')(website.stations_routes.update_bikes)
+app.route('/station_data')(website.stations_routes.get_station_data)
 
+# weather_routes
+app.route('/weather', methods=['GET', 'POST'])(website.weather_routes.get_weather)
+app.route('/update_weather')(website.weather_routes.update_weather)
+
+# # Database connection function
+# def get_db_connection():
+#     connection = mysql.connector.connect(
+#         host=os.getenv('DB_HOST'),
+#         user=os.getenv('DB_USER'),
+#         password=os.getenv('DB_PASSWORD'),
+#         database=os.getenv('DB_NAME'),
+#         port=os.getenv('DB_PORT')
+#     )
+#     return connection
+
+# @app.route("/station_data")
+# def station_data():
+#     connection = get_db_connection()
+#     cursor = connection.cursor(dictionary=True)
+
+#     # this query fetches your SQL table content
+#     query = """
+#         SELECT 
+#             s.number, s.name, s.address, s.banking, s.bike_stands, 
+#             s.position_lat, s.position_lng,
+#             a.available_bikes, a.available_bike_stands, 
+#             a.status, a.last_update
+#         FROM stations s
+#         JOIN availability a ON s.number = a.number
+#     """
+    
+#     cursor.execute(query)
+#     data = cursor.fetchall()
+#     cursor.close()
+#     connection.close()
+    
+#     # Convert datetime objects to strings to make them JSON serializable
+#     for row in data:
+#         if 'last_update' in row and row['last_update'] is not None:
+#             row['last_update'] = row['last_update'].isoformat()
+    
+<<<<<<< HEAD
+<<<<<<< HEAD
+    return jsonify(data)
+
+@app.route('/predict', methods=['GET'])
+def predict():
+    station_id = request.args.get('station_id')
+    date_str = request.args.get('datetime')
+
+    if not station_id or not date_str:
+        return jsonify({'error': 'Missing station_id or datetime'}), 400
+
+    try:
+        model_path = f"website/station_models/station_{station_id}.pkl"
+        if not os.path.exists(model_path):
+            return jsonify({'error': 'Model not found'}), 404
+
+        with open(model_path, 'rb') as f:
+            model = pickle.load(f)
+
+        clean_date_str = date_str.split('=')[1]
+        # print(date_str)
+        dt = pd.to_datetime(clean_date_str)
+        input_df = pd.DataFrame({
+            'num_docks_available': 10,
+            'day': [dt.day],
+            'hour': [dt.hour],
+            'avg_air_temp': 10.0,
+            'avg_humidity': 24.0,
+            'day_name': [dt.dayofweek],
+        })
+
+        prediction = int(model.predict(input_df)[0])
+        pred_30 = max(0, prediction - 1)
+        pred_60 = max(0, prediction - 2)
+
+        return jsonify({'in_30_min': pred_30, 'in_1_hour': pred_60})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+=======
+#     return jsonify(data)
+>>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
+=======
+#     return jsonify(data)
+>>>>>>> 624e007b50b278b617473cea2cd77098ee5d52b2
+ 
 # handle error
 @app.errorhandler(404)
 def page_not_found(e):
@@ -51,11 +153,18 @@ def schedule_task():
     website.stations_routes.schedule_bike_update()
 
 def schedule_bike_update():
-    # 将调度逻辑移到外部
+    # Start the scheduling logic in a background thread
     threading.Thread(target=schedule_task, daemon=True).start()
 
+
 if __name__ == '__main__':
+    website.scraper_dublin_bike.fetch_bike_stations()
+
     schedule_bike_update()
     
+    # run at local:
     print("Flask API is running at http://127.0.0.1:5000/")
     app.run(host='127.0.0.1', port=5000, debug=True)
+
+    # run at EC2:
+    # app.run(host='0.0.0.0', port=5000, debug=True)

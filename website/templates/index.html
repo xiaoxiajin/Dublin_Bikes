@@ -20,9 +20,20 @@
                 <li><a href="contact.html">Contact Us</a></li>
             </ul>
         </nav>
+        {% if not username %}
         <div class="auth-buttons">
-            <a href="login.html" class="login">Log In</a>
-            <a href="sign-up.html" class="signup">Sign Up</a>
+            <a href="{{ url_for('login') }}" class="login">Log In</a>
+            <a href="{{ url_for('sign_up') }}" class="signup">Sign Up</a>
+        </div>
+        {% endif %}
+
+        <div class="login-user">
+            {% if username %}
+            <div class="user-info">
+                <p>{{ username }}!</p>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+            </div>
+            {% endif %}
         </div>
     </header>
 
@@ -39,7 +50,7 @@
                 </a>                
             </div>
             <div class="hero-image">
-                <img src="{{ url_for('static', filename='img/home page.jpeg') }}"> alt="Cyclists in Dublin">
+                <img src="{{ url_for('static', filename='img/home page.jpeg') }}">
             </div>
         </section>
 
