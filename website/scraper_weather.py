@@ -2,7 +2,7 @@ import requests
 import schedule
 import time
 from datetime import datetime, timedelta, timezone
-from sqlalchemy import create_engine, text
+from sqlalchemy import text
 
 import sys
 import os
@@ -21,17 +21,6 @@ lock = threading.Lock() # avoid task execute more than one times
 
 # Create Flask application
 app = Flask(__name__)
-
-# # OpenWeather API Key
-# Weather_Api = os.getenv("Weather_Api")
-
-# # Database connection details:
-# DB_USER = os.getenv("DB_USER")
-# DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))
-# DB_HOST = "localhost"
-# DB_PORT = os.getenv("DB_PORT")
-# DB_NAME = "dublin_cycle"
-# engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
 # latitude and longitude of Dublin
 LAT = 53.3498  # latitude

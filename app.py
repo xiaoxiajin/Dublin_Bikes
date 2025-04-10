@@ -52,44 +52,6 @@ app.route('/station_data')(website.stations_routes.get_station_data)
 app.route('/weather', methods=['GET', 'POST'])(website.weather_routes.get_weather)
 app.route('/update_weather')(website.weather_routes.update_weather)
 
-# # Database connection function
-# def get_db_connection():
-#     connection = mysql.connector.connect(
-#         host=os.getenv('DB_HOST'),
-#         user=os.getenv('DB_USER'),
-#         password=os.getenv('DB_PASSWORD'),
-#         database=os.getenv('DB_NAME'),
-#         port=os.getenv('DB_PORT')
-#     )
-#     return connection
-
-# @app.route("/station_data")
-# def station_data():
-#     connection = get_db_connection()
-#     cursor = connection.cursor(dictionary=True)
-
-#     # this query fetches your SQL table content
-#     query = """
-#         SELECT 
-#             s.number, s.name, s.address, s.banking, s.bike_stands, 
-#             s.position_lat, s.position_lng,
-#             a.available_bikes, a.available_bike_stands, 
-#             a.status, a.last_update
-#         FROM stations s
-#         JOIN availability a ON s.number = a.number
-#     """
-    
-#     cursor.execute(query)
-#     data = cursor.fetchall()
-#     cursor.close()
-#     connection.close()
-    
-#     # Convert datetime objects to strings to make them JSON serializable
-#     for row in data:
-#         if 'last_update' in row and row['last_update'] is not None:
-#             row['last_update'] = row['last_update'].isoformat()
-    
-    # return jsonify(data)
 
 @app.route('/predict', methods=['GET'])
 def predict():

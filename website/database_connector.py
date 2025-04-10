@@ -2,24 +2,11 @@ import sys
 import os
 from sqlalchemy import create_engine, text
 
-# from urllib.parse import quote_plus
 
 # Get the absolute path of the 'swe' directory
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from website.config import config 
 
-# from dotenv import load_dotenv
-# load_dotenv()
-
-# Load env information
-# DB_USER = os.getenv("DB_USER")
-# DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))
-# DB_HOST = "localhost"
-# DB_PORT = os.getenv("DB_PORT")
-# DB_NAME = "dublin_cycle"
-
-# Create SQLAlchemy engine, connect to AWS RDS 
-# engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}", echo=True)
 
 # Create the database if it doesn’t exist
 with config.base_engine.connect() as connection:

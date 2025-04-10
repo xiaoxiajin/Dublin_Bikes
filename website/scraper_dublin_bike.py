@@ -7,21 +7,7 @@ import requests
 import traceback
 from datetime import datetime, timezone
 from sqlalchemy import text
-# from urllib.parse import quote_plus
 from website.config import config 
-# from dotenv import load_dotenv
-# load_dotenv()
-
-# Load env information
-# DB_USER = os.getenv("DB_USER")
-# DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))
-# DB_HOST = "localhost"
-# DB_PORT = os.getenv("DB_PORT")
-# DB_NAME = "dublin_cycle"
-# JCKEY = os.getenv("JCKEY")
-# NAME = os.getenv("NAME")
-# STATIONS_URL = os.getenv("STATIONS_URL")
-# engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
 
 def fetch_bike_stations():
     '''Fetch bike station occupancy information'''
