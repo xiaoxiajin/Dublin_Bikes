@@ -241,5 +241,22 @@ function displayPrediction(prediction) {
 async function getWeather() {
     const res = await fetch('/weather', { method: 'POST' });
     const data = await res.json();
-    console.log("Weather:", data.main.temp);
+    // console.log("Weather:", data.main.temp);
+
+    const temp = Math.round(data.main.temp);
+    const description = data.weather[0].description;
+    const iconCode = data.weather[0].icon;
+    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+    const html = `
+        <div class="weather-box">
+            <img src="${iconUrl}" alt="${description}" class="weather-icon">
+            <div class="weather-text">
+                <span class="weather-temp">${temp}°C</span>
+                <span class="weather-desc">${description}</span>
+            </div>
+        </div>
+    `;
+
+    document.getElementById("weather-display").innerHTML = html;
 }

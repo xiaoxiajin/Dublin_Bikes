@@ -35,7 +35,7 @@ def query_weatherAPI():
     params = {
         "lat": LAT,
         "lon": LON,
-        "appid": config.Weather_Api,
+        "appid": config.WEATHER_API,
         "exclude": "minutely,alerts",
         "units": "metric",  # temperature unit
         "lang": "en"  # language
@@ -60,13 +60,17 @@ def query_weatherAPI():
             datetime.fromtimestamp(current["sunrise"], tz=timezone.utc),
             datetime.fromtimestamp(current["sunset"], tz=timezone.utc),
             current["temp"],
-            current.get("uvi", 0.0),  # avoid KeyError
+            current.get("uvi", 0.0),
             current["weather"][0]["id"],
-            current.get("wind_gust", 0.0),  # avoid lack of gust
+            current["weather"][0]["main"],
+            current["weather"][0]["description"],
+            current["weather"][0]["icon"],
+            current.get("wind_gust", 0.0),
             current["wind_speed"],
-            current.get("rain", {}).get("1h", 0.0),  
-            current.get("snow", {}).get("1h", 0.0)  
+            current.get("rain", {}).get("1h", 0.0),
+            current.get("snow", {}).get("1h", 0.0)
         )
+
 
         # Extract `hourly` weather data
         for hourly in data["hourly"]:
@@ -117,10 +121,20 @@ def safe_query_weatherAPI():
         finally:
             lock.release()
 
-def insert_current_weather(dt, feels_like, humidity, pressure, sunrise, sunset, temp, uvi, weather_id, wind_gust, wind_speed, rain_1h, snow_1h):
+def insert_current_weather(dt, feels_like, humidity, pressure, sunrise, sunset, temp, uvi,
+                           weather_id, weather_main, weather_description, weather_icon,
+                           wind_gust, wind_speed, rain_1h, snow_1h):
     sql_insert = text("""
-        INSERT INTO current_weather (dt, feels_like, humidity, pressure, sunrise, sunset, temp, uvi, weather_id, wind_gust, wind_speed, rain_1h, snow_1h)
-        VALUES (:dt, :feels_like, :humidity, :pressure, :sunrise, :sunset, :temp, :uvi, :weather_id, :wind_gust, :wind_speed, :rain_1h, :snow_1h)
+        INSERT INTO current_weather (
+            dt, feels_like, humidity, pressure, sunrise, sunset, temp, uvi,
+            weather_id, weather_main, weather_description, weather_icon,
+            wind_gust, wind_speed, rain_1h, snow_1h
+        )
+        VALUES (
+            :dt, :feels_like, :humidity, :pressure, :sunrise, :sunset, :temp, :uvi,
+            :weather_id, :weather_main, :weather_description, :weather_icon,
+            :wind_gust, :wind_speed, :rain_1h, :snow_1h
+        )
         ON DUPLICATE KEY UPDATE 
             feels_like = VALUES(feels_like),
             humidity = VALUES(humidity),
@@ -130,6 +144,9 @@ def insert_current_weather(dt, feels_like, humidity, pressure, sunrise, sunset, 
             temp = VALUES(temp),
             uvi = VALUES(uvi),
             weather_id = VALUES(weather_id),
+            weather_main = VALUES(weather_main),
+            weather_description = VALUES(weather_description),
+            weather_icon = VALUES(weather_icon),
             wind_gust = VALUES(wind_gust),
             wind_speed = VALUES(wind_speed),
             rain_1h = VALUES(rain_1h),
@@ -190,7 +207,8 @@ def get_current_weather_from_db():
         result = connection.execute(text("""
             SELECT dt, temp, feels_like, humidity, pressure, 
                    wind_speed, wind_gust, uvi, rain_1h, snow_1h,
-                   sunrise, sunset, weather_id
+                   sunrise, sunset, weather_id,
+                   weather_main, weather_description, weather_icon
             FROM current_weather
             ORDER BY dt DESC
             LIMIT 1;

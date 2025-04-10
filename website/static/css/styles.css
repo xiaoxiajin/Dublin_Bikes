@@ -1159,3 +1159,40 @@
   font-weight: bold;
   padding: 8px;
 }
+
+.weather-info {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.weather-box {
+  display: flex;
+  align-items: center;
+  background-color: #f3f4f6;
+  padding: 8px 14px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.weather-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.weather-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-temp {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.weather-desc {
+  font-size: 14px;
+  color: #555;
+  text-transform: capitalize;
+}
