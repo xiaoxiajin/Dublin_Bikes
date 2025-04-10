@@ -191,52 +191,70 @@ function displayStationInfo(station, availability) {
                     <td>${station.position_lat.toFixed(6)}, ${station.position_lng.toFixed(6)}</td>
                 </tr>
             </table>
-            <div id="prediction-data" class="prediction-loading">
-                <h4>Loading predictions...</h4>
-                <div class="loading-spinner"></div>
+            
+            <div id="station-trend-container">
+                <canvas id="bikesChart" width="400" height="200"></canvas>
             </div>
+             <div id="station-stands-trend-container">
+                <canvas id="standsChart" width="400" height="200"></canvas>
+            </div>
+            
         </div>
     `;
-
+    
     document.getElementById('station-details').innerHTML = infoHTML;
     
     // Make the station info section visible if it was hidden
     container.style.display = 'block';
     
     // Fetch prediction data
-    fetchPrediction(station.number);
+    // fetchPrediction(station.number);
+    fetchStationTrend(station.number,station.bike_stands);
 }
 
-async function fetchPrediction(stationNumber) {
-    const datetime = document.getElementById("datetime-picker").value;
-    if (!datetime) {
-        alert("Please select date and time.");
-        return;
-    }
-    try {
-        const response = await fetch(`/predict?station_id=${stationNumber}&datetime=${encodeURIComponent(datetime)}`);
-        const prediction = await response.json();
-        displayPrediction(prediction);
-    } catch (error) {
-        console.error("Prediction Fetch Error:", error);
-        document.getElementById("prediction-data").innerHTML = "<p>Error loading prediction.</p>";
-    }
-}
+// async function fetchPrediction(stationNumber) {
+//     const datetime = document.getElementById("datetime-picker").value;
+//     if (!datetime) {
+//         alert("Please select date and time.");
+//         return;
+//     }
+//     try {
+//         const response = await fetch(`/predict?station_id=${stationNumber}&datetime=${encodeURIComponent(datetime)}`);
+//         const prediction = await response.json();
+//         displayPrediction(prediction);
+//     } catch (error) {
+//         console.error("Prediction Fetch Error:", error);
+//         document.getElementById("prediction-data").innerHTML = "<p>Error loading prediction.</p>";
+//     }
+// }
+// async function fetchPrediction(stationNumber) {
+//     try {
+//         // use current time to predict
+//         const currentDateTime = new Date().toISOString();
 
-function displayPrediction(prediction) {
-    if (prediction.error) {
-        document.getElementById("prediction-data").innerHTML = `<p>Error: ${prediction.error}</p>`;
-        return;
-    }
-    const html = `
-        <h4>Prediction:</h4>
-        <ul>
-            <li>In 30 minutes: ${prediction.in_30_min} bikes</li>
-            <li>In 1 hour: ${prediction.in_1_hour} bikes</li>
-        </ul>
-    `;
-    document.getElementById("prediction-data").innerHTML = html;
-}
+//         const response = await fetch(`/predict?station_id=${stationNumber}&datetime=${encodeURIComponent(currentDateTime)}`);
+//         const prediction = await response.json();
+//         displayPrediction(prediction);
+//     } catch (error) {
+//         console.error("Prediction Fetch Error:", error);
+//         document.getElementById("prediction-data").innerHTML = "<p>Error loading prediction.</p>";
+//     }
+// }
+
+// function displayPrediction(prediction) {
+//     if (prediction.error) {
+//         document.getElementById("prediction-data").innerHTML = `<p>Error: ${prediction.error}</p>`;
+//         return;
+//     }
+//     const html = `
+//         <h4>Prediction:</h4>
+//         <ul>
+//             <li>In 30 minutes: ${prediction.in_30_min} bikes</li>
+//             <li>In 1 hour: ${prediction.in_1_hour} bikes</li>
+//         </ul>
+//     `;
+//     document.getElementById("prediction-data").innerHTML = html;
+// }
 
 async function getWeather() {
     const res = await fetch('/weather', { method: 'POST' });
@@ -259,4 +277,165 @@ async function getWeather() {
     `;
 
     document.getElementById("weather-display").innerHTML = html;
+}
+
+async function fetchStationTrend(stationId, totalStands) {
+    try {
+        // clean station id
+        const cleanStationId = stationId.toString().split(':')[0];
+
+        const response = await fetch(`/station_trend?station_id=${cleanStationId}`);
+        
+        // check response status
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`HTTP error! status: ${response.status}, message: ${JSON.stringify(errorData)}`);
+        }
+
+        const trendData = await response.json();
+
+        // check trend data is an array
+        if (!Array.isArray(trendData)) {
+            throw new Error('Trend data is not an array');
+        }
+
+        // calculate stands 
+        const standsData = trendData.map(item => ({
+            time: item.time,
+            predicted_bikes: item.bike_count,
+            available_stands: Math.max(0, totalStands - item.bike_count)
+        }));
+
+        // trend container for bikes and stands
+        const bikesChartContainer = document.getElementById('bikesChart');
+        const standsChartContainer = document.getElementById('standsChart');
+        
+        if (!bikesChartContainer || !standsChartContainer) {
+            throw new Error('Chart containers not found');
+        }
+
+        const trendCtx = bikesChartContainer.getContext('2d');
+        const standsCtx = standsChartContainer.getContext('2d');
+        
+        // destroy any existing charts
+        if (window.stationTrendChart instanceof Chart) {
+            window.stationTrendChart.destroy();
+        }
+        if (window.stationStandsChart instanceof Chart) {
+            window.stationStandsChart.destroy();
+        }
+
+        // chart for available bikes trend
+        window.stationTrendChart = new Chart(trendCtx, {
+            type: 'bar',
+            data: {
+                labels: trendData.map(item => item.time || 'Unknown'),
+                datasets: [{
+                    label: `Predicted Bikes at Station ${cleanStationId}`,
+                    data: trendData.map(item => item.bike_count || 0),
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Bikes'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time of Day'
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: `Bike Availability Trend for Station ${cleanStationId}`
+                    }
+                }
+            }
+        });
+
+        // chart for station stands
+        window.stationStandsChart = new Chart(standsCtx, {
+            type: 'bar',
+            data: {
+                labels: standsData.map(item => item.time || 'Unknown'),
+                datasets: [{
+                    label: `Available Stands at Station ${cleanStationId}`,
+                    data: standsData.map(item => item.available_stands),
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Available Stands'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time of Day'
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: `Stands Availability Trend for Station ${cleanStationId}`
+                    }
+                }
+            }
+        });
+
+    } catch (error) {
+        console.error('Detailed Error fetching trend:', error);
+        
+        // error handling
+        const errorMessage = error.message || 'Unknown error occurred';
+        
+        // display error
+        let bikesErrorContainer = document.getElementById('station-trend-container');
+        let standsErrorContainer = document.getElementById('station-stands-trend-container');
+        
+        if (bikesErrorContainer) {
+            bikesErrorContainer.innerHTML = `
+                <div class="trend-error">
+                    <h4>Unable to Load Bikes Trend</h4>
+                    <p>Error: ${errorMessage}</p>
+                </div>
+            `;
+        }
+
+        if (standsErrorContainer) {
+            standsErrorContainer.innerHTML = `
+                <div class="trend-error">
+                    <h4>Unable to Load Stands Trend</h4>
+                    <p>Error: ${errorMessage}</p>
+                </div>
+            `;
+        }
+
+        if (!bikesErrorContainer && !standsErrorContainer) {
+            // alert when unable to load
+            alert(`Unable to load station trend: ${errorMessage}`);
+        }
+    }
 }

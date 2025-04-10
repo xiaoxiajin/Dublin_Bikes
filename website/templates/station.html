@@ -9,6 +9,8 @@
     <link rel="icon" href="data:,">
     <!-- Add Plotly.js for graphs -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Add Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -60,9 +62,9 @@
                 <!-- Map -->
                 <div class="station-map">
                     <div id="map"></div>
-                    <div style="margin-top: 10px;">
+                    <!-- <div style="margin-top: 10px;">
                         <input type="datetime-local" id="datetime-picker" name="datetime" />
-                    </div>
+                    </div> -->
                 </div>
                 
                 <!-- Station Info -->
@@ -71,9 +73,16 @@
                         <div id="station-graph" class="chart-box"></div>
                         <div id="station-pie-chart" class="chart-box"></div>
                     </div>
-                    <div id="station-details" class="station-details-box"></div>
+                    <div id="station-details" class="station-details-box">
+                        <div id="prediction-data"></div>
+                    </div>
+                </div>
+
+                <div class="station-trend-container">
+                    <canvas id="trendChart"></canvas>
                 </div>
             </div>
+            
         </section>
     </main>
 
