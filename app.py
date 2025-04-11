@@ -46,7 +46,7 @@ app.route('/get_api_key')(website.stations_routes.get_api_key)
 app.route('/stations')(website.stations_routes.get_stations)
 app.route('/availability')(website.stations_routes.get_availability)
 app.route('/update_bikes')(website.stations_routes.update_bikes)
-app.route('/station_data')(website.stations_routes.get_station_data)
+app.route('/station_data', methods=['GET'])(website.stations_routes.get_station_data)
 app.route('/station_trend')(website.stations_routes.get_station_trend)
 
 # weather_routes

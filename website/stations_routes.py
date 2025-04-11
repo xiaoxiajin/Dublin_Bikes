@@ -42,7 +42,7 @@ def get_station_data():
             JOIN availability a ON s.number = a.number
         """)
         
-        result = connection.execute(query)
+        result = connection.execute(query).mappings()
         data = [dict(row) for row in result]
     
     # convert datetime to isoformat
