@@ -89,7 +89,27 @@ function addMarkers(stations, availabilityMap, map) {
     });
 }
 
+function clearCharts() {
+    // clear Plotly charts
+    const plotlyCharts = ['station-graph', 'station-pie-chart'];
+    plotlyCharts.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            Plotly.purge(element);
+        }
+    });
+
+    // clear Chart.js charts
+    if (window.stationTrendChart) {
+        window.stationTrendChart.destroy();
+    }
+    if (window.stationStandsChart) {
+        window.stationStandsChart.destroy();
+    }
+}
+
 function displayStationInfo(station, availability) {
+    clearCharts();
     const container = document.getElementById("station-info");
     
     // Make sure Plotly is loaded
@@ -390,3 +410,12 @@ async function fetchStationTrend(stationId, totalStands) {
         }
     }
 }
+
+window.addEventListener('resize', function() {
+    if (window.stationTrendChart) {
+      window.stationTrendChart.resize();
+    }
+    if (window.stationStandsChart) {
+      window.stationStandsChart.resize();
+    }
+  });
