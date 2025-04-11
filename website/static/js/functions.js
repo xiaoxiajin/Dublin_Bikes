@@ -147,7 +147,6 @@ function displayStationInfo(station, availability) {
 
     // Station info section with all the required fields
     const infoHTML = `
-        <div class="station-data">
             <h3>Station Information</h3>
             <table class="info-table">
                 <tr>
@@ -188,17 +187,11 @@ function displayStationInfo(station, availability) {
                 </tr>
                 <tr>
                     <th>Coordinates</th>
-                    <td>${station.position_lat.toFixed(6)}, ${station.position_lng.toFixed(6)}</td>
+                    <td>${station.position_lat.toFixed(2)}, ${station.position_lng.toFixed(2)}</td>
                 </tr>
             </table>
             
-            <div id="station-bikes-trend-container">
-                <canvas id="bikesChart" width="400" height="200"></canvas>
-            </div>
             
-             <div id="station-stands-trend-container">
-                <canvas id="standsChart" width="400" height="200"></canvas>
-            </div>
             
         </div>
     `;

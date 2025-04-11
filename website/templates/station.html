@@ -43,14 +43,15 @@
 
     <main>
         <section class="find-stations">
-            <div class="row">
-                <div class="col-md-4 station-intro">
                     <div class="content">
+                        <div class="title-weather-column">
                         <div class="title">
                             <h1>Find Stations</h1>                    
                             <p>Locate Bike Stations Across Dublin</p>
                             
                         </div>
+                            <div id="weather-display" class="weather-info"></div> 
+                    </div>
                 
                         <div class="advertisement">Discover the nearest bike stations with ease <br>
                             Our interactive map shows real-time availability and capacity <br>
@@ -59,12 +60,12 @@
                         </div>
                     </div>
     
-                    <div id="weather-display" class="weather-info"></div>                 
-            </div>
+                                    
+            
 
             <!-- Map and Station Info Container -->
-            <div class="col-md-8 station-map-section">
-                <div class="map-and-info">
+            
+              
                     <!-- Map -->
                     <div class="station-map">
                         <div id="map"></div>
@@ -74,23 +75,30 @@
                     </div>
                     
                     <!-- Station Info -->
-                    <div id="station-info" class="station-info-panel">
-                        <div class="charts-container">
-                            <div id="station-graph" class="chart-box"></div>
-                            <div id="station-pie-chart" class="chart-box"></div>
-                        </div>
-                        
-                        <div id="station-details" class="station-details-box">
-                            <div id="prediction-data"></div>
+                    <div id="station-info"  style="display: none";>
+                        <div class = "station-data">
+                            <div class="charts-column">
+                                <div id="station-graph" class="chart-box"></div>
+                                <div id="station-pie-chart" class="chart-box"></div>
+                            </div>
+                            
+                            <div class="info-column">
+                                <div id="station-details"></div>
+                            </div>
+                            
+                            <div class="prediction-column">
+                                <div id="station-bikes-trend-container">
+                                    <canvas id="bikesChart"></canvas>
+                                </div>
+                                <div id="station-stands-trend-container">
+                                    <canvas id="standsChart"></canvas>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="station-trend-container">
-                        <canvas id="trendChart"></canvas>
-                    </div>
+                
                 </div>
-                </div>
-            </div>
+            
             
         </section>
     </main>

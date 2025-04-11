@@ -1033,9 +1033,16 @@ main {
 }
 
 .find-stations .content {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 20px; */
+  display: grid;
+  grid-template-columns: 1fr 300px; 
+  gap: 20px; 
+}
+
+.find-stations .title-weather-column {
+  grid-column: 1;
 }
 
 .find-stations .content .title {
@@ -1065,11 +1072,16 @@ main {
 .find-stations .advertisement {
   font-size: 1.1rem;
   color: #7f8c8d;
-  line-height: 1.5;
+  line-height: 1.2;
   text-align: right;
   margin-left: auto;
+  
+  grid-column: 2;
+  padding: 20px;
 }
 
+
+/* 
 /* Map and Station Info Layout */
 .map-and-info {
   display: flex;
@@ -1123,13 +1135,48 @@ main {
   align-items: left;
 
 }
-/*
+.station-data {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 三列等宽 */
+  gap: 20px;
+  padding: 20px;
+}
+
 .station-data h3 {
   color: #3498db;
   margin-bottom: 15px;
   font-size: 1.5rem;
   text-align: center;
   font-family: 'Abril Fatface';
+}
+
+.charts-column {
+  grid-column: 1;
+}
+
+.info-column {
+  grid-column: 2;
+}
+
+/* 第三列：预测图表 */
+.prediction-column {
+  grid-column: 3;
+}
+
+/* 调整各个元素的样式 */
+.chart-box {
+  margin-bottom: 20px;
+  height: 300px;
+}
+
+.info-table {
+  width: 100%;
+}
+
+#station-bikes-trend-container,
+#station-stands-trend-container {
+  margin-bottom: 20px;
+  height: 300px;
 }
 
 .info-table {
@@ -1165,7 +1212,7 @@ main {
 .status-badge.closed {
   background-color: #e74c3c;
 }
-*/
+
 
 /* Popup Styling */
 .info-window {
@@ -1278,3 +1325,83 @@ main {
   text-transform: capitalize;
 }
 
+#station-info {
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.station-data {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 三列等宽 */
+  gap: 20px;
+  padding: 20px;
+}
+
+/* 第一列：实时图表 */
+.charts-column {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 第二列：信息表格 */
+.info-column {
+  grid-column: 2;
+  background-color: white;
+  border-radius: 6px;
+  padding: 15px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 第三列：预测图表 */
+.prediction-column {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 图表容器样式 */
+.chart-box {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  height: 300px;
+}
+
+#station-bikes-trend-container,
+#station-stands-trend-container {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  height: 300px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .station-data {
+      grid-template-columns: 1fr 1fr;
+  }
+  
+  .prediction-column {
+      grid-column: 1 / -1; /* 跨越所有列 */
+      grid-row: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .station-data {
+      grid-template-columns: 1fr;
+  }
+  
+  .charts-column,
+  .info-column,
+  .prediction-column {
+      grid-column: 1;
+  }
+}
