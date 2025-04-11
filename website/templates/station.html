@@ -43,46 +43,52 @@
 
     <main>
         <section class="find-stations">
-            <div class="content">
-                <div class="title">
-                    <h1>Find Stations</h1>
-                    <!-- display weather here for now-->
-                    
-                    <p>Locate Bike Stations Across Dublin</p>
-                    
-                </div>
+            <div class="row">
+                <div class="col-md-4 station-intro">
+                    <div class="content">
+                        <div class="title">
+                            <h1>Find Stations</h1>                    
+                            <p>Locate Bike Stations Across Dublin</p>
+                            
+                        </div>
                 
-                <div class="advertisement">Discover the nearest bike stations with ease <br>
-                    Our interactive map shows real-time availability and capacity <br>
-                    ensuring you can always find a bike when you need one <br>
-                    Explore Dublin's vibrant streets with confidence and convenience
-                </div>
-                <div id="weather-display" class="weather-info"></div> 
+                        <div class="advertisement">Discover the nearest bike stations with ease <br>
+                            Our interactive map shows real-time availability and capacity <br>
+                            ensuring you can always find a bike when you need one <br>
+                            Explore Dublin's vibrant streets with confidence and convenience
+                        </div>
+                    </div>
+    
+                    <div id="weather-display" class="weather-info"></div>                 
             </div>
 
             <!-- Map and Station Info Container -->
-            <div class="map-and-info">
-                <!-- Map -->
-                <div class="station-map">
-                    <div id="map"></div>
-                    <!-- <div style="margin-top: 10px;">
-                        <input type="datetime-local" id="datetime-picker" name="datetime" />
-                    </div> -->
-                </div>
-                
-                <!-- Station Info -->
-                <div id="station-info" class="station-info-panel">
-                    <div class="charts-container">
-                        <div id="station-graph" class="chart-box"></div>
-                        <div id="station-pie-chart" class="chart-box"></div>
+            <div class="col-md-8 station-map-section">
+                <div class="map-and-info">
+                    <!-- Map -->
+                    <div class="station-map">
+                        <div id="map"></div>
+                        <!-- <div style="margin-top: 10px;">
+                            <input type="datetime-local" id="datetime-picker" name="datetime" />
+                        </div> -->
                     </div>
-                    <div id="station-details" class="station-details-box">
-                        <div id="prediction-data"></div>
+                    
+                    <!-- Station Info -->
+                    <div id="station-info" class="station-info-panel">
+                        <div class="charts-container">
+                            <div id="station-graph" class="chart-box"></div>
+                            <div id="station-pie-chart" class="chart-box"></div>
+                        </div>
+                        
+                        <div id="station-details" class="station-details-box">
+                            <div id="prediction-data"></div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="station-trend-container">
-                    <canvas id="trendChart"></canvas>
+                    <div class="station-trend-container">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
                 </div>
             </div>
             
