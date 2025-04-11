@@ -54,7 +54,9 @@ def get_station_data():
 
 
 def get_station_trend():
-    station_id = request.args.get('station_id')
+    # Set a default station_id = 1
+    station_id = request.args.get('station_id','1')
+    
     
     if not station_id:
         return jsonify({'error': 'Missing station_id'}), 400
