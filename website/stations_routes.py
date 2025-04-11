@@ -5,6 +5,8 @@ import time
 import pickle
 import pandas as pd
 import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from website.scraper_dublin_bike import fetch_bike_stations
 from website.config import config 
@@ -42,7 +44,7 @@ def get_station_data():
             JOIN availability a ON s.number = a.number
         """)
         
-        result = connection.execute(query)
+        result = connection.execute(query).mappings()
         data = [dict(row) for row in result]
     
     # convert datetime to isoformat
