@@ -1,7 +1,11 @@
-from flask import jsonify
+from flask import jsonify, request
 from sqlalchemy import text
 import schedule
 import time
+import pickle
+import pandas as pd
+import os
+
 from website.scraper_dublin_bike import fetch_bike_stations
 from website.config import config 
 
@@ -48,6 +52,60 @@ def get_station_data():
     
     return jsonify(data)
 
+
+def get_station_trend():
+    station_id = request.args.get('station_id')
+    
+    if not station_id:
+        return jsonify({'error': 'Missing station_id'}), 400
+
+    try:
+        # ensure station_id type
+        station_id = int(station_id.split(':')[0]) 
+
+        # every two hours
+        trend_times = list(range(0, 24, 2))  
+
+        # load model
+        model_path = f"machine_learning/station_models/station_{station_id}.pkl"
+        
+        # check file exists
+        if not os.path.exists(model_path):
+            return jsonify({'error': f'Model for station {station_id} not found'}), 404
+
+        with open(model_path, 'rb') as f:
+            model = pickle.load(f)
+
+        # predict for every 2 hours
+        trend_data = []
+        for hour in trend_times:
+            dt = pd.Timestamp.now().replace(hour=hour, minute=0, second=0)
+
+            input_df = pd.DataFrame({
+                'num_docks_available': [10],  
+                'day': [dt.day],
+                'hour': [dt.hour],
+                'avg_air_temp': [10.0],  
+                'avg_humidity': [24.0],   
+                'day_name': [dt.dayofweek],
+            })
+
+            # predict
+            prediction = model.predict(input_df)
+            trend_data.append({
+                'time': f"{hour:02d}:00",
+                'bike_count': int(max(0, prediction[0]))
+            })
+
+        return jsonify(trend_data)
+
+    except Exception as e:
+        # handle exception in getting trend
+        import traceback
+        print(f"Error in get_station_trend: {e}")
+        print(traceback.format_exc())
+        return jsonify({'error': str(e)}), 500
+    
 def update_bikes():
     fetch_bike_stations()
     return jsonify({"message": "Bike station data updated successfully!"})

@@ -210,96 +210,9 @@ function displayStationInfo(station, availability) {
     container.style.display = 'block';
     
     // Fetch prediction data
-    // fetchPrediction(station.number);
     fetchStationTrend(station.number,station.bike_stands);
 }
 
-// async function fetchPrediction(stationNumber) {
-//     const datetime = document.getElementById("datetime-picker").value;
-//     if (!datetime) {
-//         alert("Please select date and time.");
-//         return;
-//     }
-//     try {
-//         const response = await fetch(`/predict?station_id=${stationNumber}&datetime=${encodeURIComponent(datetime)}`);
-//         const prediction = await response.json();
-//         displayPrediction(prediction);
-//     } catch (error) {
-//         console.error("Prediction Fetch Error:", error);
-//         document.getElementById("prediction-data").innerHTML = "<p>Error loading prediction.</p>";
-//     }
-// }
-// async function fetchPrediction(stationNumber) {
-//     try {
-//         // use current time to predict
-//         const currentDateTime = new Date().toISOString();
-
-//         const response = await fetch(`/predict?station_id=${stationNumber}&datetime=${encodeURIComponent(currentDateTime)}`);
-//         const prediction = await response.json();
-//         displayPrediction(prediction);
-//     } catch (error) {
-//         console.error("Prediction Fetch Error:", error);
-//         document.getElementById("prediction-data").innerHTML = "<p>Error loading prediction.</p>";
-//     }
-// }
-
-// function displayPrediction(prediction) {
-//     if (prediction.error) {
-//         document.getElementById("prediction-data").innerHTML = `<p>Error: ${prediction.error}</p>`;
-//         return;
-//     }
-//     const html = `
-//         <h4>Prediction:</h4>
-//         <ul>
-//             <li>In 30 minutes: ${prediction.in_30_min} bikes</li>
-//             <li>In 1 hour: ${prediction.in_1_hour} bikes</li>
-//         </ul>
-//     `;
-//     document.getElementById("prediction-data").innerHTML = html;
-// }
-// async function fetchPrediction(stationNumber) {
-//     const datetime = document.getElementById("datetime-picker").value;
-//     if (!datetime) {
-//         alert("Please select date and time.");
-//         return;
-//     }
-//     try {
-//         const response = await fetch(`/predict?station_id=${stationNumber}&datetime=${encodeURIComponent(datetime)}`);
-//         const prediction = await response.json();
-//         displayPrediction(prediction);
-//     } catch (error) {
-//         console.error("Prediction Fetch Error:", error);
-//         document.getElementById("prediction-data").innerHTML = "<p>Error loading prediction.</p>";
-//     }
-// }
-// async function fetchPrediction(stationNumber) {
-//     try {
-//         // use current time to predict
-//         const currentDateTime = new Date().toISOString();
-
-//         const response = await fetch(`/predict?station_id=${stationNumber}&datetime=${encodeURIComponent(currentDateTime)}`);
-//         const prediction = await response.json();
-//         displayPrediction(prediction);
-//     } catch (error) {
-//         console.error("Prediction Fetch Error:", error);
-//         document.getElementById("prediction-data").innerHTML = "<p>Error loading prediction.</p>";
-//     }
-// }
-
-// function displayPrediction(prediction) {
-//     if (prediction.error) {
-//         document.getElementById("prediction-data").innerHTML = `<p>Error: ${prediction.error}</p>`;
-//         return;
-//     }
-//     const html = `
-//         <h4>Prediction:</h4>
-//         <ul>
-//             <li>In 30 minutes: ${prediction.in_30_min} bikes</li>
-//             <li>In 1 hour: ${prediction.in_1_hour} bikes</li>
-//         </ul>
-//     `;
-//     document.getElementById("prediction-data").innerHTML = html;
-// }
 
 async function getWeather() {
     const res = await fetch('/weather', { method: 'POST' });

@@ -47,105 +47,14 @@ app.route('/stations')(website.stations_routes.get_stations)
 app.route('/availability')(website.stations_routes.get_availability)
 app.route('/update_bikes')(website.stations_routes.update_bikes)
 app.route('/station_data')(website.stations_routes.get_station_data)
+app.route('/station_trend')(website.stations_routes.get_station_trend)
 
 # weather_routes
 app.route('/weather', methods=['GET', 'POST'])(website.weather_routes.get_weather)
 app.route('/update_weather')(website.weather_routes.update_weather)
 
 
-@app.route('/predict', methods=['GET'])
-def predict():
-    station_id = request.args.get('station_id')
-    date_str = request.args.get('datetime')
 
-    if not station_id or not date_str:
-        return jsonify({'error': 'Missing station_id or datetime'}), 400
-
-    try:
-        model_path = f"machine_learning/station_models/station_{station_id}.pkl"
-        if not os.path.exists(model_path):
-            return jsonify({'error': 'Model not found'}), 404
-
-        with open(model_path, 'rb') as f:
-            model = pickle.load(f)
-
-        clean_date_str = unquote(date_str)
-        # clean_date_str = date_str.split('=')[1]
-        dt = pd.to_datetime(clean_date_str)
-        # print(date_str)
-        input_df = pd.DataFrame({
-            'num_docks_available': 10,
-            'day': [dt.day],
-            'hour': [dt.hour],
-            'avg_air_temp': 10.0,
-            'avg_humidity': 24.0,
-            'day_name': [dt.dayofweek],
-        })
-
-        prediction = model.predict(input_df)
-        print(prediction)
-        # pred_30 = max(0, 1)
-        # pred_60 = max(0, 2)
-
-        return jsonify(prediction[0])
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/station_trend', methods=['GET'])
-def get_station_trend():
-    station_id = request.args.get('station_id')
-    
-    if not station_id:
-        return jsonify({'error': 'Missing station_id'}), 400
-
-    try:
-        # ensure station_id type
-        station_id = int(station_id.split(':')[0]) 
-
-        # every two hours
-        trend_times = list(range(0, 24, 2))  
-
-        # load model
-        model_path = f"machine_learning/station_models/station_{station_id}.pkl"
-        
-        # check file exists
-        if not os.path.exists(model_path):
-            return jsonify({'error': f'Model for station {station_id} not found'}), 404
-
-        with open(model_path, 'rb') as f:
-            model = pickle.load(f)
-
-        # predict for every 2 hours
-        trend_data = []
-        for hour in trend_times:
-            dt = pd.Timestamp.now().replace(hour=hour, minute=0, second=0)
-
-            input_df = pd.DataFrame({
-                'num_docks_available': [10],  
-                'day': [dt.day],
-                'hour': [dt.hour],
-                'avg_air_temp': [10.0],  
-                'avg_humidity': [24.0],   
-                'day_name': [dt.dayofweek],
-            })
-
-            # 预测
-            prediction = model.predict(input_df)
-            trend_data.append({
-                'time': f"{hour:02d}:00",
-                'bike_count': int(max(0, prediction[0]))
-            })
-
-        return jsonify(trend_data)
-
-    except Exception as e:
-        # handle exception in getting trend
-        import traceback
-        print(f"Error in get_station_trend: {e}")
-        print(traceback.format_exc())
-        return jsonify({'error': str(e)}), 500
-    
 # handle error
 @app.errorhandler(404)
 def page_not_found(e):
