@@ -43,55 +43,75 @@
 
     <main>
         <section class="find-stations">
-            <div class="row">
-                <div class="col-md-4 station-intro">
-                    <div class="content">
-                        <div class="title">
-                            <h1>Find Stations</h1>                    
-                            <p>Locate Bike Stations Across Dublin</p>
-                            
-                        </div>
-                
-                        <div class="advertisement">Discover the nearest bike stations with ease <br>
-                            Our interactive map shows real-time availability and capacity <br>
-                            ensuring you can always find a bike when you need one <br>
-                            Explore Dublin's vibrant streets with confidence and convenience
-                        </div>
-                    </div>
-    
-                    <div id="weather-display" class="weather-info"></div>                 
-            </div>
-
-            <!-- Map and Station Info Container -->
-            <div class="col-md-8 station-map-section">
-                <div class="map-and-info">
-                    <!-- Map -->
-                    <div class="station-map">
-                        <div id="map"></div>
-                        <!-- <div style="margin-top: 10px;">
-                            <input type="datetime-local" id="datetime-picker" name="datetime" />
-                        </div> -->
-                    </div>
-                    
-                    <!-- Station Info -->
-                    <div id="station-info" class="station-info-panel">
-                        <div class="charts-container">
-                            <div id="station-graph" class="chart-box"></div>
-                            <div id="station-pie-chart" class="chart-box"></div>
-                        </div>
+            <div class="content">
+                <div class="title-weather-column">
+                    <div class="title">
+                        <h1>Find Stations</h1>                    
+                        <p>Locate Bike Stations Across Dublin</p>
                         
-                        <div id="station-details" class="station-details-box">
-                            <div id="prediction-data"></div>
-                        </div>
                     </div>
-
-                    <div class="station-trend-container">
-                        <canvas id="trendChart"></canvas>
-                    </div>
+                    <div id="weather-display" class="weather-info"></div> 
                 </div>
+        
+                <div class="advertisement">Discover the nearest bike stations with ease <br>
+                    Our interactive map shows real-time availability and capacity <br>
+                    ensuring you can always find a bike when you need one <br>
+                    Explore Dublin's vibrant streets with confidence and convenience
                 </div>
+            </div>                                   
+            
+            <!-- Map and Station Info Container -->           
+                    <!-- Map -->
+            <div class="station-map">
+                <div id="map"></div>
+                <!-- <div style="margin-top: 10px;">
+                    <input type="datetime-local" id="datetime-picker" name="datetime" />
+                </div> -->
             </div>
             
+            <!-- Station Info -->
+            <div id="station-info"  style="display: none";>
+                <!-- <div class = "station-data">
+                    <div class="charts-column">
+                        <div id="station-graph" class="chart-box"></div>
+                        <div id="station-pie-chart" class="chart-box"></div>
+                    </div>
+                    
+                    <div class="info-column">
+                        <div id="station-details"></div>
+                    </div>
+                    
+                    <div class="prediction-column">
+                        <div id="station-bikes-trend-container">
+                            <canvas id="bikesChart"></canvas>
+                        </div>
+                        <div id="station-stands-trend-container">
+                            <canvas id="standsChart"></canvas>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="station-data">
+                    <div class="charts-column">
+                      <div class="chart-box">
+                        <div id="station-graph"></div>  <!-- 改为 div -->
+                      </div>
+                      <div class="chart-box">
+                        <div id="station-pie-chart"></div>  <!-- 改为 div -->
+                      </div>
+                    </div>
+                    <div class="info-column">
+                      <div id="station-details"></div>
+                    </div>
+                    <div class="prediction-column">
+                      <div class="chart-box">
+                        <canvas id="bikesChart"></canvas>  <!-- 这个用 Chart.js 所以保持 canvas -->
+                      </div>
+                      <div class="chart-box">
+                        <canvas id="standsChart"></canvas>  <!-- 这个用 Chart.js 所以保持 canvas -->
+                      </div>
+                    </div>
+                  </div>
+            </div>
         </section>
     </main>
 
