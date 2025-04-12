@@ -130,10 +130,13 @@ function displayStationInfo(station, availability) {
             title: `${station.address} - Live Availability`,
             xaxis: { title: 'Type' },
             yaxis: { title: 'Count' },
-            margin: { t: 50, b: 50, l: 50, r: 50 }
+            margin: { t: 50, b: 50, l: 50, r: 50 },
+            responsive: true
         };
         
-        Plotly.newPlot('station-graph', graphData, layout);
+        Plotly.newPlot('station-graph', graphData, layout).then(function(){
+            Plotly.Plots.resize('station-graph')
+        });
 
         // Create pie chart for percentage visualization
         const totalStands = station.bike_stands;
@@ -154,10 +157,13 @@ function displayStationInfo(station, availability) {
         const pieLayout = {
             title: 'Capacity Distribution',
             height: 300,
-            margin: { t: 50, b: 30, l: 30, r: 30 }
+            margin: { t: 50, b: 30, l: 30, r: 30 },
+            responsive: true
         };
         
-        Plotly.newPlot('station-pie-chart', pieData, pieLayout);
+        Plotly.newPlot('station-pie-chart', pieData, pieLayout).then(function(){
+            Plotly.Plots.resize('station-pie-graph')
+        });
     } else {
         console.error("Plotly library is not loaded!");
     }
@@ -224,6 +230,7 @@ function displayStationInfo(station, availability) {
     
     // Fetch prediction data
     fetchStationTrend(station.number,station.bike_stands);
+    
 }
 
 
