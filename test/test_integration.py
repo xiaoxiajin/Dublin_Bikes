@@ -30,8 +30,8 @@ class TestIntegration(unittest.TestCase):
         weather_response = self.client.get('/weather')
         self.assertEqual(weather_response.status_code, 200)
         data = json.loads(weather_response.data)
-        self.assertIn('temp', data)
-        self.assertIn('humidity', data)
+        self.assertIn('temp', data['main'])
+        self.assertIn('humidity', data['main'])
 
 if __name__ == '__main__':
     unittest.main()

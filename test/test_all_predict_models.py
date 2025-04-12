@@ -1,4 +1,6 @@
 import unittest
+import pickle
+import pandas as pd
 import sys
 import os
 import json
@@ -51,6 +53,27 @@ class TestAllStationTrend(unittest.TestCase):
             self.fail(f"{len(failed)} station trend tests failed.")
         else:
             print("\nAll station trend predictions passed.")
+
+class TestModelPrediction(unittest.TestCase):
+    def test_model_loading_and_prediction(self):
+        station_id = 10
+        model_path = f"machine_learning/station_models/station_{station_id}.pkl"
+        self.assertTrue(os.path.exists(model_path), f"Model file not found: {model_path}")
+        
+        with open(model_path, 'rb') as f:
+            model = pickle.load(f)
+
+        test_input = pd.DataFrame([{
+            "num_docks_available": 1,
+            "day": 1,
+            "hour": 0,
+            "avg_air_temp": 13.955,
+            "avg_humidity": 83.75,
+            "day_name": 6
+        }])
+
+        prediction = model.predict(test_input)
+        self.assertIsInstance(prediction[0], float)
 
 if __name__ == '__main__':
     unittest.main()
