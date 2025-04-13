@@ -29,7 +29,12 @@ LON = -6.2603  # longitude
 schedule_started = False # global variable, avoiding dupulicated tasks scheduling
 
 def query_weatherAPI():
-    ''' Get weather data hourly and store into database.'''
+    ''' Get weather data hourly and store into database.
+    - Makes an API call to get current, hourly, and daily weather data
+    - Extracts and processes weather information 
+    - Inserts data into respective database tables
+    - Handles potential API request failures
+    '''
     URL = "https://api.openweathermap.org/data/3.0/onecall"
 
     params = {
@@ -115,15 +120,19 @@ def query_weatherAPI():
         print(response.text) 
 
 def safe_query_weatherAPI():
-    if lock.acquire(blocking=False):  # avoid many tasks execute simoutaneously
+    # Use a lock to prevent simultaneous API calls and potential race conditions
+    if lock.acquire(blocking=False): 
         try:
             query_weatherAPI()
         finally:
-            lock.release()
+            lock.release() # Ensure lock is always released
 
 def insert_current_weather(dt, feels_like, humidity, pressure, sunrise, sunset, temp, uvi,
                            weather_id, weather_main, weather_description, weather_icon,
                            wind_gust, wind_speed, rain_1h, snow_1h):
+    '''
+    Insert or update current weather data in the database.
+    '''
     sql_insert = text("""
         INSERT INTO current_weather (
             dt, feels_like, humidity, pressure, sunrise, sunset, temp, uvi,
@@ -203,6 +212,13 @@ def insert_daily_weather(dt, future_dt, humidity, pop, pressure, temp_max, temp_
 
 # Get recent weather data from database
 def get_current_weather_from_db():
+    '''
+    Retrieve the most recent weather data from the database.
+    
+    - Fetches the latest weather record
+    - Converts timedelta fields to strings for JSON serialization
+    - Returns weather data or a 404 message if no data exists
+    '''
     with config.engine.connect() as connection:
         result = connection.execute(text("""
             SELECT dt, temp, feels_like, humidity, pressure, 
@@ -230,6 +246,13 @@ def update_weather():
     return jsonify({"message": "Weather data updated successfully!"})
 
 def schedule_task():
+    '''
+    Set up a scheduled task to periodically update weather data.
+    
+    - Prevents multiple schedule registrations
+    - Runs weather API query at regular intervals
+    - Uses an infinite loop with sleep to manage scheduling
+    '''
     global schedule_started
     if schedule_started:  # If task has been registered, return directly
         return

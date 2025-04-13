@@ -12,15 +12,18 @@ from website.scraper_dublin_bike import fetch_bike_stations
 from website.config import config 
 
 def get_api_key():
+    '''Retrieve the Google Maps API key for client-side use.'''
     return jsonify({"api_key": config.GOOGLE_MAPS_API_KEY})
 
 def get_stations():
+    '''Retrieve all bike station static information from the database.'''
     with config.engine.connect() as connection:
         result = connection.execute(text("SELECT * FROM station;"))
         stations = [dict(row._mapping) for row in result]
     return jsonify(stations)
 
 def get_availability():
+    '''Retrieve bike station availability data from the database.'''
     with config.engine.connect() as connection:
         result = connection.execute(text("SELECT * FROM availability ORDER BY last_update DESC;"))
         availability_data = [dict(row._mapping) for row in result]
@@ -28,9 +31,19 @@ def get_availability():
 
 
 def get_station_data():
-    """
-    get station data for visulization
-    """
+    '''Retrieve comprehensive bike station data for visualization.
+
+    Combines static station information with current availability:
+    - Joins station and availability tables
+    - Includes location, capacity, and current bike/stand counts
+    
+    Data Processing:
+    - Converts datetime to ISO format for frontend compatibility
+    
+    Returns:
+        JSON array of merged station and availability data
+
+    '''
     engine = config.engine
 
     with engine.connect() as connection:
@@ -55,8 +68,26 @@ def get_station_data():
     return jsonify(data)
 
 
-# def get_station_trend():
-def get_station_prediction():    
+
+def get_station_prediction():  
+    '''Generate bike availability predictions for a specific station.
+    
+    Key Features:
+    - Uses pre-trained machine learning model for each station
+    - Predicts bike availability for every 2 hours in a day
+    - Handles model loading and prediction errors
+    
+    Parameters:
+    - station_id: Identifier for the specific bike station
+    
+    Returns:
+        JSON array of predicted bike counts for different times
+    
+    Error Handling:
+    - Validates station_id
+    - Checks for model existence
+    - Handles prediction and loading exceptions
+    '''  
     # Set a default station_id = 1
     station_id = request.args.get('station_id','1')
     
@@ -113,10 +144,19 @@ def get_station_prediction():
         return jsonify({'error': str(e)}), 500
     
 def update_bikes():
+    '''Manually trigger an update of bike station data.'''
     fetch_bike_stations()
     return jsonify({"message": "Bike station data updated successfully!"})
 
 def schedule_bike_update():
+    '''Set up a scheduled task to periodically update bike station data.
+    
+    Scheduling Details:
+    - Runs fetch_bike_stations() every hour
+    - Uses an infinite loop with sleep to manage scheduling
+    
+    Note: This function runs continuously in a separate thread
+    '''
     
     schedule.every(1).hours.do(fetch_bike_stations)
     while True:

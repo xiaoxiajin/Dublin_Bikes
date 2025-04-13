@@ -38,7 +38,6 @@ def login():
     return render_template('login.html')
 
 def logout():
-    # session.pop('username', None)
     session.clear()
     flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
