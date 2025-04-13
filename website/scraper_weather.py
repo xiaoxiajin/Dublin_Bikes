@@ -250,7 +250,7 @@ if __name__ == '__main__':
     # Move schedule to a separate background thread so that it does not block the Flask server, allowing the API to remain responsive.
     threading.Thread(target=schedule_task, daemon=True).start()
 
-    print("🚀 Flask API is running at http://127.0.0.1:5000/")
+    # print("🚀 Flask API is running at http://127.0.0.1:5000/")
     app.run(host='127.0.0.1', port=5000, debug=False) 
     # debug=True may start two Flask instances, causing schedule_task() to run twice.
     # With debug turned off, only one process will be running, avoiding duplicate task scheduling.

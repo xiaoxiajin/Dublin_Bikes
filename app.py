@@ -47,7 +47,8 @@ app.route('/stations')(website.stations_routes.get_stations)
 app.route('/availability')(website.stations_routes.get_availability)
 app.route('/update_bikes')(website.stations_routes.update_bikes)
 app.route('/station_data', methods=['GET'])(website.stations_routes.get_station_data)
-app.route('/station_trend')(website.stations_routes.get_station_trend)
+# app.route('/station_trend')(website.stations_routes.get_station_trend)
+app.route('/station_prediction')(website.stations_routes.get_station_prediction)
 
 # weather_routes
 app.route('/weather', methods=['GET', 'POST'])(website.weather_routes.get_weather)
@@ -75,7 +76,7 @@ if __name__ == '__main__':
     schedule_bike_update()
     
     # run at local:
-    print("Flask API is running at http://127.0.0.1:5000/")
+    # print("Flask API is running at http://127.0.0.1:5000/")
     app.run(host='127.0.0.1', port=5000, debug=True)
 
     # run at EC2:

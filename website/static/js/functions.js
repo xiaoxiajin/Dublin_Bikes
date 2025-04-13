@@ -262,7 +262,8 @@ async function fetchStationTrend(stationId, totalStands) {
         // clean station id
         const cleanStationId = stationId.toString().split(':')[0];
 
-        const response = await fetch(`/station_trend?station_id=${cleanStationId}`);
+        // const response = await fetch(`/station_trend?station_id=${cleanStationId}`);
+        const response = await fetch(`/station_prediction?station_id=${cleanStationId}`);
         
         // check response status
         if (!response.ok) {

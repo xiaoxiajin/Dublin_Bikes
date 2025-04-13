@@ -55,7 +55,8 @@ def get_station_data():
     return jsonify(data)
 
 
-def get_station_trend():
+# def get_station_trend():
+def get_station_prediction():    
     # Set a default station_id = 1
     station_id = request.args.get('station_id','1')
     
@@ -106,7 +107,8 @@ def get_station_trend():
     except Exception as e:
         # handle exception in getting trend
         import traceback
-        print(f"Error in get_station_trend: {e}")
+        # print(f"Error in get_station_trend: {e}")
+        print(f"Error in get_station_prediction: {e}")        
         print(traceback.format_exc())
         return jsonify({'error': str(e)}), 500
     
