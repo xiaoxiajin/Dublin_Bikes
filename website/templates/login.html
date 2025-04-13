@@ -21,7 +21,7 @@
     <div class="login">
         {% if username %}
         <div class="user-info">
-            <p>, {{ username }}!</p>
+            <p> {{ username }}</p>
             <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
         </div>
         {% endif %}

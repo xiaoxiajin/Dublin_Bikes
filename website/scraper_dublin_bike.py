@@ -10,7 +10,12 @@ from sqlalchemy import text
 from website.config import config 
 
 def fetch_bike_stations():
-    '''Fetch bike station occupancy information'''
+    '''Fetch bike station occupancy information
+    - Sends a GET request to the bike stations API
+    - Handles potential API request errors
+    - Inserts station static and dynamic information into database
+    - Logs successful data update or API request failures
+    '''
     try:
         response = requests.get(config.STATIONS_URL, params={"apiKey": config.JCKEY, "contract": config.NAME})  
         response.raise_for_status()  # Raise an exception for failed requests
@@ -23,17 +28,25 @@ def fetch_bike_stations():
             print(response.text)  
             return  
         
+        # Insert station data into database
         insert_station_data(stations)
         insert_availability_data(stations)
+
+        # Log successful update with timestamp
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print(f"\n Dublin bike data updated. {timestamp}\n")
 
     except requests.exceptions.RequestException as e:
+        # Handle and log API request exceptions
         print(f"\n API Request Failed: {e}")
         print(traceback.format_exc())  # Print detailed error message
         
 def insert_station_data(stations):
-    """ Insert or update station static information """
+    ''' Insert or update station static information 
+    - Processes station metadata like name, address, location
+    - Uses UPSERT operation to insert or update station records
+    - Handles potential missing address information
+    '''
     sql_insert = text("""
         INSERT INTO station (number, name, address, position_lat, position_lng, banking, bike_stands)
         VALUES (:number, :name, :address, :position_lat, :position_lng, :banking, :bike_stands)
@@ -60,6 +73,12 @@ def insert_station_data(stations):
         connection.commit()
 
 def insert_availability_data(stations):
+    '''Insert or update dynamic station availability information in the database.
+    
+    - Processes real-time bike and stand availability
+    - Handles timestamp conversion and potential errors
+    - Uses UPSERT operation to insert or update availability records
+    '''
     try:
         with config.engine.connect() as connection:
             for station in stations:

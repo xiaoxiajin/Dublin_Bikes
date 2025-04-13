@@ -14,7 +14,6 @@ with config.base_engine.connect() as connection:
     connection.commit()
 
 # Update the engine to connect specifically to the new database
-# engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}", echo=True)
 engine = config.engine
 # SQL to create the `current` table
 sql_create_current_table = text("""

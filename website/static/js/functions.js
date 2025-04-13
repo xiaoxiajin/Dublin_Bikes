@@ -1,5 +1,18 @@
 // Get API Key and load google map dynamically
 function loadGoogleMaps() {
+    /**
+     * Fetch Google Maps API Key from server and load map script asynchronously
+     * 
+     * Key Features:
+     * - Retrieve API Key from backend
+     * - Dynamically create and inject Google Maps script
+     * - Handle script loading success and failure
+     * 
+     * Loading Strategy:
+     * - Asynchronous script loading
+     * - Set cross-origin attributes
+     * - Use initMap callback function
+     */
     fetch('/get_api_key')
         .then(response => response.json())
         .then(data => {
@@ -24,20 +37,40 @@ function loadGoogleMaps() {
         .catch(error => console.error("Error fetching API key:", error));
 }
 
-// initialize map
+// Initialize map
 function initMap() {
+    /**
+     * Initialize Google Maps
+     * 
+     * Functionality:
+     * - Set map center to Dublin city center
+     * - Configure default zoom level
+     * - Trigger station data retrieval
+     */
     const dublin = { lat: 53.3498, lng: -6.2603 }; // dublin city center
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 13,
         center: dublin
     });
 
-    // Get station data and store into map
+    // Get station data and mark station data on map
     getStationsAndAvailability(map);
 }
 
-// Get station data and store into map and mark in the map
+// Get station data and mark station data on map
 function getStationsAndAvailability(map) {
+    /**
+     * Parallel fetch of station information and availability data
+     * 
+     * Main Steps:
+     * - Simultaneously request stations and availability
+     * - Create availability data mapping
+     * - Add markers to map
+     * 
+     * Error Handling:
+     * - Catch any errors during data retrieval
+     */
+
     Promise.all([
         fetch('/stations')
         .then(response => response.json()),
@@ -55,8 +88,21 @@ function getStationsAndAvailability(map) {
         .catch(error => console.error("Error fetching station data:", error));
 }
 
-// mark at the map
+// Add markers to map
 function addMarkers(stations, availabilityMap, map) {
+    /**
+     * Add map markers for each station
+     * 
+     * Functionality:
+     * - Iterate through station data
+     * - Create map markers for each station
+     * - Add information windows
+     * - Handle marker click events
+     * 
+     * Features:
+     * - Only add markers for stations with availability data
+     * - Display detailed information on marker click
+     */
     stations.forEach(station => {
         // Get availability based on station number
         const availability = availabilityMap[station.number];
@@ -89,8 +135,58 @@ function addMarkers(stations, availabilityMap, map) {
     });
 }
 
+// Fetch weather information
+async function getWeather() {
+    /**
+     * Retrieve and display current weather information
+     * 
+     * Main Steps:
+     * - Fetch weather data from server
+     * - Extract key weather details
+     * - Dynamically generate weather display HTML
+     * 
+     * Display Contents:
+     * - Temperature
+     * - Weather description
+     * - Weather icon
+     */
+    const res = await fetch('/weather', { method: 'POST' });
+    const data = await res.json();
+    // console.log("Weather:", data.main.temp);
+
+    const temp = Math.round(data.main.temp);
+    const description = data.weather[0].description;
+    const iconCode = data.weather[0].icon;
+    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+    const html = `
+        <div class="weather-box">
+            <img src="${iconUrl}" alt="${description}" class="weather-icon">
+            <div class="weather-text">
+                <span class="weather-temp">${temp}°C</span>
+                <span class="weather-desc">${description}</span>
+            </div>
+        </div>
+    `;
+
+    document.getElementById("weather-display").innerHTML = html;
+}
+
+
 function clearCharts() {
-    // clear Plotly charts
+    /**
+     * Clear all existing chart visualizations
+     * 
+     * Functionality:
+     * - Remove Plotly charts
+     * - Destroy Chart.js charts
+     * 
+     * Purpose:
+     * - Prepare canvas for new chart rendering
+     * - Prevent chart overlay or memory leaks
+     */
+
+    // Clear Plotly charts
     const plotlyCharts = ['station-graph', 'station-pie-chart'];
     plotlyCharts.forEach(id => {
         const element = document.getElementById(id);
@@ -99,7 +195,7 @@ function clearCharts() {
         }
     });
 
-    // clear Chart.js charts
+    // Clear Chart.js charts
     if (window.stationTrendChart) {
         window.stationTrendChart.destroy();
     }
@@ -109,12 +205,29 @@ function clearCharts() {
 }
 
 function displayStationInfo(station, availability) {
+    /**
+     * Display comprehensive station information and visualizations
+     * 
+     * Key Features:
+     * - Clear previous chart visualizations
+     * - Create Plotly bar and pie charts
+     * - Generate detailed station information table
+     * - Fetch and display station trend predictions
+     * 
+     * Visualization Types:
+     * - Bar chart: Bike and stand availability
+     * - Pie chart: Capacity distribution
+     * 
+     * @param {Object} station - Station static information
+     * @param {Object} availability - Current station availability data
+     */
+
     clearCharts();
     const container = document.getElementById("station-info");
     
-    // Make sure Plotly is loaded
+    // Plotly visualization (if library is loaded)
     if (typeof Plotly !== 'undefined') {
-        // Plotly graph for bikes availability
+        // Bar graph for bikes availability
         const graphData = [{
             x: ['Available Bikes', 'Available Bike Stands'],
             y: [availability.available_bikes, availability.available_bike_stands],
@@ -138,7 +251,7 @@ function displayStationInfo(station, availability) {
             Plotly.Plots.resize('station-graph')
         });
 
-        // Create pie chart for percentage visualization
+        // Pie chart for capacity distribution
         const totalStands = station.bike_stands;
         const availableBikes = availability.available_bikes;
         const availableStands = availability.available_bike_stands;
@@ -168,7 +281,7 @@ function displayStationInfo(station, availability) {
         console.error("Plotly library is not loaded!");
     }
 
-    // Format date nicely
+    // Format last update timestamp
     const lastUpdateDate = new Date(availability.last_update).toLocaleString();
 
     // Station info section with all the required fields
@@ -229,43 +342,37 @@ function displayStationInfo(station, availability) {
     container.style.display = 'block';
     
     // Fetch prediction data
-    fetchStationTrend(station.number,station.bike_stands);
+    fetchStationPrediction(station.number,station.bike_stands);
     
 }
 
 
-async function getWeather() {
-    const res = await fetch('/weather', { method: 'POST' });
-    const data = await res.json();
-    // console.log("Weather:", data.main.temp);
+async function fetchStationPrediction(stationId, totalStands) {
+    /**
+     * Fetch and visualize station bike availability trend
+     * 
+     * Main Workflow:
+     * - Retrieve prediction data from server
+     * - Process and validate trend data
+     * - Create Chart.js visualizations for bikes and stands
+     * 
+     * Error Handling:
+     * - Validate API response
+     * - Handle network or data processing errors
+     * - Display user-friendly error messages
+     * 
+     * @param {number} stationId - Unique station identifier
+     * @param {number} totalStands - Total number of bike stands
+     */
 
-    const temp = Math.round(data.main.temp);
-    const description = data.weather[0].description;
-    const iconCode = data.weather[0].icon;
-    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-
-    const html = `
-        <div class="weather-box">
-            <img src="${iconUrl}" alt="${description}" class="weather-icon">
-            <div class="weather-text">
-                <span class="weather-temp">${temp}°C</span>
-                <span class="weather-desc">${description}</span>
-            </div>
-        </div>
-    `;
-
-    document.getElementById("weather-display").innerHTML = html;
-}
-
-async function fetchStationTrend(stationId, totalStands) {
     try {
-        // clean station id
+        // Sanitize station id
         const cleanStationId = stationId.toString().split(':')[0];
 
-        // const response = await fetch(`/station_trend?station_id=${cleanStationId}`);
+        // Fetch station prediction data
         const response = await fetch(`/station_prediction?station_id=${cleanStationId}`);
         
-        // check response status
+        // Check response status
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(`HTTP error! status: ${response.status}, message: ${JSON.stringify(errorData)}`);
@@ -273,19 +380,19 @@ async function fetchStationTrend(stationId, totalStands) {
 
         const trendData = await response.json();
 
-        // check trend data is an array
+        // Validate trend data structure: array
         if (!Array.isArray(trendData)) {
             throw new Error('Trend data is not an array');
         }
 
-        // calculate stands 
+        // Calculate available stands 
         const standsData = trendData.map(item => ({
             time: item.time,
             predicted_bikes: item.bike_count,
             available_stands: Math.max(0, totalStands - item.bike_count)
         }));
 
-        // trend container for bikes and stands
+        // Prepare chart containers
         const bikesChartContainer = document.getElementById('bikesChart');
         const standsChartContainer = document.getElementById('standsChart');
         
@@ -296,7 +403,7 @@ async function fetchStationTrend(stationId, totalStands) {
         const trendCtx = bikesChartContainer.getContext('2d');
         const standsCtx = standsChartContainer.getContext('2d');
         
-        // destroy any existing charts
+        // Destroy any existing charts
         if (window.stationTrendChart instanceof Chart) {
             window.stationTrendChart.destroy();
         }
@@ -304,7 +411,7 @@ async function fetchStationTrend(stationId, totalStands) {
             window.stationStandsChart.destroy();
         }
 
-        // chart for available bikes trend
+        // Chart for available bikes trend
         window.stationTrendChart = new Chart(trendCtx, {
             type: 'bar',
             data: {
@@ -344,7 +451,7 @@ async function fetchStationTrend(stationId, totalStands) {
             }
         });
 
-        // chart for station stands
+        // Chart for station stands
         window.stationStandsChart = new Chart(standsCtx, {
             type: 'bar',
             data: {
@@ -420,6 +527,15 @@ async function fetchStationTrend(stationId, totalStands) {
 }
 
 window.addEventListener('resize', function() {
+    /**
+     * Responsive chart resizing on window resize
+     * 
+     * Functionality:
+     * - Dynamically resize Chart.js charts
+     * - Maintain chart aspect ratio
+     * - Improve mobile and responsive design
+     */
+
     if (window.stationTrendChart) {
       window.stationTrendChart.resize();
     }

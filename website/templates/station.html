@@ -34,7 +34,7 @@
         <div class="login-user">
             {% if username %}
             <div class="user-info">
-                <p>{{ username }}!</p>
+                <p>{{ username }}</p>
                 <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
             </div>
             {% endif %}
@@ -61,42 +61,21 @@
             </div>                                   
             
             <!-- Map and Station Info Container -->           
-                    <!-- Map -->
+            <!-- Map -->
             <div class="station-map">
                 <div id="map"></div>
-                <!-- <div style="margin-top: 10px;">
-                    <input type="datetime-local" id="datetime-picker" name="datetime" />
-                </div> -->
+                
             </div>
             
             <!-- Station Info -->
             <div id="station-info"  style="display: none";>
-                <!-- <div class = "station-data">
-                    <div class="charts-column">
-                        <div id="station-graph" class="chart-box"></div>
-                        <div id="station-pie-chart" class="chart-box"></div>
-                    </div>
-                    
-                    <div class="info-column">
-                        <div id="station-details"></div>
-                    </div>
-                    
-                    <div class="prediction-column">
-                        <div id="station-bikes-trend-container">
-                            <canvas id="bikesChart"></canvas>
-                        </div>
-                        <div id="station-stands-trend-container">
-                            <canvas id="standsChart"></canvas>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="station-data">
                     <div class="charts-column">
                       <div class="chart-box">
-                        <div id="station-graph"></div>  <!-- 改为 div -->
+                        <div id="station-graph"></div> 
                       </div>
                       <div class="chart-box">
-                        <div id="station-pie-chart"></div>  <!-- 改为 div -->
+                        <div id="station-pie-chart"></div>  
                       </div>
                     </div>
                     <div class="info-column">
