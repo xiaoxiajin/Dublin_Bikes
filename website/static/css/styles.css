@@ -1244,7 +1244,8 @@ main {
 .weather-box {
   display: flex;
   align-items: center;
-  background-color: #f3f4f6;
+  /* background-color: #f3f4f6; */
+  background-color: white;
   padding: 8px 14px;
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
