@@ -115,8 +115,8 @@ with engine.connect() as connection:
 # Run an example query to check the connection
 with engine.connect() as connection:
     result = connection.execute(text("SHOW TABLES;"))
-    print("Existing tables in the database:")
-    for row in result:
-        print(row)
+    # print("Existing tables in the database:")
+    # for row in result:
+    #     print(row)
 
 
