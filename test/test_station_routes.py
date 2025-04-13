@@ -30,23 +30,23 @@ class TestStationRoutes(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertIsInstance(res.json, list)
 
-    def test_station_trend_valid(self):
-        res = self.client.get('/station_trend?station_id=10')
+    def test_station_prediction_valid(self):
+        res = self.client.get('/station_prediction?station_id=10')
         self.assertEqual(res.status_code, 200)
         self.assertIn('bike_count', res.json[0])
 
-    def test_station_trend_missing_id(self):
-        res = self.client.get('/station_trend?station_id=')
+    def test_station_prediction_missing_id(self):
+        res = self.client.get('/station_prediction?station_id=')
         self.assertEqual(res.status_code, 400)
         self.assertIn('error', res.json)
 
-    def test_station_trend_not_found(self):
-        res = self.client.get('/station_trend?station_id=999999')
+    def test_station_prediction_not_found(self):
+        res = self.client.get('/station_prediction?station_id=999999')
         self.assertIn(res.status_code, [404, 500])  # may vary
         self.assertIn('error', res.json)
 
-    def test_station_trend_prediction(self):
-        res = self.client.get('/station_trend?station_id=10')
+    def test_station_prediction_prediction(self):
+        res = self.client.get('/station_prediction?station_id=10')
         self.assertEqual(res.status_code, 200)
         self.assertIsInstance(res.json, list)
         self.assertIn('bike_count', res.json[0])

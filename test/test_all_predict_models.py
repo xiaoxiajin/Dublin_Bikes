@@ -28,7 +28,7 @@ class TestAllStationTrend(unittest.TestCase):
         print(f"\n🧪 Found {len(available_model_ids)} station models.")
 
         for station_id in sorted(available_model_ids):
-            response = self.client.get(f'/station_trend?station_id={station_id}')
+            response = self.client.get(f'/station_prediction?station_id={station_id}')
             
             if response.status_code != 200:
                 failed.append((station_id, f"Status: {response.status_code}"))
