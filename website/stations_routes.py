@@ -138,7 +138,6 @@ def get_station_prediction():
     except Exception as e:
         # handle exception in getting trend
         import traceback
-        # print(f"Error in get_station_trend: {e}")
         print(f"Error in get_station_prediction: {e}")        
         print(traceback.format_exc())
         return jsonify({'error': str(e)}), 500
