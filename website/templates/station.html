@@ -11,6 +11,13 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- Add Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // update bikes function to fetch data from the server
+        fetch('/update_bikes')
+            .then(res => res.json())
+            .then(data => console.log(data.message || "Bike data updated"))
+            .catch(err => console.error("Failed to update bikes:", err));
+    </script>
 </head>
 <body>
     <header>
