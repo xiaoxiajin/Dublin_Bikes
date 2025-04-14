@@ -88,8 +88,12 @@ def get_station_prediction():
     - Checks for model existence
     - Handles prediction and loading exceptions
     '''  
+    # Get station_id 
+    station_id = request.args.get('station_id')
+    
     # Set a default station_id = 1
-    station_id = request.args.get('station_id','1')
+    if station_id is None:
+        station_id = '1'
     
     
     if not station_id:
@@ -118,11 +122,11 @@ def get_station_prediction():
             dt = pd.Timestamp.now().replace(hour=hour, minute=0, second=0)
 
             input_df = pd.DataFrame({
-                'num_docks_available': [10],  
+                
                 'day': [dt.day],
                 'hour': [dt.hour],
-                'avg_air_temp': [10.0],  
-                'avg_humidity': [24.0],   
+                'avg_air_temp': 13.955,  
+                'avg_humidity': 83.75,  
                 'day_name': [dt.dayofweek],
             })
 
