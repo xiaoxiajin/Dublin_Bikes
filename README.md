@@ -1,6 +1,7 @@
 # Dublin Bikes Project
 
 ## Features
+
 - Real-time bike station tracking
 - Real-time Weather 
 - Predictive bike availability model 
@@ -8,6 +9,7 @@
 - User Authentication
 
 ## Tech Stack
+
 - Frontend: HTML/CSS/JavaScript
 - Backend: Flask (Python)
 - ML: Scikit-learn, Random Forest Regression
@@ -15,6 +17,7 @@
 - APIs: JCDecaux, OpenWeather, Google Maps
 
 ## Setup Instructions
+
 1. Clone the repository
 2. Install dependencies
     - Ensure you have Python 3.8+ and pip installed
@@ -26,11 +29,13 @@
 4. Run the application: `python app.py`
 
 ## Contributors
+
 - Jin, Xiaoxia
 - He, Zhaofang
 - Makkena, Bala Anush Choudhary
 
 ## Project Structure
+
 Below is the structure of the project detailing the directories and files contained within:
 ```
 Dublin-Bikes/
@@ -76,6 +81,12 @@ Dublin-Bikes/
 ├── README.md # Project documentation
 └── requirements.txt # Python dependencies
 ```
+## Demo
+
+### Map and markers
+![Map Screenshot](/additional_material/demo/map%20demo.png)
+### Data visulization and prediction
+![Data](/additional_material/demo/data%20and%20prediction%20visulization.png)
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
