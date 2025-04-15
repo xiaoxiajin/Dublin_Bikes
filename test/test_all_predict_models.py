@@ -64,7 +64,7 @@ class TestModelPrediction(unittest.TestCase):
             model = pickle.load(f)
 
         test_input = pd.DataFrame([{
-            "num_docks_available": 1,
+            
             "day": 1,
             "hour": 0,
             "avg_air_temp": 13.955,
