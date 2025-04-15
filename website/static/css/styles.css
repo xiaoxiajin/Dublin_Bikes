@@ -1288,14 +1288,14 @@ main {
   height: 300px;
 }
 
-/* 响应式设计 */
+/* Responsive Design */
 @media (max-width: 1200px) {
   .station-data {
       grid-template-columns: 1fr 1fr;
   }
   
   .prediction-column {
-      grid-column: 1 / -1; /* 跨越所有列 */
+      grid-column: 1 / -1; 
       grid-row: 2;
   }
 }
